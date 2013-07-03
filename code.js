@@ -6,10 +6,6 @@ $(document).ready(function(){
 	$( "#tabs2" ).tabs();
 	$('#tabs2').hide();
 	
-	//ocultar divNewLink
-	//ocultar TableLinks
-	$('#LinksContainer').hide();
-	
 	
 	var lolailo=$("#TableLinks");
 	$(lolailo).tablesorter();
@@ -187,10 +183,7 @@ $(document).ready(function(){
 				            
 				            //$html.filter('.list').appendTo("#nameList");
 				            //$('#Links').find('#nameLinks').html(html);
-$('#LinksContainer').fadeIn();
-
-
-						function cambiaOnClickLinks(){
+				            function cambiaOnClickLinks(){
 				            	this.change=function change(where){
 				            		where.innerHTML=html2;
 				            		//$('#Links').find('#nameLinks').html(html2);
