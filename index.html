@@ -1,0 +1,212 @@
+<html>
+<head>
+	<link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
+    <script src="./js/jquery-2.0.2.min.js" type="text/javascript"></script>	
+	<script src="./js/jquery.mobile-1.3.1.js"></script>
+	<script type="text/javascript" src="./js/jquery.js"></script>
+	<script type="text/javascript" src="./js/jquery.tablesorter.js"></script>
+	<script src="code.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="./css/jquery-ui.css" />
+	
+  <script src="./js/jquery-ui.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+</head>
+<body>
+	
+	
+	<div id="tabs" style="position:absolute; height: 100%; width: 100%; background-color: #F2F5A9">
+		<div id="LogOut" style="position:absolute; left: 90%; top: 0%;"><button id="LogOut1" type="submit" data-theme="e" >LOG OUT</button></div>
+	  <ul style="background-color: #2E2E2E">
+	    <li><a href="#tabs-1">Login</a></li>
+	    <li><a id="desaparecer"  href="#tabs-2">Register</a></li>
+	  </ul>
+	  <div id="tabs-1" >
+		  <div id="DLogin">
+			    <form name="frpanel" id="login" method="post" >	
+					<div data-role="footer" data-theme="a" class="ui-bar ui-grid-b">
+				   		<div class="ui-block-a" >
+					   		<div data-role="fieldcontain">
+							    <label for="basic">User:</label>
+							<input type="text" id="user" name="user" value="" data-mini="true" />
+							</div>	
+				   		</div>	
+				   		<div class="ui-block-b">
+							<div data-role="fieldcontain">
+						   		<label for="basic">Password:</label>
+								<input type="password" id="pass" name="pass" value="" data-mini="true" />
+							</div>
+						</div>	
+						<div class="ui-block-c">
+								<div style="margin:6px 0 0 10px;"><button id="BLogin" type="submit" data-theme="b" class="button">LOGIN</button></div>
+							</div>
+				   	
+			   		</div>
+			   	</form>
+		   	</div>
+		   	<div id="alert" style="position:absolute; left:30%;top:2%; width:30%; height:10%">Please type something.</div>
+			<div id="box">
+				<form method="post" id="ContactForm">
+			<div style="position:absolute; left: 50%; top: 0%;width: 100%;height: 40%" ><h4 class="form_result"></h4></div>
+				</form>
+			</div>
+			<div id="tabs2" style="background-color:#F2F5A9 ">
+				  <ul style="background-color: #2E2E2E">
+				    <li><a href="#tabs2-1">Listas</a></li>
+				    <li><a href="#tabs2-5">New List</a></li>
+				    <li><a href="#tabs2-3">Perfil</a></li>
+				    <li><a href="#tabs2-4">Player</a></li>
+				  </ul>
+				  <div id="tabs2-1" >
+				  <div style="margin:6px 0 0 10px;"><button id="update" type="submit" data-theme="e" class="button">UPDATE</button></div>
+						<div data-role="footer" data-theme="a" >
+					   		
+						   		<div data-role="fieldcontain">
+								    <label for="basic">Name of lists:</label>
+								
+								</div>	
+								<div id="List">
+									<div id="div-clase2"></div>
+								</div>
+					   		
+					   		
+				   		</div>
+			  
+						<div id="LinksContainer" data-role="footer" data-theme="a" class="ui-bar ui-grid-b" >
+					   		<div class="ui-block-b ui-body-e"  >
+					   			 <label for="basic">Links:</label>
+						   		<div  data-role="fieldcontain" style="width:100%; height:40%;overflow:scroll;">
+								   
+									<table id="TableLinks" BORDER=2 style="background-color:#2E64FE; color: white">
+										<thead> 
+											<tr>
+												<th >
+												Name
+												</th>
+												
+												<th >
+												Artist
+												</th>
+												
+												<th >
+												Genre
+												</th>
+												<th >
+												Icon
+												</th>
+											</tr>
+										</thead> 
+										<tbody  id="Links" style="background-color: #A9E2F3; color:black" >
+											
+										</tbody> 
+									</table> 
+									
+								</div>	
+								
+					   		</div>	
+					   			<div class="ui-block-b" style="width: 10%" >
+					   				
+					   				</div>
+					   		<div class="ui-block-c ui-body-e" >
+					   			<div data-role:"content" data-theme="a"><h4>New Link:</h4></a></div>
+					   			 <form name="frpanel" id="divNewLink" method="post" >	
+					   					<div data-role="fieldcontain" >
+									         <label for="url">Link:</label>
+									         <input type="url" name="urlLink" id="urlLink" value="" />
+											</div>
+											
+											<div data-role="fieldcontain">
+											   <label for="select-choice-1" class="select">Select Provider</label>
+											   <select data-theme="b" name="select-choice-1" id="select-choice-1">
+											      <option  value="youtube">Youtube</option>
+											      <option value="spotify">Spotify</option>
+											      <option value="mp3">MP3</option>
+											      <option value="goear">Goear</option>
+											   </select>
+											</div>
+											
+											<div data-role="fieldcontain">
+									         <label for="number-pattern">List Position</label>
+									         <input type="number" name="position" pattern="[0-9]*" id="number-pattern" value="" placeholder="Pattern attribute [0-9]* for a numeric keypad" />
+											</div>
+											
+											<div data-role="fieldcontain">
+									         <label for="text">Singer or Group name</label>
+									         <input type="text" name="singer" id="singerLink" value="" />
+											</div>
+											<div data-role="fieldcontain">
+									         <label for="text">Song Name</label>
+									         <input type="text" name="songName" id="songNameLink" value="" />
+											</div>
+					   						
+					   			</form>
+					   			<a id="btnNewLink" data-role="button" data-theme="a" style="color:white;">Save</a>
+					   		
+					   		</div>
+					   		
+				   		</div>
+		   			
+				 
+			 	</div> 
+			 	 <div id="tabs2-3">
+			 	 </div>
+			 	  <div id="tabs2-4">
+			 	  	<div id="player">			 	  		
+			 	  	</div>
+			 	 </div>
+			 	 <div id="tabs2-5" data-theme="a">
+					<input data-theme="a" id="txtNewList" type="text" name="name" id="basic" value='List name'  onblur="if(this.value == '') { this.value='List name'}" onfocus="if (this.value == 'List name') {this.value=''}" />			 	 	
+			 	 	<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
+			 	 	
+	    			
+			 	 
+			 	 </div>
+			</div>
+	  </div>
+	  <div id="tabs-2" data-theme="a">
+	    <form name="frpanel" id="registro" method="post" >	
+			<div data-role="footer" data-theme="a" class="ui-bar ui-grid-a">
+		   		<div class="ui-block-a" >
+			   		<div data-role="fieldcontain">
+					    <label for="basic">Nick:</label>
+					<input type="text" id="user1" name="user" value="" data-mini="true" />
+					</div>	
+		   		</div>	
+		   		<div class="ui-block-b">
+					<div data-role="fieldcontain">
+				   		<label for="basic">Password:</label>
+						<input type="password" id="pass1" name="pass" value="" data-mini="true" />
+					</div>
+					
+				</div>	
+				<div class="ui-block-c">
+					<div data-role="fieldcontain">
+				   		<label for="basic">E-MAIL:</label>
+						<input type="email" id="email" name="email" value="" data-mini="true" />
+					</div>
+					
+				</div>	
+				<div class="ui-grid-d">
+					<div style="margin:6px 0 0 10px;"><button id="register" type="submit" data-theme="b" class="button">REGISTER</button></div>
+				</div>
+				
+	   		</div>
+	   	</form>
+	   	<div id="alert">Please type something.</div>
+		<div id="box">
+			<form method="post" id="ContactForm1">
+	
+			
+			<div class="form_result1"> </div>
+			</form>
+		</div>
+	  </div>
+
+</div>
+ 
+	
+	
+	
+   	
+</body>
+</html>
