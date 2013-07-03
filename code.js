@@ -25,7 +25,21 @@ $(document).ready(function(){
    // checking if there is nothing submitted
    
    var logOut= $('#LogOut1');
-   
+   $.ajax({
+			type:'POST', url: 'sesionIniciada.php',
+			success: function(response) { 
+				if(response==true){
+					$.ajax({
+						type:'POST', url: 'getUser.php',
+						success: function(response2) { 
+							fLogin("Session started by "+response2);
+							}
+						
+					});
+				}
+			}
+		});
+	
    $(logOut).click(function(){
    		$.ajax({
 			type:'POST', url: 'logOut.php',
@@ -131,7 +145,18 @@ $(document).ready(function(){
 	
 		$.ajax({
 			type:'POST', url: 'mensaje.php', data:$('#login').serialize(),
-			success: function(response) {  	
+			success: fLogin,
+			error: function(objeto, quepaso, otroobj) {
+                            alert("Estas viendo esto por que fallé");
+                            alert("Pasó lo siguiente: " + objeto);
+                            alert("Pasó lo siguiente: " + quepaso);
+                            alert("Pasó lo siguiente: " + otroobj);
+                        }
+			
+		});
+		
+   });
+   function fLogin(response) { 
 				$('#DLogin').hide();
 				$('#desaparecer').hide();
 				$('#LogOut').fadeIn();
@@ -144,19 +169,9 @@ $(document).ready(function(){
 		             cache: false,            
 		             success:data     
 		        }); 
-			},
-			error: function(objeto, quepaso, otroobj) {
-                            alert("Estas viendo esto por que fallé");
-                            alert("Pasó lo siguiente: " + objeto);
-                            alert("Pasó lo siguiente: " + quepaso);
-                            alert("Pasó lo siguiente: " + otroobj);
-                        }
-			
-		});
-		
+			}
         
         
-   });
    function data (html) {
             var $html = $( html ); // create DOM elements in a jQuery object
             function cambiaOnClickListas(){
