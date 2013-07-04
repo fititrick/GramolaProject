@@ -226,16 +226,22 @@ $(document).ready(function(){
 						            	
 						            }
 				            	};
+				            	
 				            	this.reproductor= function reproductor(){
 				            		var code;
-				            	
+				            		//Esta sin probar, habilito la api de youtube de javascript dentro del codigo insertado.
+				            		//
 				            		switch(this.title)
 										{
 										case "spotify":
 										   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
 										  break;
 										case "youtube":
-										   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+											var paramyou = { allowScriptAccess: "always" };
+
+										   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1&enablejsapi=1&playerapiid=ytplayer" frameborder="0" allowfullscreen></iframe>';
+										   var duracion = ytplayer.getDuration;
+										   alert(duracion);
 										  break;
 										case "goear":
 										   code='<iframe width="560" height="315" src="http://www.goear.com/files/external.swf?file='+this.name+'" frameborder="1"></iframe>';
@@ -268,6 +274,10 @@ $(document).ready(function(){
 		    objeto2.cambia(document.getElementById("div-clase2")); 
 		    
 		}
-  
+	//Para poder hacer uso de la API de google se debe de crear esta funcion.
+  function onYouTubePlayerReady(ytplayer)
+  {
+  	       reproductor = document.getElementById("player1");
+  }
 		
  });
