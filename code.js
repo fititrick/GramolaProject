@@ -230,7 +230,21 @@ $(document).ready(function(){
 				            	this.reproductor= function reproductor(){
 				            		var code;
 				            		//Esta sin probar, habilito la api de youtube de javascript dentro del codigo insertado.
-				            		//
+				            		
+				            		
+				            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
+				            		//el link que te llega al reproductor es this.name
+				            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
+				            		//al final de la reproduccion (algo que tienes que controlar porque nose como)
+				            		//llamarias recursivamete/o secuencialmente a esta funcion reproductor con la siguiente cancion y el mismo vector
+				            		//problemas: saber cuando termina de reproducirse
+									var encontrado=false;
+									
+									for(var i=0;i<linksOrdenados.length | encontrado==true;i++)
+									{
+										if(linksOrdenados[i])
+									}
+									
 				            		switch(this.title)
 										{
 										case "spotify":
