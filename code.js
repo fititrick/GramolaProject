@@ -321,6 +321,7 @@ $(document).ready(function(){
 						ultimaPos=0;
 					}
 			ultimaPos=reproductor(ultimaPos);
+			//hola la estoy liando
 		    
 		}
 					//Para poder hacer uso de la API de google se debe de crear esta funcion.
