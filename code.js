@@ -1,14 +1,9 @@
 $(document).ready(function(){
 	// hide alert boxes
-	$('#alert').hide();
 	$('#LogOut').hide();
 	$( "#tabs" ).tabs();
 	$( "#tabs2" ).tabs();
 	$('#tabs2').hide();
-	
-	//ocultar divNewLink
-	//ocultar TableLinks
-	$('#LinksContainer').hide();
 	
 	
 	var lolailo=$("#TableLinks");
@@ -29,7 +24,21 @@ $(document).ready(function(){
    // checking if there is nothing submitted
    
    var logOut= $('#LogOut1');
-   
+   $.ajax({
+			type:'POST', url: 'sesionIniciada.php',
+			success: function(response) { 
+				if(response==true){
+					$.ajax({
+						type:'POST', url: 'getUser.php',
+						success: function(response2) { 
+							fLogin("Session started by "+response2);
+							}
+						
+					});
+				}
+			}
+		});
+	
    $(logOut).click(function(){
    		$.ajax({
 			type:'POST', url: 'logOut.php',
@@ -84,13 +93,16 @@ $(document).ready(function(){
 		
     $(button).click(function(){
 	
-	if(user.val().length < 3 && $('#user1').length < 3){
-		$('#alert').fadeIn();
-		return false;
+	if(document.getElementById("user").value.length < 3 && document.getElementById("user1").value.length< 3){
+		alert("No data for login");
+
+		location.reload(true);
+				return false;
 	}
-	if(pass.val().length < 3 && $('#pass1').length < 3){
-		$('#alert').fadeIn();
-		return false;
+	else if(document.getElementById("pass").value.length < 3 && document.getElementById("pass1").value.length < 3){
+		alert("No data for login");
+
+		location.reload(true);
 	}
 	return false;
 	
@@ -132,10 +144,20 @@ $(document).ready(function(){
    });
    
     $(login).click(function(){
-	
 		$.ajax({
 			type:'POST', url: 'mensaje.php', data:$('#login').serialize(),
-			success: function(response) {  	
+			success: fLogin,
+			error: function(objeto, quepaso, otroobj) {
+                         //   alert("Estas viendo esto por que fallé");
+                         //   alert("Pasó lo siguiente: " + objeto);
+                         //   alert("Pasó lo siguiente: " + quepaso);
+                         //   alert("Pasó lo siguiente: " + otroobj);
+                        }
+			
+		});
+		
+   });
+   function fLogin(response) { 
 				$('#DLogin').hide();
 				$('#desaparecer').hide();
 				$('#LogOut').fadeIn();
@@ -148,19 +170,9 @@ $(document).ready(function(){
 		             cache: false,            
 		             success:data     
 		        }); 
-			},
-			error: function(objeto, quepaso, otroobj) {
-                            alert("Estas viendo esto por que fallé");
-                            alert("Pasó lo siguiente: " + objeto);
-                            alert("Pasó lo siguiente: " + quepaso);
-                            alert("Pasó lo siguiente: " + otroobj);
-                        }
-			
-		});
-		
+			}
         
         
-   });
    function data (html) {
             var $html = $( html ); // create DOM elements in a jQuery object
             function cambiaOnClickListas(){
@@ -187,11 +199,9 @@ $(document).ready(function(){
 				            
 				            //$html.filter('.list').appendTo("#nameList");
 				            //$('#Links').find('#nameLinks').html(html);
-$('#LinksContainer').fadeIn();
-
-
-						function cambiaOnClickLinks(){
+				            function cambiaOnClickLinks(){
 				            	this.change=function change(where){
+				            		where.innerHTML=html2;
 				            		//$('#Links').find('#nameLinks').html(html2);
 				            		//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
 				            		//vector almancena en cada casilla uno de esos elementos
@@ -200,15 +210,14 @@ $('#LinksContainer').fadeIn();
 				            		//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
 				            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
 				            		//ahora ve a funcion reproductor
-				            		where.innerHTML=html2;
-				            		//$('#Links').find('#nameLinks').html(html2);
 									var vector= document.getElementsByClassName('link');
 						            for(var i=0;i<vector.length;i++){
-						            	vector[i].onclick = this.reproductor;
+						            	vector[i].onclick = reproductor;
 						            }
 						            var vector2= document.getElementsByClassName('linkIcon');
 						            //alert(vector2.length);
 						           //$('#providerTabla').text("adios");
+						          
 						            for(var j=0;j<vector2.length;j++){
 						            	//alert(vector2[j].innerText);
 						            	if(vector2[j].innerText=='youtube'){
@@ -225,11 +234,12 @@ $('#LinksContainer').fadeIn();
 						            	}
 						            	
 						            }
-						             //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
+						            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 						            //una funcion que borre el link
+						            
 				            	};
 				            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
-				            	this.reproductor= function reproductor(){
+				            	function reproductor(){
 				            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
 				            		//el link que te llega al reproductor es this.name
 				            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
@@ -238,9 +248,10 @@ $('#LinksContainer').fadeIn();
 				            		//problemas: saber cuando termina de reproducirse
 				            		
 				            		var code;
-				            	
+				            	 
 				            		switch(this.title)
 										{
+											
 										case "spotify":
 										   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
 										  break;
