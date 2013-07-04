@@ -1,7 +1,6 @@
 <?php
 header("Content-Type: text/html;charset=utf-8");
-
-if(isset($_POST['user']) && !empty($_POST['pass'])){
+if(isset($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['user'])){
 	$usuario=$_POST['user'];
 	$contrasena=$_POST['pass'];
 	
@@ -46,5 +45,8 @@ if(isset($_POST['user']) && !empty($_POST['pass'])){
 	      }
 	}
 	include "close_conexion.php";
+}
+else {
+	echo "Fail in data login";
 }
 ?>
