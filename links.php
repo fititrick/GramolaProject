@@ -23,7 +23,7 @@ if($_SESSION["autentificado"]=="SI"){
 			 echo '<td >'.$row[3].'</td>';
 			 echo '<td WIDTH=100>'.$row[4].'</td>';
 			 echo '<td class="linkIcon">'.$row[6].'</td></tr>';
-			
+			//aqui habria que meter un nuevo elemento de la tabla que sea la x para borrar con otra classe 
 		}
 	}
 }

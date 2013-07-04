@@ -202,13 +202,21 @@ $(document).ready(function(){
 				            	this.change=function change(where){
 				            		where.innerHTML=html2;
 				            		//$('#Links').find('#nameLinks').html(html2);
+				            		//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
+				            		//vector almancena en cada casilla uno de esos elementos
+				            		//modifico su onclick para que llamen a la funcion reproductor
+				            		//vector.length te marca cuantas canciones hay
+				            		//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
+				            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
+				            		//ahora ve a funcion reproductor
 									var vector= document.getElementsByClassName('link');
 						            for(var i=0;i<vector.length;i++){
-						            	vector[i].onclick = this.reproductor;
+						            	vector[i].onclick = this.reproductor(vector);
 						            }
 						            var vector2= document.getElementsByClassName('linkIcon');
 						            //alert(vector2.length);
 						           //$('#providerTabla').text("adios");
+						           
 						            for(var j=0;j<vector2.length;j++){
 						            	//alert(vector2[j].innerText);
 						            	if(vector2[j].innerText=='youtube'){
@@ -225,8 +233,19 @@ $(document).ready(function(){
 						            	}
 						            	
 						            }
+						            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
+						            //una funcion que borre el link
+						            
 				            	};
-				            	this.reproductor= function reproductor(){
+				            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
+				            	this.reproductor= function reproductor(linksOrdenados){
+				            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
+				            		//el link que te llega al reproductor es this.name
+				            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
+				            		//al final de la reproduccion (algo que tienes que controlar porque nose como)
+				            		//llamarias recursivamete/o secuencialmente a esta funcion reproductor con la siguiente cancion y el mismo vector
+				            		//problemas: saber cuando termina de reproducirse
+				            		
 				            		var code;
 				            	
 				            		switch(this.title)
