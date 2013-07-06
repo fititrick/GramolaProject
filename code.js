@@ -4,7 +4,7 @@ $(document).ready(function(){
 	$( "#tabs" ).tabs();
 	$( "#tabs2" ).tabs();
 	$('#tabs2').hide();
-	
+
 	
 	var lolailo=$("#TableLinks");
 	$(lolailo).tablesorter();
