@@ -3,6 +3,7 @@ header("Content-Type: text/html;charset=utf-8");
 if(isset($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['user'])){
 	$usuario=$_POST['user'];
 	$contrasena=$_POST['pass'];
+	
 	include "conexion.php";	
 	$consulta ="SELECT nick, pwd,idUser  FROM users where nick=\"$usuario\"";	
 	$result=mysqli_query($conexion, $consulta) ;

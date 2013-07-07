@@ -16,6 +16,7 @@ if(!empty($_POST['urlLink']) && !empty($_POST['select-choice-1']) && !empty($_PO
 					}
 				 else{
 				    echo "<p>Link inserted</p>\n";
+	
 				  } 	
 	    } catch (ErrorException $e) {
 	        // este bloque no se ejecuta, no coincide el tipo de excepción

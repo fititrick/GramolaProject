@@ -1,9 +1,16 @@
 $(document).ready(function(){
 	// hide alert boxes
 	$('#LogOut').hide();
+	$('#Perfil').hide();
+	$('#MainPage').hide();
 	$( "#tabs" ).tabs();
 	$( "#tabs2" ).tabs();
 	$('#tabs2').hide();
+	$( "#tabs-2" ).tabs();
+	$( "#tabsPerfil" ).tabs();
+	$( '#tabsPerfil' ).hide();
+
+	
 	
 	var lolailo=$("#TableLinks");
 	$(lolailo).tablesorter();
@@ -23,6 +30,8 @@ $(document).ready(function(){
    // checking if there is nothing submitted
    
    var logOut= $('#LogOut1');
+   var Perfil= $('#Perfil1');
+   var MainPage=$('#MainPage1');
    $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
 			success: function(response) { 
@@ -53,6 +62,50 @@ $(document).ready(function(){
 		 
    });
    
+   	
+   
+   $(Perfil).click(function(){
+   		$.ajax({
+			type:'POST',
+			 url: 'Perfil.php',
+			success: function(response) { 
+				$('#tabs2').hide();	
+				$('#Perfil').hide();
+				$('#MainPage').fadeIn();
+				$('#tabsPerfil').fadeIn();		
+   				$('#ContactForm').find('.form_result').html(response);
+   				
+			}
+		});
+		 
+   });
+   
+   $(MainPage).click(function(){
+   		$.ajax({
+			type:'POST',
+			 url: 'MainPage.php',
+			success: function(response) { 
+				$('#MainPage').hide();
+				$('#DLogin').hide();
+				$('#LogOut').fadeIn();
+   				$('#tabs2').fadeIn();
+   				$('#Perfil').fadeIn();
+   				$('#tabsPerfil').hide();		
+   				$('#ContactForm').find('.form_result').html(response);
+   				
+			}
+		});
+		 
+   });
+   
+   
+   
+   
+   
+   
+   
+   
+   
     $(ListNew).click(function(){
 			   $.ajax({
 			   		type:'POST',
@@ -67,11 +120,23 @@ $(document).ready(function(){
 	$(LinkNew).click(function(){
 				
 		//aqui deberias de mirar con un if si el proveedor es youtube, solo en ese caso se hace el substring!
+		//guardo en la variable el proveedor
 		var provider=document.getElementById("select-choice-1").value;
+		//si es youtube, realiza el filtro del enlace		
 		if(provider=="youtube"){
 			var finalId=document.getElementById("urlLink").value
-			finalId=document.getElementById("urlLink").value.substring(31,42);			
-			document.getElementById("urlLink").value=finalId;			
+			
+			var c13=document.getElementById("urlLink").value.substring(12,13);
+			alert(c13);
+			if(c13=="."){
+				finalId=document.getElementById("urlLink").value.substring(16);
+				alert(finalId);
+				document.getElementById("urlLink").value=finalId;
+			}
+			else{
+				finalId=document.getElementById("urlLink").value.substring(31,42);			
+				document.getElementById("urlLink").value=finalId;
+			}			
 		}
 			   $.ajax({
 			   		type:'POST',
@@ -79,6 +144,7 @@ $(document).ready(function(){
 			   		data:$('#divNewLink').serialize(),
 			   		success: function(response) {  	
 		   				$('#ContactForm').find('.form_result').html(response);
+		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
 		   				document.getElementById("urlLink").value="";
 		   				document.getElementById("number-pattern").value="";
 		   				document.getElementById("singerLink").value="";	
@@ -87,6 +153,7 @@ $(document).ready(function(){
 
 		   				
 					}
+					
 			   });
 			   
 			  /* $('#urlLink').value='';
@@ -135,6 +202,7 @@ $(document).ready(function(){
    				$('#DLogin').hide();
 				$('#LogOut').fadeIn();
    				$('#tabs2').fadeIn();
+   				$('#Perfil').fadeIn();
 			},
 			error: function (response) {
                         alert(response.responseText);
@@ -177,6 +245,7 @@ $(document).ready(function(){
 				$('#DLogin').hide();
 				$('#desaparecer').hide();
 				$('#LogOut').fadeIn();
+				$('#Perfil').fadeIn();
 				$('#tabs2').fadeIn();
    				$('#ContactForm').find('.form_result').html(response);
    				$.ajax({        

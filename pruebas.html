@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="./js/jquery.tablesorter.js"></script>
 	<script src="code.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="./css/jquery-ui.css" />
-	<head><script type="text/javascript" src="./js/detectmobilebrowser.js"></script> 
+	
   <script src="./js/jquery-ui.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   
@@ -17,8 +17,6 @@
 	
 	<div id="tabs" style="position:absolute; height: 100%; width: 100%; background-color: #F2F5A9">
 		<div id="LogOut" style="position:absolute; left: 90%; top: 0%;"><button id="LogOut1" type="submit" data-theme="e" >LOG OUT</button></div>
-		<div id="Perfil" style="position:absolute; left: 78.5%; top: 0%;"><button id="Perfil1" type="submit" data-theme="e" >Welcome User</button></div>
-		<div id="MainPage" style="position:absolute; left: 78.5%; top: 0%;"><button id="MainPage1" type="submit" data-theme="e" >Go main page</button></div>
 	  <ul style="background-color: #2E2E2E">
 	    <li><a href="#tabs-1">Login</a></li>
 	    <li><a id="desaparecer"  href="#tabs-2">Register</a></li>
@@ -27,7 +25,6 @@
 		  <div id="DLogin">
 			    <form name="frpanel" id="login" method="post" >	
 					<div data-role="footer" data-theme="a" class="ui-bar ui-grid-b">
-							<h1>LOGIN<br></h1>
 				   		<div class="ui-block-a" >
 					   		<div data-role="fieldcontain">
 							    <label for="basic">User:</label>
@@ -41,23 +38,23 @@
 							</div>
 						</div>	
 						<div class="ui-block-c">
-								<div id="divBlogin" style="margin:6px 0 0 10px;"><button id="BLogin" type="submit" data-theme="b" class="button">LOGIN</button></div>
+								<div style="margin:6px 0 0 10px;"><button id="BLogin" type="submit" data-theme="b" class="button">LOGIN</button></div>
 							</div>
 				   	
 			   		</div>
 			   	</form>
 		   	</div>
-		   
+		   	<div id="alert" style="position:absolute; left:30%;top:2%; width:30%; height:10%">Please type something.</div>
 			<div id="box">
 				<form method="post" id="ContactForm">
-			<div style="position:absolute; left: 50%; top: 0%;width: 100%;height: 40%" ><h4 class="form_result" style="color: white;"></h4></div>
+			<div style="position:absolute; left: 50%; top: 0%;width: 100%;height: 40%" ><h4 class="form_result"></h4></div>
 				</form>
 			</div>
-		</div>
 			<div id="tabs2" style="background-color:#F2F5A9 ">
 				  <ul style="background-color: #2E2E2E">
 				    <li><a href="#tabs2-1">Listas</a></li>
 				    <li><a href="#tabs2-5">New List</a></li>
+				    <li><a href="#tabs2-3">Perfil</a></li>
 				    <li><a href="#tabs2-4">Player</a></li>
 				  </ul>
 				  <div id="tabs2-1" >
@@ -149,8 +146,10 @@
 					   		
 				   		</div>
 		   			
-				 </div>
-			 	
+				 
+			 	</div> 
+			 	 <div id="tabs2-3">
+			 	 </div>
 			 	  <div id="tabs2-4">
 			 	  	<div id="player">			 	  		
 			 	  	</div>
@@ -163,7 +162,7 @@
 			 	 
 			 	 </div>
 			</div>
-	  
+	  </div>
 	  <div id="tabs-2" data-theme="a">
 	    <form name="frpanel" id="registro" method="post" >	
 			<div data-role="footer" data-theme="a" class="ui-bar ui-grid-a">
@@ -193,69 +192,14 @@
 				
 	   		</div>
 	   	</form>
-		
-	  </div>
-	  <div id="tabsPerfil" data-theme="a" style="background-color:#2E2E2E ">
-	  	<ul style="background-color: #2E2E2E">
-				    <li><a href="#tabsPerfil-perfil">Perfil</a></li>
-				    <li><a href="#tabsPerfil-MyAccount">My Account</a></li>
-	    </ul>
-	    <div id="tabsPerfil-perfil" data-theme="a" >					
-						<TABLE WIDTH="70%" height="50%" CELLPADDING="2" CELLSPACING="0" BORDER="1" background="http://www.ifondos.net/wp-content/uploads/2009/10/madera.jpg">
-						   <TR>
-						     <TD ROWSPAN="2" ALIGN=CENTER><img src="http://fc03.deviantart.net/fs51/f/2009/339/0/7/Noctis_by_AnHellica.jpg"  alt="prueba imagen perfil" border="5%" height="200" width="200" /></TD>
-						     <TD WIDTH="33%" height="50%"><font color="white">Nick</font>
-							 </TD>
-						     <TD WIDTH="33%" height="50%"><font color="white">User</font>
-						     	</TD>
-						    </TR>
-						   <TR>
-						     <TD WIDTH="33%" height="50%"><font color="white"> Musical Style</font>
-						    </TD>
-						     <TD WIDTH="33%" height="50%"><font color="white"> Rock</font>
-						     	</TD>
-						    </TR>
-						 </TABLE>	
+	   	<div id="alert">Please type something.</div>
+		<div id="box">
+			<form method="post" id="ContactForm1">
+	
 			
+			<div class="form_result1"> </div>
+			</form>
 		</div>
-		<div id="tabsPerfil-MyAccount" data-theme="b">
-			<div data-role:"content" data-theme="a"><h4><font color="white">Modify Account:</h4></a></div>
-					   			 <form name="frpanel" id="divNewData" method="post" >
-					   			 		
-					   						<div data-role="fieldcontain">
-									         <label for="nick"><font color="white">New Nick</label>
-											</div>
-											<div>
-												 <input type="nick" name="newNick" id="newNick" value="" /> 
-											</div>
-
-											<div data-role="fieldcontain">
-									         <label for="pass"><font color="white">New Password</label>
-											</div>
-											<div>
-												 <input type="pass" name="newPass" id="newPass" value="" />
-											</div>
-											<div data-role="fieldcontain">
-									         <label for="pass"><font color="white">Confirm New Password</label>
-											</div>						
-											<div>
-												<input type="pass" name="CnewPass" id="CnewPass" value="" />
-											</div>														
-											<div data-role="fieldcontain">
-									         <label for="email"><font color="white">e-mail</label>
-									         <input type="email" name="email" id="email" value="" />
-											</div>											
-																   						
-					   			</form>
-					   			<a id="btnNewAccount" data-role="button" data-theme="a" style="color:white;">Save</a>
-					   		
-					   		</div>
-							
-					   	
-					   		
-		</div>
-	    
-		
 	  </div>
 
 </div>
@@ -265,5 +209,4 @@
 	
    	
 </body>
-
 </html>

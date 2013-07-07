@@ -1,5 +1,4 @@
 <?php
-
 session_start(); 
 $variable=$_SESSION["nick"];
 session_destroy();
