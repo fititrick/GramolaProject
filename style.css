@@ -1,7 +1,6 @@
 input{
 outline: none; /* removes google chrome outline */
 }
-
 #box{ /* the login box design */
 width: 190px;
 background-image: -webkit-linear-gradient(top, rgba(252,252,252,1) 0%,rgba(243,243,243,1) 100%);

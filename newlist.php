@@ -15,7 +15,6 @@ if(isset($_POST['name'])){
 					}
 				 else{
 				    echo "<p>Lista insertada</p>\n";
-	
 				  } 	
 			}
 			else {

@@ -6,7 +6,6 @@ Funcion:Realiza la insercion de usuarios en la base de datos.
 Nombre: registro.php
 ***********************************************************************************************************************************
 */
-
 header("Content-Type: text/html;charset=utf-8");
 
 //Se comprueba que el POST recibe datos de usuario y contraseña.
