@@ -1,9 +1,15 @@
 $(document).ready(function(){
 	// hide alert boxes
 	$('#LogOut').hide();
+	$('#Perfil').hide();
+	$('#MainPage').hide();
 	$( "#tabs" ).tabs();
 	$( "#tabs2" ).tabs();
 	$('#tabs2').hide();
+	$( "#tabs-2" ).tabs();
+	$( "#tabsPerfil" ).tabs();
+	$( '#tabsPerfil' ).hide();
+
 	
 	
 	var lolailo=$("#TableLinks");
@@ -24,6 +30,8 @@ $(document).ready(function(){
    // checking if there is nothing submitted
    
    var logOut= $('#LogOut1');
+   var Perfil= $('#Perfil1');
+   var MainPage=$('#MainPage1');
    $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
 			success: function(response) { 
@@ -54,6 +62,50 @@ $(document).ready(function(){
 		 
    });
    
+   	
+   
+   $(Perfil).click(function(){
+   		$.ajax({
+			type:'POST',
+			 url: 'Perfil.php',
+			success: function(response) { 
+				$('#tabs2').hide();	
+				$('#Perfil').hide();
+				$('#MainPage').fadeIn();
+				$('#tabsPerfil').fadeIn();		
+   				$('#ContactForm').find('.form_result').html(response);
+   				
+			}
+		});
+		 
+   });
+   
+   $(MainPage).click(function(){
+   		$.ajax({
+			type:'POST',
+			 url: 'MainPage.php',
+			success: function(response) { 
+				$('#MainPage').hide();
+				$('#DLogin').hide();
+				$('#LogOut').fadeIn();
+   				$('#tabs2').fadeIn();
+   				$('#Perfil').fadeIn();
+   				$('#tabsPerfil').hide();		
+   				$('#ContactForm').find('.form_result').html(response);
+   				
+			}
+		});
+		 
+   });
+   
+   
+   
+   
+   
+   
+   
+   
+   
     $(ListNew).click(function(){
 			   $.ajax({
 			   		type:'POST',
@@ -66,15 +118,44 @@ $(document).ready(function(){
 			   });
 	});
 	$(LinkNew).click(function(){
+				
+		//aqui deberias de mirar con un if si el proveedor es youtube, solo en ese caso se hace el substring!
+		//guardo en la variable el proveedor
+		var provider=document.getElementById("select-choice-1").value;
+		//si es youtube, realiza el filtro del enlace		
+		if(provider=="youtube"){
+			var finalId=document.getElementById("urlLink").value
+			
+			var c13=document.getElementById("urlLink").value.substring(12,13);
+			alert(c13);
+			if(c13=="."){
+				finalId=document.getElementById("urlLink").value.substring(16);
+				alert(finalId);
+				document.getElementById("urlLink").value=finalId;
+			}
+			else{
+				finalId=document.getElementById("urlLink").value.substring(31,42);			
+				document.getElementById("urlLink").value=finalId;
+			}			
+		}
 			   $.ajax({
 			   		type:'POST',
 			   		url: 'newLink.php',
 			   		data:$('#divNewLink').serialize(),
 			   		success: function(response) {  	
 		   				$('#ContactForm').find('.form_result').html(response);
+		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
+		   				document.getElementById("urlLink").value="";
+		   				document.getElementById("number-pattern").value="";
+		   				document.getElementById("singerLink").value="";	
+		   				document.getElementById("songNameLink").value="";			
+			
+
 		   				
 					}
+					
 			   });
+			   
 			  /* $('#urlLink').value='';
 			   $('#select-choice-1').value='';
 			   $('#number-pattern').value='';
@@ -94,13 +175,14 @@ $(document).ready(function(){
     $(button).click(function(){
 	
 	if(document.getElementById("user").value.length < 3 && document.getElementById("user1").value.length< 3){
-		alert("No data for login");
+		alert("You must write your data");
 
 		location.reload(true);
 				return false;
 	}
 	else if(document.getElementById("pass").value.length < 3 && document.getElementById("pass1").value.length < 3){
-		alert("No data for login");
+		alert("You must write your password");
+		alert(document.getElementById("user").value);
 
 		location.reload(true);
 	}
@@ -116,13 +198,15 @@ $(document).ready(function(){
 			data:$('#registro').serialize(),
 			success: function(response) {  	
    				$('#ContactForm1').find('.form_result1').html(response);
+   				
    				$('#DLogin').hide();
 				$('#LogOut').fadeIn();
    				$('#tabs2').fadeIn();
+   				$('#Perfil').fadeIn();
 			},
 			error: function (response) {
                         alert(response.responseText);
-                    },
+            },
             failure: function (response) {
                 alert(response.responseText);
             }
@@ -161,6 +245,7 @@ $(document).ready(function(){
 				$('#DLogin').hide();
 				$('#desaparecer').hide();
 				$('#LogOut').fadeIn();
+				$('#Perfil').fadeIn();
 				$('#tabs2').fadeIn();
    				$('#ContactForm').find('.form_result').html(response);
    				$.ajax({        
@@ -239,56 +324,33 @@ $(document).ready(function(){
 						            
 				            	};
 				            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
-				            	function reproductor(posicionUlt){
+				            	function reproductor(){
 				            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
 				            		//el link que te llega al reproductor es this.name
 				            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
 				            		//al final de la reproduccion (algo que tienes que controlar porque nose como)
 				            		//llamarias recursivamete/o secuencialmente a esta funcion reproductor con la siguiente cancion y el mismo vector
 				            		//problemas: saber cuando termina de reproducirse
-				            		var encontrado=false;
-									var posicionUlt;
-									var linksOrdenados[]=document.getElementsByName(links);
-									for(var i=0;i<linksOrdenados.length | encontrado==true;i++)
-									{
-										if(linksOrdenados[i]==this.name)
-										{
-												posicionUlt=i;
-												encontrado=true;
-													
-														var code;
-				            	 
-									            		switch(this.title)
-														{
-																
-															case "spotify":
-															   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
-															  break;
-															case "youtube":
-																var paramyou = { allowScriptAccess: "always" };
-					
-															   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1&enablejsapi=1&playerapiid=ytplayer" 												frameborder="0" allowfullscreen></iframe>';
-															   var duracion = ytplayer.getDuration;
-															   alert(duracion);
-															  break;
-					
-															case "goear":
-															   code='<iframe width="560" height="315" src="http://www.goear.com/files/external.swf?file='+this.name+'" frameborder="1"></iframe>';
-															  break;
-															default:
-															   code='<iframe width="560" height="315" src="'+this.name+'" frameborder="1" allowfullscreen ></iframe>';
-														}//Fin del switch
-									            		
-					   										document.getElementById("player").innerHTML=code;
-												
-										}//Fin del if de linkOrdenados.
-										encontrado=false;
-				};//Fin del for de la lista		
-				
-								
-//*******************************************************************************************************************************************************************************
 				            		
-				            	
+				            		var code;
+				            	 
+				            		switch(this.title)
+										{
+											
+										case "spotify":
+										   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
+										  break;
+										case "youtube":
+										   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+										  break;
+										case "goear":
+										   code='<iframe width="560" height="315" src="http://www.goear.com/files/external.swf?file='+this.name+'" frameborder="1"></iframe>';
+										  break;
+										default:
+										   code='<iframe width="560" height="315" src="'+this.name+'" frameborder="1" allowfullscreen ></iframe>';
+									}
+				            		
+   										document.getElementById("player").innerHTML=code;
    										/*
    										function get_youtube_embed($youtube_video_id, $autoplay=true)
 										{
@@ -301,34 +363,17 @@ $(document).ready(function(){
 											return $embed_code;
 										}
 										*/
-//*******************************************************************************************************************************************************************************
-  									
+  									 };
 				            }
 				            var objetoLinks = new cambiaOnClickLinks();
 				            objetoLinks.change(document.getElementById("Links"));
 				        }
 		        };
     		}
-    								
-						
 		    var objeto2 = new cambiaOnClickListas();  
 		    objeto2.cambia(document.getElementById("div-clase2")); 
 		    
-		    //Pregunto si es la ultima posicion reproducida de la lista. Lo se por el tamaño del vector.
-			//Si es la ultima posicion lo que hago es volver a la primera.
-    		if(linksOrdenados.length==ultimaPos)
-					{
-						ultimaPos=0;
-					}
-			ultimaPos=reproductor(ultimaPos);
-			//hola la estoy liando
-		    
 		}
-					//Para poder hacer uso de la API de google se debe de crear esta funcion.
-			  function onYouTubePlayerReady(ytplayer)
-			  {
-			  	       reproductor = document.getElementById("player1");
-			  }
   
 		
  });
