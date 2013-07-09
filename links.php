@@ -15,14 +15,17 @@ if($_SESSION["autentificado"]=="SI"){
 	if (mysqli_num_rows($result)==0){
 	  //echo "<p>No se pudo efectuar la consulta de la tabla <b>lists</b></p>\n";
 	}
+	$i=0;
 	if(mysqli_num_rows($result)>0){
 		while( $row = mysqli_fetch_row($result) )
 	    {
+	    	++$i;
 	    	 //$line = '<div id="list'.$var.'">'.$row[0].', list nº: '.$row[0].'</div>';	
 	    	 echo '<tr ><td><a id="Link'.$row[2].'" class="link" name='.$row[5].' title='.$row[6].' href="#" >'.$row[0].'</a></td>';
 			 echo '<td >'.$row[3].'</td>';
 			 echo '<td WIDTH=100>'.$row[4].'</td>';
-			 echo '<td class="linkIcon">'.$row[6].'</td></tr>';
+			 echo '<td class="linkIcon">'.$row[6].'</td>';
+			 echo '<td><button id="b_BorrarLink" name="'.$row[2].'" type="submit" value= "'.$i.'" data-theme="b" class="buttonDelLink">Del'.$i.'</button></td></tr>';
 			//aqui habria que meter un nuevo elemento de la tabla que sea la x para borrar con otra classe 
 		}
 	}

@@ -171,7 +171,39 @@ $(document).ready(function(){
 				        }); */
 	});
 		
-		
+		$(TableLinks).click(function(){
+			if(document.getElementsByName("TableLinks")){
+				//alert(this.getElementByName("button").getAttribute("value"));
+				alert($(document.getElementsByName("TableLinks")[0].childNodes[0].toString));
+				alert("pasa");
+			}
+  		
+  		});	
+  	function deleteLink(){
+  			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
+  			
+  			var param= 'idLinkBorrar=' + this.name;
+  			$.ajax({        
+	             url:'borrarLink.php',        
+	             type:'post',                 
+	             dataType:'html',  
+	             data:param,          
+	             cache: false,            
+	             success: function (response) {
+						if (response==true)
+						{
+							 new Messi('The song has been deleted');
+
+						}				   
+						else
+						{
+							new Messi('The song hasn´t been deletedf');
+
+						}
+				 }     
+	        }); 
+  	}
+
     $(button).click(function(){
 	
 	if(document.getElementById("user").value.length < 3 && document.getElementById("user1").value.length< 3){
@@ -225,6 +257,7 @@ $(document).ready(function(){
 		             cache: false,            
 		             success:data     
 		        }); 
+		     
    });
    
     $(login).click(function(){
@@ -252,12 +285,13 @@ $(document).ready(function(){
 		             url:'lists.php',        
 		             type:'post',                 
 		             dataType:'html',            
-		             cache: false,            
+		             cache: false, 
+		             //cuando la llamada del ajax devuelve algo, llega a success, y el succes llama a la funcion data
 		             success:data     
 		        }); 
 			}
         
-        
+        //la funcion data mete en el onclick de los links funcionalidad
    function data (html) {
             var $html = $( html ); // create DOM elements in a jQuery object
             function cambiaOnClickListas(){
@@ -270,6 +304,7 @@ $(document).ready(function(){
 		            }
                        
       			 };
+      			 //esta funcion ajax es distinta, ya que envía un parametro que tu has determinado
 		        this.muestraLinks = function muestraLinks(){            
 				  	var param= 'id=' + this.name;
 				  	$.ajax({        
@@ -298,6 +333,10 @@ $(document).ready(function(){
 									var vector= document.getElementsByClassName('link');
 						            for(var i=0;i<vector.length;i++){
 						            	vector[i].onclick = reproductor;
+						            }
+						            var vector3=document.getElementsByClassName('buttonDelLink');
+						            for(var i=0;i<vector3.length;i++){
+						                  	vector3[i].onclick = deleteLink;
 						            }
 						            var vector2= document.getElementsByClassName('linkIcon');
 						            //alert(vector2.length);
@@ -375,5 +414,6 @@ $(document).ready(function(){
 		    
 		}
   
-		
+  		
+			
  });
