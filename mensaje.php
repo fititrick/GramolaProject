@@ -9,9 +9,9 @@ if(isset($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['user'])){
 	$result=mysqli_query($conexion, $consulta) ;
 
 	if (mysqli_num_rows($result)==0){
-	  
+	  echo 0;
 		//echo "User: $usuario not exist";
-		try {
+		/*try {
         	throw new Exception("User: $usuario not exist");
 		    } catch (ErrorException $e) {
 		        // este bloque no se ejecuta, no coincide el tipo de excepción
@@ -19,7 +19,7 @@ if(isset($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['user'])){
 		    } catch (Exception $e) {
 		        // este bloque captura la excepción
 		        echo 'Exception ' . $e->getMessage();
-		    }
+		    }*/
 		//die('ERROR');
     //  or:
         //die(json_encode(array('message' => 'ERROR', code => 1337)));
@@ -36,10 +36,10 @@ if(isset($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['user'])){
 				$_SESSION["idUser"]=$row[2];
 				//header("Location: principal.php");
 				$variable=$_SESSION["nick"];
-				echo "Session started by $variable";
+				echo 1;
 			 }
 			 else{
-			 	echo "Incorrect Data";
+			 	echo 0;
 				 exit();
 			 }
 	      }
@@ -47,6 +47,6 @@ if(isset($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['user'])){
 	include "close_conexion.php";
 }
 else {
-	echo "Fail in data login";
+	echo 0;
 }
 ?>

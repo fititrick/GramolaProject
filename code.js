@@ -13,7 +13,9 @@ $(document).ready(function(){
 	
 	
 	var lolailo=$("#TableLinks");
+	var tablePerfil=$("#TablePerfil");
 	$(lolailo).tablesorter();
+	$(tablePerfil).tablesorter();
 	// empty() function used when there is nothing entered
 	//$('#nameList').empty('');
 	
@@ -22,6 +24,10 @@ $(document).ready(function(){
    var pass = $('#pass');
    var button = $('.button');
    var registro = $('#register');
+   var cambiapass = $('#cambiapass');
+   var cambianick = $('#cambianick');
+   var cambiaemail = $('#cambiaemail');
+   var cambiaImagen = $('#cambiaImagen');
    var login= $('#BLogin');
    var lista = $('.list');
     var ListNew=$('#btnNewList');
@@ -32,6 +38,13 @@ $(document).ready(function(){
    var logOut= $('#LogOut1');
    var Perfil= $('#Perfil1');
    var MainPage=$('#MainPage1');
+   var changePass=$('#changePass');
+   var changeNick=$('#changeNick');
+   var changeEmail=$('#changeEmail');
+   var changeImage=$('#changeImage');
+   var sendfile=$('#sendfile');
+   var enviararchivo=$('#enviararchivo');
+   
    $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
 			success: function(response) { 
@@ -40,13 +53,45 @@ $(document).ready(function(){
 						type:'POST', url: 'getUser.php',
 						success: function(response2) { 
 							fLogin("Session started by "+response2);
+							$.ajax({
+								type:'POST',
+								url:'profileButton.php',
+								success:function(response){
+								$('#Perfil').html(response);
+								
+								//var otroVector=document.getElementByClass('BotonProfile1');
+								document.getElementById('Perfil5').onclick=mainProfile;
+								
+								//alert("tal "+document.getElementById('Perfil1').onclick);
+								//document.getElementById('Perfil1').hide();
+								//document.getElementById('Perfil1').fadeIn();
+								}
+							});
 							}
-						
+							
 					});
 				}
 			}
 		});
-	
+		function mainProfile(){
+									$.ajax({
+										type:'POST',
+										 url: 'Perfil.php',
+										success: function(response) { 
+											$('#tabs2').hide();	
+											$('#Perfil').hide();
+											$('#MainPage').fadeIn();
+											$('#tabsPerfil').fadeIn();
+											$('#PerfilContainer').html(response);		
+											             
+							   				
+										}
+									});
+															
+								}
+	function x(){
+		
+	}
    $(logOut).click(function(){
    		$.ajax({
 			type:'POST', url: 'logOut.php',
@@ -65,21 +110,120 @@ $(document).ready(function(){
    	
    
    $(Perfil).click(function(){
-   		$.ajax({
-			type:'POST',
-			 url: 'Perfil.php',
-			success: function(response) { 
-				$('#tabs2').hide();	
-				$('#Perfil').hide();
-				$('#MainPage').fadeIn();
-				$('#tabsPerfil').fadeIn();		
-   				$('#ContactForm').find('.form_result').html(response);
-   				
-			}
-		});
+   		
 		 
    });
    
+   
+   
+   $(cambiapass).click(function(){
+	
+		$.ajax({
+			type:'POST', 
+			url: 'changePass.php', 
+			data:$('#changepass').serialize(),
+			cache: false,
+			success: function(response) {  	
+   				$('#ContactForm').find('.form_result').html(response);
+   					document.getElementById("nickpass").value="";
+		   			document.getElementById("newnickpass").value="";
+		   			document.getElementById("actualpass").value="";	
+		   			document.getElementById("newpass").value="";	
+					document.getElementById("confnewpass").value="";
+   				//location.reload(true);
+
+			},
+			error: function (response) {
+                        alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+		});
+		
+
+   });
+   
+    $(cambianick).click(function(){
+	
+		$.ajax({
+			type:'POST', 
+			url: 'changeNick.php', 
+			data:$('#changeNick').serialize(),
+			cache: false,
+			success: function(response) {  	
+   				$('#ContactForm').find('.form_result').html(response);
+   					document.getElementById("nickpass").value="";
+		   			document.getElementById("newnickpass").value="";
+		   			document.getElementById("confnewnick").value="";	
+		   			document.getElementById("actualpassnick").value="";	
+   				//location.reload(true);
+
+			},
+			error: function (response) {
+                        alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+		});
+		
+
+   });
+   
+   
+    $(cambiaemail).click(function(){
+	
+		$.ajax({
+			type:'POST', 
+			url: 'changeEmail.php', 
+			data:$('#changeEmail').serialize(),
+			cache: false,
+			success: function(response) {  	
+   				$('#ContactForm').find('.form_result').html(response);
+   					document.getElementById("email").value="";
+		   			document.getElementById("newemail").value="";
+		   			document.getElementById("confnewemail").value="";	
+		   			document.getElementById("actualpassemail").value="";	
+   				//location.reload(true);
+
+			},
+			error: function (response) {
+                        alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+		});
+		
+
+   });
+   
+   $(cambiaImagen).click(function(){
+	
+		$.ajax({
+			type:'POST', 
+			url: 'changeImage.php', 
+			data:$('#changeImage').serialize(),
+			cache: false,
+			success: function(response) {  	
+   				$('#ContactForm').find('.form_result').html(response);
+   					document.getElementById("imageLink").value="";
+		   				
+
+			},
+			error: function (response) {
+                        alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+		});
+		
+
+   });
+   
+  
    $(MainPage).click(function(){
    		$.ajax({
 			type:'POST',
@@ -96,15 +240,7 @@ $(document).ready(function(){
 			}
 		});
 		 
-   });
-   
-   
-   
-   
-   
-   
-   
-   
+   });   
    
     $(ListNew).click(function(){
 			   $.ajax({
@@ -175,13 +311,13 @@ $(document).ready(function(){
     $(button).click(function(){
 	
 	if(document.getElementById("user").value.length < 3 && document.getElementById("user1").value.length< 3){
-		alert("You must write your data");
+		//alert("Your nick must have at least 3 letters");
 
-		location.reload(true);
+		//location.reload(true);
 				return false;
 	}
 	else if(document.getElementById("pass").value.length < 3 && document.getElementById("pass1").value.length < 3){
-		alert("You must write your password");
+		alert("Your password must have at least 3 letters");
 		alert(document.getElementById("user").value);
 
 		location.reload(true);
@@ -202,7 +338,8 @@ $(document).ready(function(){
    				$('#DLogin').hide();
 				$('#LogOut').fadeIn();
    				$('#tabs2').fadeIn();
-   				$('#Perfil').fadeIn();
+   				location.reload(true);
+
 			},
 			error: function (response) {
                         alert(response.responseText);
@@ -214,6 +351,7 @@ $(document).ready(function(){
 		
 
    });
+   
    
    $(BotonUpdate).click(function(){
    	$('#Links').hide();
@@ -229,15 +367,21 @@ $(document).ready(function(){
    
     $(login).click(function(){
 		$.ajax({
-			type:'POST', url: 'mensaje.php', data:$('#login').serialize(),
-			success: fLogin,
-			error: function(objeto, quepaso, otroobj) {
-                         //   alert("Estas viendo esto por que fallé");
-                         //   alert("Pasó lo siguiente: " + objeto);
-                         //   alert("Pasó lo siguiente: " + quepaso);
-                         //   alert("Pasó lo siguiente: " + otroobj);
-                        }
-			
+			type:'POST', 
+			url: 'mensaje.php', 
+			data:$('#login').serialize(),
+			success:function(result){
+				if(result==1){
+					fLogin;
+					location.reload(true);
+				}
+				else{
+					alert("usuario no identificado");
+					location.reload(true);
+
+				}
+			 
+		},
 		});
 		
    });
@@ -265,6 +409,7 @@ $(document).ready(function(){
         			$('#Links').fadeIn();
 		            donde.innerHTML = html;
 		           var vector= document.getElementsByClassName('list');
+		       
 		            for(var i=0;i<vector.length;i++){
 		            	vector[i].onclick = this.muestraLinks;     
 		            }
