@@ -17,7 +17,10 @@ if($_SESSION["autentificado"]=="SI"){
 		while( $row = mysqli_fetch_row($result) )
 	    {
 	    	 //$line = '<div id="list'.$var.'">'.$row[0].', list nº: '.$row[0].'</div>';	
-	    	$line = '<button id="Lista'.$row[1].'" name='.$row[1].' class="list" href="#" >list nº: '.$row[1].' <br> '.$row[0].'</button>';
+	    	$line = '<button id="Lista'.$row[1].'" name='.$row[1].' class="list" href="#" >list nº: '.$row[1].' <br> '.$row[0].'</button>
+	    	<button id="b_BorrarLista" name="'.$row[1].'" type="submit" data-theme="b" class="buttonBList" align=> <img src="./images/eliminar32.png"></img></button>';
+			
+			
 			echo $line;
 		}
 	}

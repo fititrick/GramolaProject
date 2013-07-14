@@ -182,27 +182,83 @@ $(document).ready(function(){
   	function deleteLink(){
   			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
   			
-  			var param= 'idLinkBorrar=' + this.name;
-  			$.ajax({        
-	             url:'borrarLink.php',        
-	             type:'post',                 
-	             dataType:'html',  
-	             data:param,          
-	             cache: false,            
-	             success: function (response) {
-						if (response==true)
-						{
-							 new Messi('The song has been deleted');
-
-						}				   
-						else
-						{
-							new Messi('The song hasn´t been deletedf');
-
-						}
-				 }     
-	        }); 
+  			 
+  			 	var param= 'idLinkBorrar=' + this.name;
+  	
+				
+				if (confirm('Do you want remove this song?'))
+				{
+					$.ajax({        
+								             url:'borrarLink.php',        
+								             type:'post',                 
+								             dataType:'html',  
+								             data:param,          
+								             cache: false,            
+								             success: function (response) {
+													if (response==true)
+													{
+														 alert('The song has been deleted');
+							
+													}				   
+													else
+													{
+														alert('The song hasn´t been deleted');
+							
+													}
+											 }     
+								        }); 
+				}
+				
+				
+				
+				
+		
   	}
+  	
+  	
+  	
+  	  	function deleteList(){
+  			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
+  			
+  			 
+  			 	var param= 'idLinkBorrar=' + this.name;
+  	
+				
+				if (confirm('Do you want to remove this list?'))
+				{
+					$.ajax({        
+								             url:'borrarLista.php',        
+								             type:'post',                 
+								             dataType:'html',  
+								             data:param,          
+								             cache: false,            
+								             success: function (response) {
+													if (response==true)
+													{
+														 alert('The list has been deleted');
+							
+													}				   
+													else
+													{
+														alert('The list hasn´t been deleted');
+							
+													}
+											 }     
+								        }); 
+				}
+				
+				
+				
+				
+		
+  	}
+  	
+  	
+  	
+  	
+  	
+  	
+  	
 
     $(button).click(function(){
 	
@@ -338,6 +394,14 @@ $(document).ready(function(){
 						            for(var i=0;i<vector3.length;i++){
 						                  	vector3[i].onclick = deleteLink;
 						            }
+						            
+						              var vectorList=document.getElementsByClassName('buttonBList');
+						            for(var i=0;i<vectorList.length;i++){
+						                  	vectorList[i].onclick = deleteList;
+						            }
+						            
+						            
+						            
 						            var vector2= document.getElementsByClassName('linkIcon');
 						            //alert(vector2.length);
 						           //$('#providerTabla').text("adios");
