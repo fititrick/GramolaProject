@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  
+  
+  
+  <link rel="stylesheet" href="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
+  
+  <!-- Extra Codiqa features -->
+  <link rel="stylesheet" href="codiqa.ext.css">
+  
+  <!-- jQuery and jQuery Mobile -->
+  <script src="https://d10ajoocuyu32n.cloudfront.net/jquery-1.9.1.min.js"></script>
+  <script src="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+
+  <!-- Extra Codiqa features -->
+  <script src="https://d10ajoocuyu32n.cloudfront.net/codiqa.ext.js"></script>
+   
+</head>
+<body>
+<!-- Home -->
+<div data-role="page" id="page1">
+    <div id="Header" data-theme="a" data-role="header">
+        <h3 id="Cabecera">
+            Gramola
+        </h3>
+        <h4 id="ListNameInLinks" class="ListNameInLinks">
+            List Name
+        </h4>
+    </div>
+    <div data-role="content">
+        <form id="DeleteList" action="DeleteList.php" method="POST">
+            <input type="submit" data-inline="true" data-icon="delete" data-iconpos="left"
+            value="Delete List">
+        </form>
+        <div data-role="fieldcontain">
+            <label for="BuscadorCancionesLista">
+                Buscar en lista
+            </label>
+            <input name="Buscar link" id="BuscadorCancionesLista" placeholder="Type name link"
+            value="" type="search" data-mini="true">
+        </div>
+        <div data-role="collapsible-set">
+            <div data-role="collapsible">
+                <h3>
+                    New Link
+                </h3>
+                <div data-role="fieldcontain">
+                    <label for="textinput2">
+                        Link
+                    </label>
+                    <input name="" id="textinput2" placeholder="Url of song" value="" type="url"
+                    data-mini="true">
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="textinput1">
+                        Title of Song
+                    </label>
+                    <input name="name" id="textinput1" placeholder="Name Song" value="" type="text"
+                    data-mini="true">
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="textinput3">
+                        Author
+                    </label>
+                    <input name="" id="textinput3" placeholder="Singer or Group" value=""
+                    type="text" data-mini="true">
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="textinput4">
+                        Position List
+                    </label>
+                    <input name="" id="textinput4" placeholder="" value="" type="number" data-mini="true">
+                </div>
+                <form action="NewLink.php" method="POST">
+                    <input id="SaveNewLink" type="submit" data-icon="check" data-iconpos="left"
+                    value="Save">
+                </form>
+            </div>
+        </div>
+        <div id="LinksCollapsible" data-role="collapsible-set" class="DesplegableLinks">
+            <div data-role="collapsible" data-collapsed="false">
+                <h3>
+                    Links
+                </h3>
+                <div id="Opcion1Links" data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                        <legend>
+                            Link1
+                        </legend>
+                        <input id="radio1" name="Link1" value="radio1" data-theme="b" type="radio">
+                        <label for="radio1">
+                            Reproduce
+                        </label>
+                        <input id="radio2" name="Link1" value="radio2" data-theme="e" type="radio">
+                        <label for="radio2">
+                            Delete
+                        </label>
+                        <input id="radio3" name="Link1" value="" data-theme="c" type="radio">
+                        <label for="radio3">
+                            NºSong
+                        </label>
+                    </fieldset>
+                </div>
+                <div id="Opcion2 Links" class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <div>
+                            <a href="" data-transition="fade">
+                                Name Song
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ui-block-b">
+                        <h5>
+                            Pos List
+                        </h5>
+                    </div>
+                    <div class="ui-block-a">
+                        <h5>
+                            Author
+                        </h5>
+                    </div>
+                    <div class="ui-block-b">
+                        <a data-role="button" data-theme="e" href="#page1" data-icon="delete"
+                        data-iconpos="bottom">
+                            Button
+                        </a>
+                    </div>
+                </div>
+                <div id="Opcion3Links" data-role="navbar" data-iconpos="bottom">
+                    <ul>
+                        <li>
+                            <a href="#page1" data-transition="fade" data-theme="" data-icon="info"
+                            class="ui-btn-active ui-state-persist">
+                                Name Link
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page1" data-transition="fade" data-theme="" data-icon="">
+                                Autor
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page1" data-transition="fade" data-theme="e" data-icon="delete">
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3 id="OpcionesAbajo">
+            Opciones
+        </h3>
+    </div>
+</div>
+</body>
+</html>

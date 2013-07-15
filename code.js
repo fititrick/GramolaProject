@@ -9,7 +9,7 @@ $(document).ready(function(){
 	$( "#tabs-2" ).tabs();
 	$( "#tabsPerfil" ).tabs();
 	$( '#tabsPerfil' ).hide();
-
+	$('#div_BorrarLista').hide();
 	
 	
 	var lolailo=$("#TableLinks");
@@ -92,7 +92,7 @@ $(document).ready(function(){
 	function x(){
 		
 	}
-   $(logOut).click(function(){
+   $('.b_LogOut').click(function(){
    		$.ajax({
 			type:'POST', url: 'logOut.php',
 			success: function(response) {  	
@@ -481,6 +481,7 @@ $(document).ready(function(){
 				$('#Perfil').fadeIn();
 				$('#tabs2').fadeIn();
    				$('#ContactForm').find('.form_result').html(response);
+   				$('#pestanasPrincipales').hide();
    				$.ajax({        
 		             url:'lists.php',        
 		             type:'post',                 
@@ -508,6 +509,9 @@ $(document).ready(function(){
       			 //esta funcion ajax es distinta, ya que envía un parametro que tu has determinado
 		        this.muestraLinks = function muestraLinks(){            
 				  	var param= 'id=' + this.name;
+				  	
+				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
+				  	//alert(document.getElementById('b_BorrarLista').innerText);
 				  	$.ajax({        
 				             url:'links.php',        
 				             type:'post',                 
@@ -570,6 +574,7 @@ $(document).ready(function(){
 						            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 						            //una funcion que borre el link
 						            
+						            $('#div_BorrarLista').fadeIn();
 				            	};
 				            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
 				            	function reproductor(){
