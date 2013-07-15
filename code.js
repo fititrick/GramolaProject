@@ -10,12 +10,12 @@ $(document).ready(function(){
 	$( "#tabsPerfil" ).tabs();
 	$( '#tabsPerfil' ).hide();
 	$('#div_BorrarLista').hide();
-	
+	var playList;
 	
 	var lolailo=$("#TableLinks");
 	var tablePerfil=$("#TablePerfil");
-	$(lolailo).tablesorter();
-	$(tablePerfil).tablesorter();
+	
+	
 	// empty() function used when there is nothing entered
 	//$('#nameList').empty('');
 	
@@ -292,6 +292,14 @@ $(document).ready(function(){
 					
 			   });
 			   
+			   $.ajax({        
+		             url:'UpdateLinks.php',        
+		             type:'post',                 
+		             dataType:'html',           
+		             cache: false,            
+		             success:data2     
+		        }); 
+			   
 			  /* $('#urlLink').value='';
 			   $('#select-choice-1').value='';
 			   $('#number-pattern').value='';
@@ -311,7 +319,6 @@ $(document).ready(function(){
 			if(document.getElementsByName("TableLinks")){
 				//alert(this.getElementByName("button").getAttribute("value"));
 				alert($(document.getElementsByName("TableLinks")[0].childNodes[0].toString));
-				alert("pasa");
 			}
   		
   		});	
@@ -382,35 +389,24 @@ $(document).ready(function(){
 											 }     
 								        }); 
 				}
-				
-				
-				
-				
-		
+
   	}
-  	
-  	
-  	
-  	
-  	
-  	
-  	
 
     $(button).click(function(){
 	
-	if(document.getElementById("user").value.length < 3 && document.getElementById("user1").value.length< 3){
-		//alert("Your nick must have at least 3 letters");
-
-		//location.reload(true);
-				return false;
-	}
-	else if(document.getElementById("pass").value.length < 3 && document.getElementById("pass1").value.length < 3){
-		alert("Your password must have at least 3 letters");
-		alert(document.getElementById("user").value);
-
-		location.reload(true);
-	}
-	return false;
+		if(document.getElementById("user").value.length < 3 && document.getElementById("user1").value.length< 3){
+			//alert("Your nick must have at least 3 letters");
+	
+			//location.reload(true);
+					return false;
+		}
+		else if(document.getElementById("pass").value.length < 3 && document.getElementById("pass1").value.length < 3){
+			alert("Your password must have at least 3 letters");
+			alert(document.getElementById("user").value);
+	
+			location.reload(true);
+		}
+		return false;
 	
    });
   
@@ -491,7 +487,18 @@ $(document).ready(function(){
 		             success:data     
 		        }); 
 			}
-        
+   function playList(NSongs,FirstSong,LastSong){
+		  this.numberSongs = NSongs;
+		  this.firstSong = FirstSong;
+		  this.lastSong = LastSong;
+	}
+	function song(nombre,id,posList, nextSong, provider){
+		  this.nombre = nombre;
+		  this.link = id;
+		  this.posList = posList;
+		  this.nextSong=nextSong;
+		  this.provider=provider;
+	}
         //la funcion data mete en el onclick de los links funcionalidad
    function data (html) {
             var $html = $( html ); // create DOM elements in a jQuery object
@@ -512,6 +519,7 @@ $(document).ready(function(){
 				  	
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
+				  	 playList = new playList(0,null,null);
 				  	$.ajax({        
 				             url:'links.php',        
 				             type:'post',                 
@@ -520,114 +528,107 @@ $(document).ready(function(){
 				             cache: false,            
 				             success:data2     
 				        }); 
-				        function data2 (html2) {
-				            
-				            //$html.filter('.list').appendTo("#nameList");
-				            //$('#Links').find('#nameLinks').html(html);
-				            function cambiaOnClickLinks(){
-				            	this.change=function change(where){
-				            		where.innerHTML=html2;
-				            		//$('#Links').find('#nameLinks').html(html2);
-				            		//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
-				            		//vector almancena en cada casilla uno de esos elementos
-				            		//modifico su onclick para que llamen a la funcion reproductor
-				            		//vector.length te marca cuantas canciones hay
-				            		//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
-				            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
-				            		//ahora ve a funcion reproductor
-									var vector= document.getElementsByClassName('link');
-						            for(var i=0;i<vector.length;i++){
-						            	vector[i].onclick = reproductor;
-						            }
-						            var vector3=document.getElementsByClassName('buttonDelLink');
-						            for(var i=0;i<vector3.length;i++){
-						                  	vector3[i].onclick = deleteLink;
-						            }
-						            
-						              var vectorList=document.getElementsByClassName('buttonBList');
-						            for(var i=0;i<vectorList.length;i++){
-						                  	vectorList[i].onclick = deleteList;
-						            }
-						            
-						            
-						            
-						            var vector2= document.getElementsByClassName('linkIcon');
-						            //alert(vector2.length);
-						           //$('#providerTabla').text("adios");
-						          
-						            for(var j=0;j<vector2.length;j++){
-						            	//alert(vector2[j].innerText);
-						            	if(vector2[j].innerText=='youtube'){
-						            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
-						            	}
-						            	if(vector2[j].innerText=='goear'){
-						            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
-						            	}
-						            	if(vector2[j].innerText=='spotify'){
-						            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
-						            	}
-						            	if(vector2[j].innerText=='mp3'){
-						            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
-						            	}
-						            	
-						            }
-						            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
-						            //una funcion que borre el link
-						            
-						            $('#div_BorrarLista').fadeIn();
-				            	};
-				            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
-				            	function reproductor(){
-				            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
-				            		//el link que te llega al reproductor es this.name
-				            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
-				            		//al final de la reproduccion (algo que tienes que controlar porque nose como)
-				            		//llamarias recursivamete/o secuencialmente a esta funcion reproductor con la siguiente cancion y el mismo vector
-				            		//problemas: saber cuando termina de reproducirse
-				            		
-				            		var code;
-				            	 
-				            		switch(this.title)
-										{
-											
-										case "spotify":
-										   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
-										  break;
-										case "youtube":
-										   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
-										  break;
-										case "goear":
-										   code='<iframe width="560" height="315" src="http://www.goear.com/files/external.swf?file='+this.name+'" frameborder="1"></iframe>';
-										  break;
-										default:
-										   code='<iframe width="560" height="315" src="'+this.name+'" frameborder="1" allowfullscreen ></iframe>';
-									}
-				            		
-   										document.getElementById("player").innerHTML=code;
-   										/*
-   										function get_youtube_embed($youtube_video_id, $autoplay=true)
-										{
-											$embed_code = "";
-										 
-											if($autoplay)
-												$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1&autoplay=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="480" height="395" bgcolor="#ffffff" loop="false"></embed>';
-											else
-												$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="450" height="376" bgcolor="#ffffff" loop="false"></embed>';
-											return $embed_code;
-										}
-										*/
-  									 };
-				            }
-				            var objetoLinks = new cambiaOnClickLinks();
-				            objetoLinks.change(document.getElementById("Links"));
-				        }
+				        
 		        };
     		}
 		    var objeto2 = new cambiaOnClickListas();  
 		    objeto2.cambia(document.getElementById("div-clase2")); 
 		    
 		}
-  
+  		function data2 (html2) {
+				            
+	            //$html.filter('.list').appendTo("#nameList");
+	            //$('#Links').find('#nameLinks').html(html);
+	            function cambiaOnClickLinks(){
+	            	this.change=function change(where){
+	            		where.innerHTML="";
+	            		$('#TableLinks').append(html2);
+	            		//$('#Links').find('#nameLinks').html(html2);
+	            		//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
+	            		//vector almancena en cada casilla uno de esos elementos
+	            		//modifico su onclick para que llamen a la funcion reproductor
+	            		//vector.length te marca cuantas canciones hay
+	            		//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
+	            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
+	            		//ahora ve a funcion reproductor
+	            		
+						var vector= document.getElementsByClassName('link');
+						var vector3=document.getElementsByClassName('buttonDelLink');
+						var vectorList=document.getElementsByClassName('buttonBList');
+						var vector2= document.getElementsByClassName('linkIcon');
+						var vector4= document.getElementsByClassName('PosLinkInList');
+			            for(var i=0;i<vector.length;i++){
+			            	vector[i].onclick = reproductor;
+			            	vector3[i].onclick = deleteLink;
+			            	vectorList[i].onclick = deleteList;
+			            	if(vector2[j].innerText=='youtube'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
+			            	}
+			            	if(vector2[j].innerText=='goear'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
+			            	}
+			            	if(vector2[j].innerText=='spotify'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
+			            	}
+			            	if(vector2[j].innerText=='mp3'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
+			            	}
+			            	var song = new song(vector[i].text,vector[i].name,vector4[i], null,vector[i].title);
+			            	
+			            }
+			            //alert(vector2.length);
+			           //$('#providerTabla').text("adios");
+			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
+			            //una funcion que borre el link
+			            
+			            $('#div_BorrarLista').fadeIn();
+			            $("#TableLinks").tablesorter();
+	            	};
+	            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
+	            	function reproductor(){
+	            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
+	            		//el link que te llega al reproductor es this.name
+	            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
+	            		//al final de la reproduccion (algo que tienes que controlar porque nose como)
+	            		//llamarias recursivamete/o secuencialmente a esta funcion reproductor con la siguiente cancion y el mismo vector
+	            		//problemas: saber cuando termina de reproducirse
+	            		
+	            		var code;
+	            	 
+	            		switch(this.title)
+							{
+								
+							case "spotify":
+							   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
+							  break;
+							case "youtube":
+							   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+							  break;
+							case "goear":
+							   code='<iframe width="560" height="315" src="http://www.goear.com/files/external.swf?file='+this.name+'" frameborder="1"></iframe>';
+							  break;
+							default:
+							   code='<iframe width="560" height="315" src="'+this.name+'" frameborder="1" allowfullscreen ></iframe>';
+						}
+	            		
+							document.getElementById("player").innerHTML=code;
+							/*
+							function get_youtube_embed($youtube_video_id, $autoplay=true)
+							{
+								$embed_code = "";
+							 
+								if($autoplay)
+									$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1&autoplay=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="480" height="395" bgcolor="#ffffff" loop="false"></embed>';
+								else
+									$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="450" height="376" bgcolor="#ffffff" loop="false"></embed>';
+								return $embed_code;
+							}
+							*/
+						 };
+	            }
+	            var objetoLinks = new cambiaOnClickLinks();
+	            objetoLinks.change(document.getElementById("Links"));
+	        }
   		
 			
  });

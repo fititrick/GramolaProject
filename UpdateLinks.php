@@ -6,7 +6,6 @@ session_start();
 //comprueba que el usuario estaba autentificado
 if($_SESSION["autentificado"]=="SI"){
 	include "conexion.php";	
-	$_SESSION["NList"]=$_POST['id'];
 	$NList=$_SESSION["NList"];
 	$consulta ="SELECT name, posList, idLink, artist, genre, link, provider FROM links where idList=\"$NList\" order by posList";	
 	

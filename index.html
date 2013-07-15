@@ -8,6 +8,8 @@
 		<script type="text/javascript" src="./js/jquery.tablesorter.js"></script>
 		<script src="code.js" type="text/javascript"></script>
 		<link rel="stylesheet" href="./css/jquery-ui.css" />
+		<link rel="stylesheet" href="./css/tablesorter.css" type="text/css" id="" media="print, projection, screen" />
+
 		<head>
 			<script type="text/javascript" src="./js/detectmobilebrowser.js"></script>
 			<script src="./js/jquery-ui.js"></script>
@@ -118,10 +120,9 @@
 								<label for="basic">Links:</label>
 								<div  data-role="fieldcontain" style="width:100%; height:48%;overflow:scroll;">
 
-									<table id="TableLinks" BORDER=2 style="background-color:#2E64FE; color: white">
+									<table id="TableLinks" class="tablesorter" >
 										<thead>
 											<tr>
-
 												<th >
 												Name
 												</th>
@@ -137,24 +138,24 @@
 												Icon
 												</th>
 												<th >
+												Position in List
+												</th>
+												<th >
 												Delete
 												</th>
 											</tr>
 										</thead>
 										<tbody  id="Links" style="background-color: #A9E2F3; color:black" >
-
 										</tbody>
 									</table>
 
 								</div>
 
 							</div>
-							<div class="ui-block-b" id="div_BorrarLista" style="width: 10%;">
+							<div class="ui-block-c" id="div_BorrarLista" style="width: 10%;">
 								<button  id="b_BorrarLista" type="submit" title="Delete Actual List" data-theme="b" class="buttonBList"> DELETE LIST<br><img src="./images/eliminar32.png"></img></button>
 							</div>
-							<div class="ui-block-b" style="width: 10%" >
-
-							</div>
+							
 							<div class="ui-block-c ui-body-e" >
 								<div data-role:"content" data-theme="a">
 									<h4>New Link:</h4></a>
