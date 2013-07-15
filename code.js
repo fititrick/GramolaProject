@@ -487,7 +487,17 @@ $(document).ready(function(){
 		             success:data     
 		        }); 
 			}
-        
+   function playList(NSongs,FirstSong,LastSong){
+		  this.numberSongs = NSongs;
+		  this.firstSong = FirstSong;
+		  this.lastSong = LastSong;
+	}
+	function song(nombre,id,posList, nextSong){
+		  this.nombre = nombre;
+		  this.link = id;
+		  this.posList = posList;
+		  this.nextSong=nextSong;
+	}
         //la funcion data mete en el onclick de los links funcionalidad
    function data (html) {
             var $html = $( html ); // create DOM elements in a jQuery object
@@ -508,6 +518,7 @@ $(document).ready(function(){
 				  	
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
+//var playList = new playList(0,null,null);
 				  	$.ajax({        
 				             url:'links.php',        
 				             type:'post',                 
@@ -539,42 +550,45 @@ $(document).ready(function(){
 	            		//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
 	            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
 	            		//ahora ve a funcion reproductor
+	            			
 						var vector= document.getElementsByClassName('link');
-			            for(var i=0;i<vector.length;i++){
-			            	vector[i].onclick = reproductor;
-			            }
-			            var vector3=document.getElementsByClassName('buttonDelLink');
-			            for(var i=0;i<vector3.length;i++){
-			                  	vector3[i].onclick = deleteLink;
-			            }
-			            
-			              var vectorList=document.getElementsByClassName('buttonBList');
-			            for(var i=0;i<vectorList.length;i++){
-			                  	vectorList[i].onclick = deleteList;
-			            }
-			            
-			            
-			            
-			            var vector2= document.getElementsByClassName('linkIcon');
-			            //alert(vector2.length);
-			           //$('#providerTabla').text("adios");
-			          
-			            for(var j=0;j<vector2.length;j++){
-			            	//alert(vector2[j].innerText);
-			            	if(vector2[j].innerText=='youtube'){
-			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
-			            	}
-			            	if(vector2[j].innerText=='goear'){
-			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
-			            	}
-			            	if(vector2[j].innerText=='spotify'){
-			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
-			            	}
-			            	if(vector2[j].innerText=='mp3'){
-			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
-			            	}
-			            	
-			            }
+						            for(var i=0;i<vector.length;i++){
+						            	vector[i].onclick = reproductor;
+						            }
+						            var vector3=document.getElementsByClassName('buttonDelLink');
+						            for(var i=0;i<vector3.length;i++){
+						                  	vector3[i].onclick = deleteLink;
+						            }
+						            
+						              var vectorList=document.getElementsByClassName('buttonBList');
+						            for(var i=0;i<vectorList.length;i++){
+						                  	vectorList[i].onclick = deleteList;
+						            }
+						            
+						            
+						            
+						            var vector2= document.getElementsByClassName('linkIcon');
+						            //alert(vector2.length);
+						           //$('#providerTabla').text("adios");
+						          
+						            for(var j=0;j<vector2.length;j++){
+						            	//alert(vector2[j].innerText);
+						            	if(vector2[j].innerText=='youtube'){
+						            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
+						            	}
+						            	if(vector2[j].innerText=='goear'){
+						            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
+						            	}
+						            	if(vector2[j].innerText=='spotify'){
+						            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
+						            	}
+						            	if(vector2[j].innerText=='mp3'){
+						            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
+						            	}
+						            	
+						            }
+	            		
+	            	
 			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 			            //una funcion que borre el link
 			            
