@@ -45,6 +45,7 @@ $(document).ready(function(){
    var sendfile=$('#sendfile');
    var enviararchivo=$('#enviararchivo');
    
+   
    $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
 			success: function(response) { 
@@ -114,7 +115,7 @@ $(document).ready(function(){
 		 
    });
    
-   
+    
    
    $(cambiapass).click(function(){
 	
@@ -252,7 +253,22 @@ $(document).ready(function(){
 		   				
 					}
 			   });
+			   update();
+		     
+	   
 	});
+	function update(){
+   		$('#Links').hide();
+   	
+   		$.ajax({        
+		             url:'lists.php',        
+		             type:'post',                 
+		             dataType:'html',            
+		             cache: false,            
+		             success:data     
+		        }); 
+		     
+   }
 	$(LinkNew).click(function(){
 				
 		//aqui deberias de mirar con un if si el proveedor es youtube, solo en ese caso se hace el substring!
@@ -389,7 +405,7 @@ $(document).ready(function(){
 											 }     
 								        }); 
 				}
-
+				update();
   	}
   	
   	function setVote(){
@@ -470,19 +486,7 @@ $(document).ready(function(){
    });
    
    
-   $(BotonUpdate).click(function(){
-   	$('#Links').hide();
-   	
-   		$.ajax({        
-		             url:'lists.php',        
-		             type:'post',                 
-		             dataType:'html',            
-		             cache: false,            
-		             success:data     
-		        }); 
-		     
-   });
-   
+  
     $(login).click(function(){
 		$.ajax({
 			type:'POST', 

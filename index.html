@@ -22,69 +22,104 @@
 			
 			<div id="tabs" style="position:absolute; height: 100%; width: 100%; background-color: #F2F5A9">
 				
-				<ul style="background-color: #2E2E2E" id="pestanasPrincipales">
-					<li>
-						<a href="#tabs-1">Login</a>
-					</li>
-					<li>
-						<a id="desaparecer"  href="#tabs-2">Register</a>
-					</li>
-				</ul>
-				<div id="tabs-1" >
-					<div id="DLogin">
-						<form name="frpanel" id="login" method="post" >
-							<div data-role="footer" data-theme="a" class="ui-bar ui-grid-b">
-								<h1>LOGIN
-								<br>
-								</h1>
+					<ul style="background-color: #2E2E2E" id="pestanasPrincipales">
+						<li>
+							<a href="#tabs-1">Login</a>
+						</li>
+						<li>
+							<a id="desaparecer"  href="#tabs-2">Register</a>
+						</li>
+					</ul>
+					<div id="tabs-1" >
+						<div id="DLogin">
+							<form name="frpanel" id="login" method="post" >
+								<div data-role="footer" data-theme="a" class="ui-bar ui-grid-b">
+									<h1>LOGIN
+									<br>
+									</h1>
+									<div class="ui-block-a" >
+										<div data-role="fieldcontain">
+											<label for="basic">User:</label>
+											<input type="text" id="user" name="user" value="" data-mini="true" />
+										</div>
+									</div>
+									<div class="ui-block-b">
+										<div data-role="fieldcontain">
+											<label for="basic">Password:</label>
+											<input type="password" id="pass" name="pass" value="" data-mini="true" />
+										</div>
+									</div>
+									<div class="ui-block-c">
+										<div id="divBlogin" style="margin:6px 0 0 10px;">
+											<button id="BLogin" type="submit" data-theme="b" class="button">
+												LOGIN
+											</button>
+										</div>
+									</div>
+	
+	
+								</div>
+							</form>
+						</div>
+						
+						<div id="box">
+							
+							<form method="post" id="ContactForm">
+								<div style="position:absolute; left: 40%; top: 7%;width: 100%;height: 40%" >
+									<h4 class="form_result" style="color: black;"></h4>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div id="tabs-2" data-theme="a">
+						
+						<form name="frpanel" id="registro" method="post" >
+							<div data-role="footer" data-theme="a" class="ui-bar ui-grid-a">
 								<div class="ui-block-a" >
 									<div data-role="fieldcontain">
-										<label for="basic">User:</label>
-										<input type="text" id="user" name="user" value="" data-mini="true" />
+										<label for="basic">Nick:</label>
+										<input type="text" id="user1" name="user" value="" data-mini="true" />
 									</div>
 								</div>
 								<div class="ui-block-b">
 									<div data-role="fieldcontain">
 										<label for="basic">Password:</label>
-										<input type="password" id="pass" name="pass" value="" data-mini="true" />
+										<input type="password" id="pass1" name="pass" value="" data-mini="true" />
 									</div>
+	
 								</div>
 								<div class="ui-block-c">
-									<div id="divBlogin" style="margin:6px 0 0 10px;">
-										<button id="BLogin" type="submit" data-theme="b" class="button">
-											LOGIN
+									<div data-role="fieldcontain">
+										<label for="basic">E-MAIL:</label>
+										<input type="email" id="email" name="email" value="" data-mini="true" />
+									</div>
+	
+								</div>
+								<div class="ui-grid-d">
+									<div style="margin:6px 0 0 10px;">
+										<button id="register" type="submit" data-theme="b" class="button">
+											REGISTER
 										</button>
 									</div>
 								</div>
-
-
+	
 							</div>
 						</form>
-					</div>
-					
-					<div id="box">
-						
-						<form method="post" id="ContactForm">
-							<div style="position:absolute; left: 40%; top: 7%;width: 100%;height: 40%" >
-								<h4 class="form_result" style="color: black;"></h4>
-							</div>
-						</form>
+	
 					</div>
 				</div>
-				
-				<div id="tabs2" style="background-color:#F2F5A9;position: absolute; top: 1%; left: 1%; width: 96%; height: 100%; overflow: hidden">
+				<div id="tabs2" style="background-color:#F2F5A9;position: absolute; top: 1%; left: 1%; width: 96%; height: 100%; overflow: auto">
 					<ul style="background-color: #2E2E2E">
 						<li>
 							<a href="#tabs2-1">Lists</a>
 						</li>
-						<li>
-							<a href="#tabs2-5">New List</a>
-						</li>
+						
 						<li>
 							<a href="#tabs2-4">Player</a>
 						</li>
 					</ul>
 					<div id="tabs2-1" >
+						
 						<div id="Perfil"  style="position:absolute; left: 74.5%; top: 1.5%;">
 					
 						</div>
@@ -98,11 +133,7 @@
 				
 						
 					
-						<div style="margin:6px 0 0 10px;">
-							<button id="update" type="submit" data-theme="e" class="button">
-								UPDATE
-							</button>
-						</div>
+						
 						<div data-role="footer" data-theme="a" >
 
 							<div data-role="fieldcontain">
@@ -115,10 +146,10 @@
 
 						</div>
 
-						<div id="LinksContainer" data-role="footer" data-theme="a" class="ui-bar ui-grid-b" >
+						<div id="LinksContainer" data-role="footer"  >
 							<div class="ui-block-a ui-body-e"  >
 								<label for="basic">Links:</label>
-								<div  data-role="fieldcontain" style="width:100%; height:48%;overflow:scroll;">
+								<div  data-role="fieldcontain" style="width:100%; height:58%; overflow:scroll;">
 
 									<table id="TableLinks" class="tablesorter" >
 										<thead>
@@ -156,48 +187,61 @@
 								</div>
 
 							</div>
-							<div class="ui-block-b" id="div_BorrarLista" style="width: 10%;">
-								<button  id="b_BorrarLista" type="submit" title="Delete Actual List" data-theme="b" class="buttonBList"> DELETE LIST<br><img src="./images/eliminar32.png"></img></button>
-							</div>
 							
-							<div class="ui-block-c ui-body-e" >
-								<div data-role:"content" data-theme="a">
-									<h4>New Link:</h4></a>
+							<div class="ui-block-b" data-role="collapsible-set" data-content-theme="b">
+								<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Delete List</h3>
+										<div class="ui-grid-solo">
+									<div id="div_BorrarLista" class="ui-block-a" id="div_BorrarLista"><button  id="b_BorrarLista" type="submit" title="Delete Actual List" data-theme="b" class="buttonBList"> DELETE LIST<br><img src="./images/eliminar32.png"></img></button></div>
 								</div>
-								<form name="frpanel" id="divNewLink" method="post" >
-									<div data-role="fieldcontain" >
-										<label for="url">Link:</label>
-										<input type="url" name="urlLink" id="urlLink" value="" />
+								</div>
+								<div data-role="collapsible" data-theme="e" data-content-theme="e">
+									<h3>New Link</h3>
+										<form name="frpanel" id="divNewLink" method="post" >
+										<div data-role="fieldcontain" >
+											<label for="url">Link:</label>
+											<input type="url" name="urlLink" id="urlLink" value="" />
+										</div>
+	
+										<div data-role="fieldcontain">
+											<label for="select-choice-1" class="select">Select Provider</label>
+											<select data-theme="b" name="select-choice-1" id="select-choice-1">
+												<option  value="youtube">Youtube</option>
+												<option value="spotify">Spotify</option>
+												<option value="mp3">MP3</option>
+												<option value="goear">Goear</option>
+											</select>
+										</div>
+	
+										<div data-role="fieldcontain">
+											<label for="number-pattern">List Position</label>
+											<input type="number" name="position" pattern="[0-9]*" id="number-pattern" value="" placeholder="Pattern attribute [0-9]* for a numeric keypad" />
+										</div>
+	
+										<div data-role="fieldcontain">
+											<label for="text">Singer or Group name</label>
+											<input type="text" name="singer" id="singerLink" value="" />
+										</div>
+										<div data-role="fieldcontain">
+											<label for="text">Song Name</label>
+											<input type="text" name="songName" id="songNameLink" value="" />
+										</div>
+	
+									</form>
+									<a id="btnNewLink" data-role="button" data-theme="a" style="color:white;">Save</a>
+								</div>
+								
+								
+								
+									
+									<div data-role="collapsible" data-theme="e" data-content-theme="e">
+										<h3>New List</h3>
+										<input data-theme="a" id="txtNewList" type="text" name="name" id="basic" value='List name'  onblur="if(this.value == '') { this.value='List name'}" onfocus="if (this.value == 'List name') {this.value=''}" />
+										<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
 									</div>
-
-									<div data-role="fieldcontain">
-										<label for="select-choice-1" class="select">Select Provider</label>
-										<select data-theme="b" name="select-choice-1" id="select-choice-1">
-											<option  value="youtube">Youtube</option>
-											<option value="spotify">Spotify</option>
-											<option value="mp3">MP3</option>
-											<option value="goear">Goear</option>
-										</select>
-									</div>
-
-									<div data-role="fieldcontain">
-										<label for="number-pattern">List Position</label>
-										<input type="number" name="position" pattern="[0-9]*" id="number-pattern" value="" placeholder="Pattern attribute [0-9]* for a numeric keypad" />
-									</div>
-
-									<div data-role="fieldcontain">
-										<label for="text">Singer or Group name</label>
-										<input type="text" name="singer" id="singerLink" value="" />
-									</div>
-									<div data-role="fieldcontain">
-										<label for="text">Song Name</label>
-										<input type="text" name="songName" id="songNameLink" value="" />
-									</div>
-
-								</form>
-								<a id="btnNewLink" data-role="button" data-theme="a" style="color:white;">Save</a>
-
-							</div>
+								</div>					
+								
+							
 
 						</div>
 
@@ -206,49 +250,10 @@
 					<div id="tabs2-4">
 						<div id="player"></div>
 					</div>
-					<div id="tabs2-5" data-theme="a">
-						<input data-theme="a" id="txtNewList" type="text" name="name" id="basic" value='List name'  onblur="if(this.value == '') { this.value='List name'}" onfocus="if (this.value == 'List name') {this.value=''}" />
-						<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
-
-					</div>
-				</div>
-
-				<div id="tabs-2" data-theme="a">
 					
-					<form name="frpanel" id="registro" method="post" >
-						<div data-role="footer" data-theme="a" class="ui-bar ui-grid-a">
-							<div class="ui-block-a" >
-								<div data-role="fieldcontain">
-									<label for="basic">Nick:</label>
-									<input type="text" id="user1" name="user" value="" data-mini="true" />
-								</div>
-							</div>
-							<div class="ui-block-b">
-								<div data-role="fieldcontain">
-									<label for="basic">Password:</label>
-									<input type="password" id="pass1" name="pass" value="" data-mini="true" />
-								</div>
-
-							</div>
-							<div class="ui-block-c">
-								<div data-role="fieldcontain">
-									<label for="basic">E-MAIL:</label>
-									<input type="email" id="email" name="email" value="" data-mini="true" />
-								</div>
-
-							</div>
-							<div class="ui-grid-d">
-								<div style="margin:6px 0 0 10px;">
-									<button id="register" type="submit" data-theme="b" class="button">
-										REGISTER
-									</button>
-								</div>
-							</div>
-
-						</div>
-					</form>
-
 				</div>
+
+				
 				<div id="tabsPerfil" data-theme="a" style="background-color:#2E2E2E ;position: absolute; top: 1%; left: 1%; width: 99%; height: 90%;">
 					<div id="LogOut" style="position:absolute; left: 90%; top: 0%;">
 							
