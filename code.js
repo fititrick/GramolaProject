@@ -391,6 +391,39 @@ $(document).ready(function(){
 				}
 
   	}
+  	
+  	function setVote(){
+  			//definir funcion ajax que llame a setVote.php que has de crear, y pasas este numero como parametro
+  			
+  			 
+  			 	var param= 'numVote=' + this.name;
+  	
+				
+				if (confirm('Do you want to vote for this list?'))
+				{
+					$.ajax({        
+								             url:'setVote.php',        
+								             type:'post',                 
+								             dataType:'html',  
+								             data:param,          
+								             cache: false,            
+								             success: function (response) {
+															 alert(response);
+													/*if (response==true)
+													{
+														 alert('The vote was stablish');
+							
+													}				   
+													else
+													{
+														alert('The the vote wasn´t stablish');
+							
+													}*/
+											 }     
+								        }); 
+				}
+
+  	}
 
     $(button).click(function(){
 	
@@ -565,7 +598,10 @@ $(document).ready(function(){
 						                  	vectorList[i].onclick = deleteList;
 						            }
 						            
-						            
+						             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
+						            for(var i=0;i<vectorVotes.length;i++){
+						                  	vectorVotes[i].onclick = setVote;
+						            }
 						            
 						            var vector2= document.getElementsByClassName('linkIcon');
 						            //alert(vector2.length);
