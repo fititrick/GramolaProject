@@ -77,6 +77,10 @@ border: solid 1px #323D9F;
 border-color: #323D9F #3365B4 #3365B4 #3365B4;
 }
 
+.banana{
+	float: left;
+}
+
 #alert{ /* alert box */
 margin-left: 80%;
 width: 200px;
