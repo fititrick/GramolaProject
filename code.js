@@ -45,6 +45,7 @@ $(document).ready(function(){
    var sendfile=$('#sendfile');
    var enviararchivo=$('#enviararchivo');
    
+   
    $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
 			success: function(response) { 
@@ -114,7 +115,7 @@ $(document).ready(function(){
 		 
    });
    
-   
+    
    
    $(cambiapass).click(function(){
 	
@@ -252,7 +253,13 @@ $(document).ready(function(){
 		   				
 					}
 			   });
-			   
+			   update();
+		     
+	   
+	});
+	function update(){
+   		$('#Links').hide();
+   	
    		$.ajax({        
 		             url:'lists.php',        
 		             type:'post',                 
@@ -261,8 +268,7 @@ $(document).ready(function(){
 		             success:data     
 		        }); 
 		     
-	   
-	});
+   }
 	$(LinkNew).click(function(){
 				
 		//aqui deberias de mirar con un if si el proveedor es youtube, solo en ese caso se hace el substring!
@@ -399,7 +405,7 @@ $(document).ready(function(){
 											 }     
 								        }); 
 				}
-
+				update();
   	}
 
     $(button).click(function(){
