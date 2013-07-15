@@ -252,6 +252,16 @@ $(document).ready(function(){
 		   				
 					}
 			   });
+			   
+   		$.ajax({        
+		             url:'lists.php',        
+		             type:'post',                 
+		             dataType:'html',            
+		             cache: false,            
+		             success:data     
+		        }); 
+		     
+	   
 	});
 	$(LinkNew).click(function(){
 				
@@ -437,19 +447,7 @@ $(document).ready(function(){
    });
    
    
-   $(BotonUpdate).click(function(){
-   	$('#Links').hide();
-   	
-   		$.ajax({        
-		             url:'lists.php',        
-		             type:'post',                 
-		             dataType:'html',            
-		             cache: false,            
-		             success:data     
-		        }); 
-		     
-   });
-   
+  
     $(login).click(function(){
 		$.ajax({
 			type:'POST', 
