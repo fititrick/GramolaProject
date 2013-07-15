@@ -26,6 +26,14 @@ if($_SESSION["autentificado"]=="SI"){
 			 echo '<td WIDTH=100>'.$row[4].'</td>';
 			 echo '<td class="linkIcon">'.$row[6].'</td>';
 			 echo '<td class="PosLinkInList">'.$row[1].'</td>';
+			 echo '<td><div class:"votePanel">
+			 			<button id="banana1"  title= "1 banana"  name="1" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
+			 			<button id="banana2"  title= "2 bananas" name="2" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
+			 			<button id="banana3"  title= "3 bananas" name="3" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
+			 			<button id="banana4"  title= "4 bananas" name="4" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
+			 			<button id="banana5"  title= "5 bananas" name="5" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
+			 			
+			 	   </td> ';
 			 echo '<td><button id="b_BorrarLink"  title= "Delete" name="'.$row[2].'" type="submit" value= "'.$i.'" data-theme="b" class="buttonDelLink"><target="_blank"> <img src="./images/eliminar32.png"></img></button></td></tr>';
 			//aqui habria que meter un nuevo elemento de la tabla que sea la x para borrar con otra classe
 			
