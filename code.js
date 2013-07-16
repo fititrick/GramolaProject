@@ -269,7 +269,6 @@ $(document).ready(function(){
 			var finalId=document.getElementById("urlLink").value
 			
 			var c13=document.getElementById("urlLink").value.substring(12,13);
-			alert(c13);
 			if(c13=="."){
 				finalId=document.getElementById("urlLink").value.substring(16);
 				alert(finalId);
@@ -280,45 +279,33 @@ $(document).ready(function(){
 				document.getElementById("urlLink").value=finalId;
 			}			
 		}
-			   $.ajax({
-			   		type:'POST',
-			   		url: 'newLink.php',
-			   		data:$('#divNewLink').serialize(),
-			   		success: function(response) {  	
-		   				$('#ContactForm').find('.form_result').html(response);
-		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
-		   				document.getElementById("urlLink").value="";
-		   				document.getElementById("number-pattern").value="";
-		   				document.getElementById("singerLink").value="";	
-		   				document.getElementById("songNameLink").value="";			
-			
+	   $.ajax({
+	   		type:'POST',
+	   		url: 'newLink.php',
+	   		data:$('#divNewLink').serialize(),
+	   		success: function(response) {  	
+   				$('#ContactForm').find('.form_result').html(response);
+ //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
+   				document.getElementById("urlLink").value="";
+   				document.getElementById("number-pattern").value="";
+   				document.getElementById("singerLink").value="";	
+   				document.getElementById("songNameLink").value="";			
+	
 
-		   				
-					}
-					
-			   });
+   				
+			}
+			
+	   });
+	   
+	   $.ajax({        
+             url:'links.php',        
+             type:'post',                 
+             dataType:'html',           
+             cache: false,            
+             success:data2     
+        }); 
 			   
-			   $.ajax({        
-		             url:'UpdateLinks.php',        
-		             type:'post',                 
-		             dataType:'html',           
-		             cache: false,            
-		             success:data2     
-		        }); 
-			   
-			  /* $('#urlLink').value='';
-			   $('#select-choice-1').value='';
-			   $('#number-pattern').value='';
-			   $('#singerLink').value='';
-			   $('#Links').hide();
-			   $.ajax({        
-				             url:'links2.php',        
-				             type:'post',                 
-				             dataType:'html',  
-				             cache: false,            
-				             success:data2
-					   
-				        }); */
+			 
 	});
 		
 		$(TableLinks).click(function(){
@@ -499,42 +486,44 @@ $(document).ready(function(){
 		           var vector= document.getElementsByClassName('list');
 		       
 		            for(var i=0;i<vector.length;i++){
-		            	vector[i].onclick = this.muestraLinks;     
+		            	vector[i].onclick = muestraLinks;     
 		            	$(vector[i]).css("background-color","FFCC66");  
 		            }
                        
       			 };
       			 //esta funcion ajax es distinta, ya que envía un parametro que tu has determinado
-		        this.muestraLinks = function muestraLinks(){   
-		        	var vector= document.getElementsByClassName('list');
-		       
-		            for(var i=0;i<vector.length;i++){
-		            	$(vector[i]).css("background-color","FFCC66");  
-		            	             
-		            }
-		        	 $(this).css("background-color","lightgreen");           
-				  	var param= 'id=' + this.name;
-				  	
-				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
-				  	//alert(document.getElementById('b_BorrarLista').innerText);
-//var playList = new playList(0,null,null);
-				  	$.ajax({        
-				             url:'links.php',        
-				             type:'post',                 
-				             dataType:'html',  
-				             data:param,          
-				             cache: false,            
-				             success:data2     
-				        }); 
-				        
-		        };
+		        
     		}
 		    var objeto2 = new cambiaOnClickListas();  
 		    objeto2.cambia(document.getElementById("div-clase2")); 
 		    
 		}
-  		function data2 (html2) {
+		function muestraLinks(){   
+	    	var vector= document.getElementsByClassName('list');
+	   
+	        for(var i=0;i<vector.length;i++){
+	        	$(vector[i]).css("background-color","FFCC66");  
+	        	             
+	        }
+	    	 $(this).css("background-color","lightgreen");           
+		  	var param= 'id=' + this.name;
+		  	
+		  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
+		  	//alert(document.getElementById('b_BorrarLista').innerText);
+	//var playList = new playList(0,null,null);
+		  	$.ajax({        
+		             url:'links.php',        
+		             type:'post',                 
+		             dataType:'html',  
+		             data:param,          
+		             cache: false,            
+		             success:data2     
+		        }); 
 				        
+		}
+  		function data2 (html2) {
+				var objetoLinks = new cambiaOnClickLinks();
+	            objetoLinks.change(document.getElementById("Links"));
 	            //$html.filter('.list').appendTo("#nameList");
 	            //$('#Links').find('#nameLinks').html(html);
 	            function cambiaOnClickLinks(){
@@ -551,46 +540,44 @@ $(document).ready(function(){
 	            		//ahora ve a funcion reproductor
 	            			
 						var vector= document.getElementsByClassName('link');
-						            for(var i=0;i<vector.length;i++){
-						            	vector[i].onclick = reproductor;
-						            }
-						            var vector3=document.getElementsByClassName('buttonDelLink');
-						            for(var i=0;i<vector3.length;i++){
-						                  	vector3[i].onclick = deleteLink;
-						            }
-						            
-						              var vectorList=document.getElementsByClassName('buttonBList');
-						            for(var i=0;i<vectorList.length;i++){
-						                  	vectorList[i].onclick = deleteList;
-						            }
-						            
-						            
-						            
-						            var vector2= document.getElementsByClassName('linkIcon');
-						            //alert(vector2.length);
-						           //$('#providerTabla').text("adios");
-						          
-						            for(var j=0;j<vector2.length;j++){
-						            	//alert(vector2[j].innerText);
-						            	if(vector2[j].innerText=='youtube'){
-						            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
-						            	}
-						            	if(vector2[j].innerText=='goear'){
-						            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
-						            	}
-						            	if(vector2[j].innerText=='spotify'){
-						            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
-						            	}
-						            	if(vector2[j].innerText=='mp3'){
-						            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
-						            	}
-						            	
-						            }
-	            		
-	            	
+			            for(var i=0;i<vector.length;i++){
+			            	vector[i].onclick = reproductor;
+			            	//alert(vector[i].name);
+			            }
+			            var vector3=document.getElementsByClassName('buttonDelLink');
+			            for(var i=0;i<vector3.length;i++){
+			                  	vector3[i].onclick = deleteLink;
+			            }
+			            
+			              var vectorList=document.getElementsByClassName('buttonBList');
+			            for(var i=0;i<vectorList.length;i++){
+			                  	vectorList[i].onclick = deleteList;
+			            }
+			            
+			            
+			            
+			            var vector2= document.getElementsByClassName('linkIcon');
+			            //alert(vector2.length);
+			           //$('#providerTabla').text("adios");
+			          
+			            for(var j=0;j<vector2.length;j++){
+			            	//alert(vector2[j].innerText);
+			            	if(vector2[j].innerText=='youtube'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
+			            	}
+			            	if(vector2[j].innerText=='goear'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
+			            	}
+			            	if(vector2[j].innerText=='spotify'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
+			            	}
+			            	if(vector2[j].innerText=='mp3'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
+			            	}
+			            	
+			            }
 			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 			            //una funcion que borre el link
-			            
 			            $('#div_BorrarLista').fadeIn();
 			            $("#TableLinks").tablesorter();
 	            	};
@@ -636,8 +623,7 @@ $(document).ready(function(){
 							*/
 						 };
 	            }
-	            var objetoLinks = new cambiaOnClickLinks();
-	            objetoLinks.change(document.getElementById("Links"));
+	            
 	        }
   		
 			
