@@ -398,8 +398,7 @@ $(document).ready(function(){
   	function setVote(){
   			//definir funcion ajax que llame a setVote.php que has de crear, y pasas este numero como parametro
   			
-  			 
-  			 	var param= 'numVote=' + this.name + 'idLink=' + this.title;
+  			 	var param= "numVote=" + this.name + "&idLink=" + this.title;
 					alert(param);
 				if (confirm('Do you want to vote for this list?'))
 				{
