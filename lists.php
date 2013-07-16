@@ -19,9 +19,9 @@ if($_SESSION["autentificado"]=="SI"){
 	    	 //$line = '<div id="list'.$var.'">'.$row[0].', list nº: '.$row[0].'</div>';	
 
 	    	$line = '<button id="Lista'.$row[1].'" name='.$row[1].' title='.$row[0].' class="list" href="#" >list nº: '.$row[1].' <br> '.$row[0].'</button>';
+		
 			
-			
-			echo $line;
+			echo "$line";
 		}
 	}
 }

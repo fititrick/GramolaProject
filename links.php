@@ -34,7 +34,7 @@ if($_SESSION["autentificado"]=="SI"){
 			 			<button id="banana3"  title= "'.$row[2].'" name="3" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
 			 			<button id="banana4"  title= "'.$row[2].'" name="4" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
 			 			<button id="banana5"  title= "'.$row[2].'" name="5" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
-			 			
+			 			</div>
 			 	   </td> ';
 			 echo '<td><button id="b_BorrarLink"  title= "Delete" name="'.$row[2].'" type="submit" value= "'.$i.'" data-theme="b" class="buttonDelLink"><target="_blank"> <img src="./images/eliminar32.png"></img></button></td></tr>';
 			//aqui habria que meter un nuevo elemento de la tabla que sea la x para borrar con otra classe
