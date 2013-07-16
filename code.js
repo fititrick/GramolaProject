@@ -60,12 +60,9 @@ $(document).ready(function(){
 								success:function(response){
 								$('#Perfil').html(response);
 								
-								//var otroVector=document.getElementByClass('BotonProfile1');
 								document.getElementById('Perfil5').onclick=mainProfile;
 								
-								//alert("tal "+document.getElementById('Perfil1').onclick);
-								//document.getElementById('Perfil1').hide();
-								//document.getElementById('Perfil1').fadeIn();
+							
 								}
 							});
 							}
@@ -90,9 +87,7 @@ $(document).ready(function(){
 									});
 															
 								}
-	function x(){
-		
-	}
+	
    $('.b_LogOut').click(function(){
    		$.ajax({
 			type:'POST', url: 'logOut.php',
@@ -122,7 +117,8 @@ $(document).ready(function(){
 		   			document.getElementById("actualpass").value="";	
 		   			document.getElementById("newpass").value="";	
 					document.getElementById("confnewpass").value="";
-   				//location.reload(true);
+	   				alert("tu pass ha sido cambiado");	
+	   				location.reload(true);
 
 			},
 			error: function (response) {
@@ -143,15 +139,29 @@ $(document).ready(function(){
 			url: 'changeNick.php', 
 			data:$('#changeNick').serialize(),
 			cache: false,
-			success: function(response) {  	
-   				$('#ContactForm').find('.form_result').html(response);
-   					document.getElementById("nickpass").value="";
-		   			document.getElementById("newnickpass").value="";
+			success: function(response) {
+				document.getElementById("newnickpass").value="";
 		   			document.getElementById("confnewnick").value="";	
-		   			document.getElementById("actualpassnick").value="";	
-   				//location.reload(true);
+		   			document.getElementById("actualpassnick").value="";  
+				alert(response);	
+		   			
+		   			$.ajax({
+								type:'POST',
+								url:'profileButton.php',
+								success:function(response){
+								$('#Perfil').html(response);
+								
+								document.getElementById('Perfil5').onclick=mainProfile;
+								
+							
+								}
+							});
+   						//location.reload(true);
+   						
+   				
 
 			},
+			
 			error: function (response) {
                         alert(response.responseText);
             },
@@ -177,7 +187,8 @@ $(document).ready(function(){
 		   			document.getElementById("newemail").value="";
 		   			document.getElementById("confnewemail").value="";	
 		   			document.getElementById("actualpassemail").value="";	
-   				//location.reload(true);
+		   			alert("tu email ha sido cambiado");	
+   				location.reload(true);
 
 			},
 			error: function (response) {

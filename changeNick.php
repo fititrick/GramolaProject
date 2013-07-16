@@ -6,7 +6,7 @@
  * Solución: añadir el campo nick, y que se inserte manualmente*/
 
 header("Content-Type: text/html;charset=utf-8");
-if(!empty($_POST['nickpass']) && !empty($_POST['newnickpass']) && !empty($_POST['confnewnick']) && !empty($_POST['actualpassnick'])){
+if( !empty($_POST['newnickpass']) && !empty($_POST['confnewnick']) && !empty($_POST['actualpassnick'])){
 	include "conexion.php";	
 	session_start();
 
@@ -45,12 +45,10 @@ $result1=mysqli_query($conexion,$consulta1) ;
 		echo "o encontrado o mas de uno";
  		exit();
 	}
-
-include "close_conexion.php";
+$_SESSION["nick"]=$newnickpass;
 }
 else{
 	echo "Error en los datos\n";
-	echo $_POST['nickpass'];
 	echo $_POST['newnickpass'];
 	
 }

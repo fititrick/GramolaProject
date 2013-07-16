@@ -4,6 +4,8 @@ include "conexion.php";
 session_start(); 
 $nickpass=$_SESSION["nick"];
 
+	
+
 	$consulta ="SELECT imgPerfil FROM users where nick=\"$nickpass\" ";	
 	$result=mysqli_query($conexion, $consulta) ;
 	if (mysqli_num_rows($result)==1){
@@ -14,10 +16,8 @@ $nickpass=$_SESSION["nick"];
 		}
 	}
 	
-	/*<button id="Perfil1" type="submit" data-theme="e" >					<input type="image" border="3" style color="#000000" src="http://imgs.tuts.dragoart.com/how-to-draw-pokemon_1_000000011348_5.jpg" width="35"  name="image"> 
+	
 
-						Welcome
-					</button>*/
-
+	include "close_conexion.php";
 
 ?>
