@@ -648,7 +648,6 @@ $(document).ready(function(){
 						            }
 	            		
 	            	
->>>>>>> f62639a7dcf4edd58a8d287802d354602ce40ff4
 			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 			            //una funcion que borre el link
 			            $('#div_BorrarLista').fadeIn();
