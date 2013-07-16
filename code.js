@@ -318,19 +318,7 @@ $(document).ready(function(){
 		             success:data2     
 		        }); 
 			   
-			  /* $('#urlLink').value='';
-			   $('#select-choice-1').value='';
-			   $('#number-pattern').value='';
-			   $('#singerLink').value='';
-			   $('#Links').hide();
-			   $.ajax({        
-				             url:'links2.php',        
-				             type:'post',                 
-				             dataType:'html',  
-				             cache: false,            
-				             success:data2
-					   
-				        }); */
+			 
 	});
 		
 		$(TableLinks).click(function(){
