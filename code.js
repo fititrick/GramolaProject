@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	// hide alert boxes
+
 	$('#LogOut').hide();
 	$('#Perfil').hide();
 	$('#MainPage').hide();
@@ -107,15 +107,6 @@ $(document).ready(function(){
 		});
 		 
    });
-   
-   	
-   
-   $(Perfil).click(function(){
-   		
-		 
-   });
-   
-    
    
    $(cambiapass).click(function(){
 	
@@ -250,14 +241,13 @@ $(document).ready(function(){
 			   		data:$('#txtNewList').serialize(),
 			   		success: function(response) {  	
 		   				$('#ContactForm').find('.form_result').html(response);
-		   				
 					}
 			   });
-			   update();
+			   updateLists();
 		     
 	   
 	});
-	function update(){
+	function updateLists(){
    		$('#Links').hide();
    	
    		$.ajax({        
@@ -378,11 +368,7 @@ $(document).ready(function(){
   	
   	  	function deleteList(){
   			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
-  			
-  			 
   			 	var param= 'idLinkBorrar=' + this.name;
-  	
-				
 				if (confirm('Do you want to remove this list?'))
 				{
 					$.ajax({        
@@ -404,8 +390,9 @@ $(document).ready(function(){
 													}
 											 }     
 								        }); 
+				updateLists();
 				}
-				update();
+				
   	}
   	
   	function setVote(){
@@ -545,11 +532,19 @@ $(document).ready(function(){
 		       
 		            for(var i=0;i<vector.length;i++){
 		            	vector[i].onclick = this.muestraLinks;     
+		            	$(vector[i]).css("background-color","FFCC66");  
 		            }
                        
       			 };
       			 //esta funcion ajax es distinta, ya que envía un parametro que tu has determinado
-		        this.muestraLinks = function muestraLinks(){            
+		        this.muestraLinks = function muestraLinks(){   
+		        	var vector= document.getElementsByClassName('list');
+		       
+		            for(var i=0;i<vector.length;i++){
+		            	$(vector[i]).css("background-color","FFCC66");  
+		            	             
+		            }
+		        	 $(this).css("background-color","lightgreen");           
 				  	var param= 'id=' + this.name;
 				  	
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
@@ -571,7 +566,7 @@ $(document).ready(function(){
 		    
 		}
   		function data2 (html2) {
-				            
+				        
 	            //$html.filter('.list').appendTo("#nameList");
 	            //$('#Links').find('#nameLinks').html(html);
 	            function cambiaOnClickLinks(){
