@@ -381,6 +381,38 @@ $(document).ready(function(){
 				}
 				
   	}
+  	
+  	function setVote(){
+  			//definir funcion ajax que llame a setVote.php que has de crear, y pasas este numero como parametro
+  			
+  			 
+  			 	var param= 'numVote=' + this.name + 'idLink=' + this.title;
+					alert(param);
+				if (confirm('Do you want to vote for this list?'))
+				{
+					$.ajax({        
+								             url:'setVote.php',        
+								             type:'post',                 
+								             dataType:'html',  
+								             data:param,         
+								             cache: false,            
+								             success: function (response) {
+															 alert(response);
+													/*if (response==true)
+													{
+														 alert('The vote was stablish');
+							
+													}				   
+													else
+													{
+														alert('The the vote wasn´t stablish');
+							
+													}*/
+											 }     
+								        }); 
+				}
+
+  	}
 
     $(button).click(function(){
 	
@@ -576,6 +608,47 @@ $(document).ready(function(){
 			            	}
 			            	
 			            }
+						            for(var i=0;i<vector.length;i++){
+						            	vector[i].onclick = reproductor;
+						            }
+						            var vector3=document.getElementsByClassName('buttonDelLink');
+						            for(var i=0;i<vector3.length;i++){
+						                  	vector3[i].onclick = deleteLink;
+						            }
+						            
+						              var vectorList=document.getElementsByClassName('buttonBList');
+						            for(var i=0;i<vectorList.length;i++){
+						                  	vectorList[i].onclick = deleteList;
+						            }
+						            
+						             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
+						            for(var i=0;i<vectorVotes.length;i++){
+						                  	vectorVotes[i].onclick = setVote;
+						            }
+						            
+						            var vector2= document.getElementsByClassName('linkIcon');
+						            //alert(vector2.length);
+						           //$('#providerTabla').text("adios");
+						          
+						            for(var j=0;j<vector2.length;j++){
+						            	//alert(vector2[j].innerText);
+						            	if(vector2[j].innerText=='youtube'){
+						            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
+						            	}
+						            	if(vector2[j].innerText=='goear'){
+						            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
+						            	}
+						            	if(vector2[j].innerText=='spotify'){
+						            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
+						            	}
+						            	if(vector2[j].innerText=='mp3'){
+						            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
+						            	}
+						            	
+						            }
+	            		
+	            	
+>>>>>>> f62639a7dcf4edd58a8d287802d354602ce40ff4
 			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 			            //una funcion que borre el link
 			            $('#div_BorrarLista').fadeIn();
