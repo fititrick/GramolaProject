@@ -9,14 +9,35 @@
 		<script src="code.js" type="text/javascript"></script>
 		<link rel="stylesheet" href="./css/jquery-ui.css" />
 		<link rel="stylesheet" href="./css/tablesorter.css" type="text/css" id="" media="print, projection, screen" />
+<script>
+		
+		
+		function colorImg(x){
+			var vector=document.getElementsByClassName('boton');
+			
+			for(var i=0; i<vector[x.name-1].name ;i++){
+				vector[i].src="./images/fotoPlatano32.png";
+			}
+		
+		}
 
+		function normalImg(x){
+			var vector=document.getElementsByClassName('boton');
+			
+			for(var i=0; i<vector[x.name-1].name ;i++){
+				vector[i].src="./images/fotoPlatano32_dark.png";
+			}
+				
+		}
+		
+		</script>
 		<head>
 			<script type="text/javascript" src="./js/detectmobilebrowser.js"></script>
 			<script src="./js/jquery-ui.js"></script>
 			 <link rel="stylesheet" href="./messi/messi.min.css" />
 			<script src="./messi/messi.js"></script>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+			
 		</head>
 		<body>
 			

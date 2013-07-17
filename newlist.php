@@ -14,7 +14,7 @@ if(isset($_POST['name'])){
 				 		echo "<p>No se pudo efectuar</p>, error en los datos\n";
 					}
 				 else{
-				    echo "<p>Lista insertada</p>\n";
+				    echo "Lista insertada\n";
 	
 				  } 	
 			}
