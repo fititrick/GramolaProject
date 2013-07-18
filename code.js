@@ -75,21 +75,21 @@ $(document).ready(function(){
 			}
 		});
 		function mainProfile(){
-									$.ajax({
-										type:'POST',
-										 url: 'Perfil.php',
-										success: function(response) { 
-											$('#tabs2').hide();	
-											$('#Perfil').hide();
-											$('#MainPage').fadeIn();
-											$('#tabsPerfil').fadeIn();
-											$('#PerfilContainer').html(response);		
-											             
-							   				
-										}
-									});
-															
-								}
+			$.ajax({
+				type:'POST',
+				 url: 'Perfil.php',
+				success: function(response) { 
+					$('#tabs2').hide();	
+					$('#Perfil').hide();
+					$('#MainPage').fadeIn();
+					$('#tabsPerfil').fadeIn();
+					$('#PerfilContainer').html(response);		
+					             
+	   				
+				}
+			});
+									
+		}
 	
    $('.b_LogOut').click(function(){
    		$.ajax({
@@ -535,7 +535,6 @@ $(document).ready(function(){
 				$('#LogOut').fadeIn();
 				$('#Perfil').fadeIn();
 				$('#tabs2').fadeIn();
-   				$('#ContactForm').find('.form_result').html(response);
    				$('#pestanasPrincipales').hide();
    				$.ajax({        
 		             url:'lists.php',        
@@ -568,7 +567,7 @@ $(document).ready(function(){
 		       
 		            for(var i=0;i<vector.length;i++){
 		            	vector[i].onclick = this.muestraLinks;     
-		            	$(vector[i]).css("background-color","FFCC66");  
+		            	$(vector[i]).css("background-color","lightgreen");  
 		            }
                        
       			 };
@@ -577,10 +576,10 @@ $(document).ready(function(){
 		        	var vector= document.getElementsByClassName('list');
 		       
 		            for(var i=0;i<vector.length;i++){
-		            	$(vector[i]).css("background-color","FFCC66");  
+		            	$(vector[i]).css("background-color","lightgreen");  
 		            	             
 		            }
-		        	 $(this).css("background-color","lightgreen");           
+		        	 $(this).css("background-color","green");           
 				  	var param= 'id=' + this.name;
 				  	
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";

@@ -1,14 +1,49 @@
 <html>
 
 	<head>
+		<title>gramola.sytes.es share your music</title>
+  <meta name="title" content="gramola.sytes.es share your music" />
+  <meta name="description" content="Número 1 en compartir musica">
+	<meta name="keywords" content="Moda, cine, famosos, información internacional, cine, música, gastronomía, cocina, pasarelas, belleza, niños, hombres, imágenes de todos los desfiles, exclusivas, noticias, el tiempo, programación televisión, horóscopo, sociedad, novias, realeza, famosos" />
+	<meta name="origen" content="gramola.sytes.net" />
+	<meta name="author" content="gramola.sytes.net" />
+	<meta name="DC.Creator" content="gramola.sytes.net" />
+	<meta name="organization" content="gramola.sytes.net" />
+	<meta name="subject" content="noticias" />
+	<meta name="Classification" content="World, Español, Regional, Europa, España, Noticias y medios, Revistas" />
+	<meta name="DC.Language" scheme="RFC1766" content="Spanish" />
+	<meta http-equiv="Content-Language" content="es" />
+	<meta name="lang" content="es" />
+	<meta name="Locality" content="Madrid, Espa&ntilde;a" />
+	<meta name="VW96.objecttype" content="Homepage" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="refresh" content="900" />
+	<meta name="distribution" content="global" />
+	<meta name="resource-type" content="document" />
+	
 		<link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
+		<link rel="stylesheet" href="./css/jquery-ui.css" />
+		<link rel="stylesheet" href="./css/tablesorter.css" type="text/css" media="print, projection, screen" />
+		<link rel="stylesheet" href="./messi/messi.min.css" />
+		<link rel="stylesheet" href="./css/qrCss.css" />
+		
+		<script src="./messi/messi.js"></script>
 		<script src="./js/jquery-2.0.2.min.js" type="text/javascript"></script>
 		<script src="./js/jquery.mobile-1.3.1.js"></script>
 		<script type="text/javascript" src="./js/jquery.js"></script>
 		<script type="text/javascript" src="./js/jquery.tablesorter.js"></script>
 		<script src="code.js" type="text/javascript"></script>
-		<link rel="stylesheet" href="./css/jquery-ui.css" />
-		<link rel="stylesheet" href="./css/tablesorter.css" type="text/css" id="" media="print, projection, screen" />
+		<script src="./js/qr.js" type="text/javascript"></script>
+		<script type="text/javascript" src="./js/jquery.qrcode-0.4.js"></script>
+		<script type="text/javascript" src="./js/jquery.qrcode-0.4.min.js"></script>
+		<script type="text/javascript" src="./js/detectmobilebrowser.js"></script>
+		<script src="./js/jquery-ui.js"></script>
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+		
+		
 <script>
 		
 		
@@ -45,16 +80,9 @@
 		}
 		
 		</script>
-		<head>
-			<script type="text/javascript" src="./js/detectmobilebrowser.js"></script>
-			<script src="./js/jquery-ui.js"></script>
-			 <link rel="stylesheet" href="./messi/messi.min.css" />
-			<script src="./messi/messi.js"></script>
-			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-			
-		</head>
+</head>
 		<body>
-			
+		<div data-role="page" id="p_index">	
 			<div id="tabs" style="position:absolute; height: 100%; width: 100%; background-color: #F2F5A9">
 				
 					<ul style="background-color: #2E2E2E" id="pestanasPrincipales">
@@ -141,7 +169,6 @@
 						<li>
 							<a href="#tabs2-1">Lists</a>
 						</li>
-						
 						<li>
 							<a href="#tabs2-4">Player</a>
 						</li>
@@ -178,7 +205,7 @@
 							<div class="ui-block-a ui-body-a"  >
 								<label for="basic">Links:</label>
 								
-								<div  data-role="fieldcontain" style="width:100%; height:60%; overflow:scroll;">
+								<div  data-role="fieldcontain" style="width:100%; height:58%; overflow:scroll;">
 
 									<table id="TableLinks" class="tablesorter" >
 										<thead>
@@ -240,7 +267,7 @@
 								</div>
 								</div>
 								
-								<div data-role="collapsible" data-theme="e" data-content-theme="e">
+								<div data-role="collapsible" data-theme="e" data-content-theme="e" style="font-size: 13">
 									<h3>New Link</h3>
 										<form name="frpanel" id="divNewLink" method="post" >
 										<div data-role="fieldcontain" >
@@ -248,8 +275,8 @@
 											<input type="url" name="urlLink" id="urlLink" value="" />
 										</div>
 	
-										<div data-role="fieldcontain">
-											<label for="select-choice-1" class="select">Select Provider</label>
+										<div data-role="fieldcontain" >
+											<label for="select-choice-1" style="font-size: 13" >Select Provider</label>
 											<select data-theme="b" name="select-choice-1" id="select-choice-1">
 												<option  value="youtube">Youtube</option>
 												<option value="spotify">Spotify</option>
@@ -259,8 +286,8 @@
 										</div>
 	
 										<div data-role="fieldcontain">
-											<label for="number-pattern">List Position</label>
-											<input type="number" name="position" pattern="[0-9]*" id="number-pattern" value="" placeholder="Pattern attribute [0-9]* for a numeric keypad" />
+											<label for="number-pattern" style="font-size: 13">List Position</label>
+											<input type="number" min="0" name="position" pattern="[0-9]*" id="number-pattern" value="" placeholder="Pattern attribute [0-9]* for a numeric keypad" />
 										</div>
 	
 										<div data-role="fieldcontain">
@@ -281,6 +308,18 @@
 										<input data-theme="a" id="txtNewList" type="text" name="name" id="basic" value='List name'  onblur="if(this.value == '') { this.value='List name'}" onfocus="if (this.value == 'List name') {this.value=''}" />
 										<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
 									</div>
+									<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Generate QR</h3>
+										<div class="ui-grid-solo">
+									<div id="div_genQR" class="ui-block-a"><button  id="b_Qr" type="submit" title="Generate QR" data-theme="b" class="lightbox"> Generate QR<br><img src="./images/qr_icon32.png"></img></button></div>
+								</div>
+								</div>
+								<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Compartir</h3>
+										<div class="ui-grid-solo">
+									<div id="div_Compartir" class="ui-block-a"><table id="tablaComp"><tr><td><a href="http://www.facebook.com/share.php?u=http://gramola.sytes.net&t=La+mejor+página+del+mundo"><img src="./images/fb.png" /></a></td><td><img src="./images/twitter.png" /></td></tr></table></div>
+								</div>
+								</div>
 									
 								</div>	
 							</div>
@@ -289,11 +328,10 @@
 
 					<div id="tabs2-4">
 						<div id="player"></div>
+										
 					</div>
-					
-				</div>
 
-				
+				</div>
 				<div id="tabsPerfil" data-theme="a" style="background-color:#2E2E2E ;position: absolute; top: 1%; left: 1%; width: 99%; height: 90%;">
 					<div id="LogOut" style="position:absolute; left: 90%; top: 0%;">
 							
@@ -331,7 +369,7 @@
 					<div id="tabsPerfil-MyAccount" data-theme="b">
 
 						<div data-role:"content" data-theme="a">
-							<h4><font color="white">Modify Account:</h4></a>
+							<h4><font color="white">Modify Account:</h4></font></a>
 						</div>
 						<div id="settingsconteiner" data-role="footer" data-theme="a" class="ui-bar ui-grid-b" >
 							<div class="ui-block-c ui-body-e" >
@@ -474,8 +512,14 @@
 					</div>
 
 				</div>
+			</div>
 
+			<div data-role="page" id="p_links">	
+				
+			</div>
 		</body>
+		<div class="backdrop"></div>
+	<div class="box"><div id="qrBox"><canvas id="miCanvas" width="150" height="150"></canvas></div></div>
 
 
 </html>
