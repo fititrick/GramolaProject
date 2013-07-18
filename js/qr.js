@@ -1,26 +1,26 @@
 $(document).ready(function(){
  
 				$('.lightbox').click(function(){
-								$.ajax({        
-								             url:'qr.php',        
-								             type:'post',                 
-								             dataType:'html',  
-								             cache: false,            
-								             success: function (response) {
-													if (response!=-1)
-													{
-														//alert(response);
-														 qrGen(response);
-							
-													}				   
-													else
-													{
-														
-														alert('You can´t generate it');
-							
-													}
-											 }     
-								        }); 					
+					$.ajax({        
+					             url:'qr.php',        
+					             type:'post',                 
+					             dataType:'html',  
+					             cache: false,            
+					             success: function (response) {
+										if (response!=-1)
+										{
+											//alert(response);
+											 qrGen(response);
+				
+										}				   
+										else
+										{
+											
+											alert('You can´t generate it');
+				
+										}
+								 }     
+					   }); 					
 					
 					
 					
@@ -52,7 +52,7 @@ $(document).ready(function(){
 			function qrGen(idLista){
 				//alert("idLista="+idLista);
 				$('#miCanvas').qrcode({
-					text	: "http://google.com",
+					text	: "http://gramola.sytes.net?v="+idLista,
 					render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
 					background : "#ffffff",
 					foreground : "#000000",
@@ -60,24 +60,5 @@ $(document).ready(function(){
 					height: 150
 				});
 			}
-		/*	function removeQr(){
-				$('#qrBox').append('<div id="payaso"></div>'); 
-				
-				
-			}
- */
+		
 	
-	
-	/*$(document).ready(function(){
-			
-			$('#qr').qrcode({
-					text	: "http://www.moreonfew.com/generate-qr-code-using-jquery",
-					render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
-					background : "#ffffff",
-					foreground : "#000000",
-					width : 150,
-					height: 150
-				});
-			
-			});*/
-			
