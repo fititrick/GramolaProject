@@ -5,8 +5,13 @@
 	session_start();
 	//comprueba que el usuario estaba autentificado
 	if($_SESSION["autentificado"]=="SI"){
-		$NLink=$_SESSION["NList"];
-		echo $NLink;
+		if(!empty($_SESSION["NList"])){
+			$NLink=$_SESSION["NList"];
+			echo $NLink;
+		}
+		else {
+			echo -1;
+		}
 	}
 	else {
 		
