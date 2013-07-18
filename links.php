@@ -29,11 +29,12 @@ if($_SESSION["autentificado"]=="SI"){
 			 echo '<td class="linkIcon">'.$row[6].'</td>';
 			 echo '<td class="PosLinkInList">'.$row[1].'</td>';
 			 echo '<td><div class:"votePanel">
-			 			<button id="banana1"  title= "'.$row[2].'"  name="1" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
-			 			<button id="banana2"  title= "'.$row[2].'" name="2" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
-			 			<button id="banana3"  title= "'.$row[2].'" name="3" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
-			 			<button id="banana4"  title= "'.$row[2].'" name="4" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
-			 			<button id="banana5"  title= "'.$row[2].'" name="5" type="submit" data-theme="b" class="buttonOfVotes"><img src="./images/fotoPlatano32.png"></img></button>
+			 		
+			<button  id="banana1" title= "'.$row[2].'" name="1" type="submit" class="buttonOfVotes"><img class="boton" name="1" onmouseover="colorImg(this)" onmouseout="normalImg(this)" border="0" src="./images/fotoPlatano32_dark.png" alt="banana" width="22" height="20"></button>
+			<button  id="banana2" title= "'.$row[2].'" name="2" type="submit" class="buttonOfVotes"><img class="boton" name="2" onmouseover="colorImg(this)" onmouseout="normalImg(this)" border="0" src="./images/fotoPlatano32_dark.png" alt="banana" width="22" height="20"></button>
+			<button  id="banana3" title= "'.$row[2].'" name="3" type="submit" class="buttonOfVotes"><img class="boton" name="3" onmouseover="colorImg(this)" onmouseout="normalImg(this)" border="0" src="./images/fotoPlatano32_dark.png" alt="banana" width="22" height="20"></button>
+			<button  id="banana4" title= "'.$row[2].'" name="4" type="submit" class="buttonOfVotes"><img class="boton" name="4" onmouseover="colorImg(this)" onmouseout="normalImg(this)" border="0" src="./images/fotoPlatano32_dark.png" alt="banana" width="22" height="20"></button>
+			<button  id="banana5" title= "'.$row[2].'" name="5" type="submit" class="buttonOfVotes"><img class="boton" name="5" onmouseover="colorImg(this)" onmouseout="normalImg(this)" border="0" src="./images/fotoPlatano32_dark.png" alt="banana" width="22" height="20"></button>
 			 			</div>
 			 	   </td> ';
 			 echo '<td><button id="b_BorrarLink"  title= "Delete" name="'.$row[2].'" type="submit" value= "'.$i.'" data-theme="b" class="buttonDelLink"><target="_blank"> <img src="./images/eliminar32.png"></img></button></td></tr>';

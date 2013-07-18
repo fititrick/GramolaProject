@@ -47,6 +47,8 @@ $(document).ready(function(){
    var enviararchivo=$('#enviararchivo');
    
    
+   
+   
    $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
 			success: function(response) { 
@@ -252,10 +254,12 @@ $(document).ready(function(){
 			   		url: 'newlist.php',
 			   		data:$('#txtNewList').serialize(),
 			   		success: function(response) {  	
-		   				$('#ContactForm').find('.form_result').html(response);
+		   				alert(response);
+		   				updateLists();
 					}
 			   });
-			   updateLists();
+			   
+			   
 		     
 	   
 	});
@@ -318,19 +322,7 @@ $(document).ready(function(){
 		             success:data2     
 		        }); 
 			   
-			  /* $('#urlLink').value='';
-			   $('#select-choice-1').value='';
-			   $('#number-pattern').value='';
-			   $('#singerLink').value='';
-			   $('#Links').hide();
-			   $.ajax({        
-				             url:'links2.php',        
-				             type:'post',                 
-				             dataType:'html',  
-				             cache: false,            
-				             success:data2
-					   
-				        }); */
+			 
 	});
 		
 		$(TableLinks).click(function(){
@@ -421,12 +413,12 @@ $(document).ready(function(){
 								             success: function (response) {
 													if (response==true)
 													{
-														 alert('The list was voted');
-							
+														 alert('The list has been voted');
+														location.reload(true);
 													}				   
 													else
 													{
-														alert('The list wasn´t voted');
+														alert('The list hasn´t been voted');
 							
 													}
 											 }     
@@ -453,12 +445,12 @@ $(document).ready(function(){
 															// alert(response);
 													if (response==true)
 													{
-														 alert('The vote was stablish');
+														 alert('The vote has been stablish');
 							
 													}				   
 													else
 													{
-														alert('The the vote wasn´t stablish');
+														alert('The the vote hasn´t been stablish');
 							
 													}
 											 }     
@@ -533,6 +525,9 @@ $(document).ready(function(){
 		});
 		
    });
+   
+
+   
    function fLogin(response) { 
 				$('#DLogin').hide();
 				$('#desaparecer').hide();
@@ -645,6 +640,8 @@ $(document).ready(function(){
 						            for(var i=0;i<vectorVotes.length;i++){
 						                  	vectorVotes[i].onclick = setVote;
 						            }
+						            
+						            
 						            
 						            var vector2= document.getElementsByClassName('linkIcon');
 						            //alert(vector2.length);

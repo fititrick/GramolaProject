@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: text/html;charset=utf-8");
 
-//inicio la sesion
+//inicio la sesion   aqui votamos los links.
 session_start();
 //comprueba que el usuario estaba autentificado
 if($_SESSION["autentificado"]=="SI"){
