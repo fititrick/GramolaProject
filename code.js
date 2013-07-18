@@ -430,11 +430,11 @@ $(document).ready(function(){
   	
   	function setVote(){
   			//definir funcion ajax que llame a setVote.php que has de crear, y pasas este numero como parametro
-  			
+  				
+  				
   			 	var param= "numVote=" + this.name + "&idLink=" + this.title;
 					//alert(param);
-				if (confirm('Do you want to vote for this list?'))
-				{
+				
 					$.ajax({        
 								             url:'setVote.php',        
 								             type:'post',                 
@@ -446,6 +446,7 @@ $(document).ready(function(){
 													if (response==true)
 													{
 														 alert('The vote has been stablish');
+														 
 							
 													}				   
 													else
@@ -455,7 +456,7 @@ $(document).ready(function(){
 													}
 											 }     
 								        }); 
-				}
+				
 
   	}
 
@@ -638,6 +639,8 @@ $(document).ready(function(){
 						             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
 						            for(var i=0;i<vectorVotes.length;i++){
 						                  	vectorVotes[i].onclick = setVote;
+						             
+
 						            }
 						            
 						            
