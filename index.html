@@ -10,13 +10,17 @@
 		<link rel="stylesheet" href="./css/jquery-ui.css" />
 		<link rel="stylesheet" href="./css/tablesorter.css" type="text/css" id="" media="print, projection, screen" />
 
-		<head>
+		
 			<script type="text/javascript" src="./js/detectmobilebrowser.js"></script>
 			<script src="./js/jquery-ui.js"></script>
 			 <link rel="stylesheet" href="./messi/messi.min.css" />
 			<script src="./messi/messi.js"></script>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+			<!--Imports de Generar QR-->
+				<script src="./js/qr.js" type="text/javascript"></script>
+				<script type="text/javascript" src="./js/jquery.qrcode-0.4.js"></script>
+				<script type="text/javascript" src="./js/jquery.qrcode-0.4.min.js"></script>
+				<link rel="stylesheet" href="./css/qrCss.css" />
 		</head>
 		<body>
 			
@@ -246,6 +250,18 @@
 										<input data-theme="a" id="txtNewList" type="text" name="name" id="basic" value='List name'  onblur="if(this.value == '') { this.value='List name'}" onfocus="if (this.value == 'List name') {this.value=''}" />
 										<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
 									</div>
+									<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Generate QR</h3>
+										<div class="ui-grid-solo">
+									<div id="div_genQR" class="ui-block-a"><button  id="b_Qr" type="submit" title="Generate QR" data-theme="b" class="lightbox"> Generate QR<br><img src="./images/qr_icon32.png"></img></button></div>
+								</div>
+								</div>
+								<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Compartir</h3>
+										<div class="ui-grid-solo">
+									<div id="div_Compartir" class="ui-block-a"><table id="tablaComp"><tr><td><a href="http://www.facebook.com/share.php?u=http://dominio&t=descripcion"><img src="./images/fb.png" /></a></td><td><img src="./images/twitter.png" /></td></tr></table></div>
+								</div>
+								</div>
 									
 								</div>	
 							</div>
@@ -254,8 +270,7 @@
 
 					<div id="tabs2-4">
 						<div id="player"></div>
-					</div>
-					
+										
 				</div>
 
 				
@@ -439,8 +454,10 @@
 					</div>
 
 				</div>
-
+		
 		</body>
+		<div class="backdrop"></div>
+	<div class="box"><div class="close">X<div id="qrBox"><canvas id=”miCanvas” width=”578″ height=”400″></canvas></div></div></div>
 
 
 </html>
