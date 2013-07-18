@@ -13,19 +13,33 @@
 		
 		
 		function colorImg(x){
-			var vector=document.getElementsByClassName('boton');
+			var vector=document.getElementsByClassName(x.className);
 			
+			if(x.title=="yes"){
 			for(var i=0; i<vector[x.name-1].name ;i++){
 				vector[i].src="./images/fotoPlatano32.png";
+			}
 			}
 		
 		}
 
 		function normalImg(x){
-			var vector=document.getElementsByClassName('boton');
+			var vector=document.getElementsByClassName(x.className);
 			
+			if(x.title=="yes"){
 			for(var i=0; i<vector[x.name-1].name ;i++){
 				vector[i].src="./images/fotoPlatano32_dark.png";
+			}
+			}
+				
+		}
+		
+		function pulseImg(x){
+			var vector=document.getElementsByClassName(x.className);
+			
+			for(var i=0; i<vector[x.name-1].name ;i++){
+				vector[i].src="./images/fotoPlatano32.png";
+				x.title="no";
 			}
 				
 		}
