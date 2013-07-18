@@ -275,6 +275,7 @@ $(document).ready(function(){
 		        }); 
 		     
    }
+  
 	$(LinkNew).click(function(){
 				
 		//aqui deberias de mirar con un if si el proveedor es youtube, solo en ese caso se hace el substring!
@@ -332,6 +333,60 @@ $(document).ready(function(){
 			}
   		
   		});	
+  		
+  	$('#b_facebook').click(function(){
+  		alert("Facebook");
+  		$.ajax({        
+					             url:'getIdList.php',        
+					             type:'post',                 
+					             dataType:'html',  
+					             cache: false,            
+					             success: function (response) {
+										if (response!=-1)
+										{
+											
+											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net?v="+response+"&t=Compartiendo Lista:"+response;
+
+											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200" );
+										}				   
+										else
+										{
+											
+											alert('You can´t generate it');
+				
+										}
+								 }     
+					   });
+  	});
+  	$('#b_twitter').click(function(){
+  		alert("tweet");
+  		$.ajax({        
+					             url:'getIdList.php',        
+					             type:'post',                 
+					             dataType:'html',  
+					             cache: false,            
+					             success: function (response) {
+										if (response!=-1)
+										{
+											alert(response);
+											var response=response.toString();
+											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net?v="+response;
+											alert(url);
+											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
+										}				   
+										else
+										{
+											
+											alert('You can´t generate it');
+				
+										}
+								 }     
+					   });
+  		
+
+  	});
+  	
+  	
   	function deleteLink(){
   			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
   			
@@ -527,6 +582,7 @@ $(document).ready(function(){
 		
    });
    
+   
 
    
    function fLogin(response) { 
@@ -582,6 +638,8 @@ $(document).ready(function(){
 		        	 $(this).css("background-color","green");           
 				  	var param= 'id=' + this.name;
 				  	
+					document.f1.campo1.value="http://gramola.sytes.net?v="+this.name;
+					
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
 //var playList = new playList(0,null,null);

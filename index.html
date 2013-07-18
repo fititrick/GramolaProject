@@ -1,10 +1,11 @@
 <html>
 
 	<head>
-		<title>gramola.sytes.es share your music</title>
-  <meta name="title" content="gramola.sytes.es share your music" />
-  <meta name="description" content="Number 1 Service Sharing Music">
-	<meta name="keywords" content="music, society, youth" />
+	<title>gramola.sytes.es share your music</title>
+  	<meta name="og:title" content="gramola.sytes.net share your music" />
+  	<meta name="og:url" content="gramola.sytes.net" />
+  	<meta name="og:description" content="Number 1 Service Sharing Music Around the World">
+	<meta name="keywords" content="music, society, youth, groups, genres,artist,new trends" />
 	<meta name="origen" content="gramola.sytes.net" />
 	<meta name="author" content="gramola.sytes.net" />
 	<meta name="DC.Creator" content="gramola.sytes.net" />
@@ -18,8 +19,8 @@
 	<meta http-equiv="refresh" content="900" />
 	<meta name="distribution" content="global" />
 	<meta name="resource-type" content="document" />
-	
-		<link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
+	<meta property="og:image" content="http://gramola.sytes.net/images/gramola.jpg"/>
+			<link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
 		<link rel="stylesheet" href="./css/jquery-ui.css" />
 		<link rel="stylesheet" href="./css/tablesorter.css" type="text/css" media="print, projection, screen" />
 		<link rel="stylesheet" href="./messi/messi.min.css" />
@@ -43,7 +44,9 @@
 		
 		
 <script>
-		
+		 function copia_portapapeles(){ 
+		  	  document.f1.campo1.select() ;
+			} 
 		
 		function colorImg(x){
 			var vector=document.getElementsByClassName(x.className);
@@ -307,16 +310,31 @@
 										<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
 									</div>
 									<div data-role="collapsible" data-theme="b" data-content-theme="b">
-									<h3>Generate QR</h3>
-										<div class="ui-grid-solo">
-									<div id="div_genQR" class="ui-block-a"><button  id="b_Qr" type="submit" title="Generate QR" data-theme="b" class="lightbox"> Generate QR<br><img src="./images/qr_icon32.png"></img></button></div>
-								</div>
-								</div>
+										<h3>Generate QR</h3>
+											<div class="ui-grid-solo">
+											<div id="div_genQR" class="ui-block-a"><button  id="b_Qr" type="submit" title="Generate QR" data-theme="b" class="lightbox"> Generate QR<br><img src="./images/qr_icon32.png"></img></button></div>
+										</div>
+									</div>
 								<div data-role="collapsible" data-theme="b" data-content-theme="b">
-									<h3>Compartir</h3>
-										<div class="ui-grid-solo">
-									<div id="div_Compartir" class="ui-block-a"><table id="tablaComp"><tr><td><a href="http://www.facebook.com/share.php?u=http://gramola.sytes.net&t=La+mejor+página+del+mundo" target="_blank"><img src="./images/fb.png" /></a></td><td><a href="http://twitter.com/intent/tweet?text=Texto&url=http://www.example.com/" target="_blank"><img src="./images/twitter.png" /></td></tr></table></div>
-								</div>
+									<h3>Share</h3>
+
+									<div class="ui-grid-solo">
+										<div id="div_Compartir" class="ui-block-a">
+											<table id="tablaComp">
+												<tr>
+													<td id="b_facebook"><img src="./images/fb.png" /></td>
+													<td id="b_twitter"><img src="./images/twitter.png" /></td>
+												</tr>
+											</table>
+											<form name="f1"> 
+												<textarea cols="50" rows="5" name="campo1" onclick="copia_portapapeles()">Url of the list</textarea> 
+												<br> 
+												
+											</form> 
+										</div>
+										
+									</div>
+
 								</div>
 									
 								</div>	
