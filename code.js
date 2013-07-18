@@ -335,7 +335,6 @@ $(document).ready(function(){
   		});	
   		
   	$('#b_facebook').click(function(){
-  		alert("Facebook");
   		$.ajax({        
 					             url:'getIdList.php',        
 					             type:'post',                 
@@ -359,7 +358,6 @@ $(document).ready(function(){
 					   });
   	});
   	$('#b_twitter').click(function(){
-  		alert("tweet");
   		$.ajax({        
 					             url:'getIdList.php',        
 					             type:'post',                 
@@ -368,10 +366,8 @@ $(document).ready(function(){
 					             success: function (response) {
 										if (response!=-1)
 										{
-											alert(response);
 											var response=response.toString();
 											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net?v="+response;
-											alert(url);
 											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
 										}				   
 										else
@@ -497,7 +493,6 @@ $(document).ready(function(){
 								             data:param,         
 								             cache: false,            
 								             success: function (response) {
-															// alert(response);
 													if (response==true)
 													{
 														 alert('The vote has been stablish');
