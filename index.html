@@ -43,7 +43,9 @@
 		
 		
 <script>
-		
+		 function copia_portapapeles(){ 
+		  	  document.f1.campo1.select() ;
+			} 
 		
 		function colorImg(x){
 			var vector=document.getElementsByClassName(x.className);
@@ -307,16 +309,29 @@
 										<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
 									</div>
 									<div data-role="collapsible" data-theme="b" data-content-theme="b">
-									<h3>Generate QR</h3>
-										<div class="ui-grid-solo">
-									<div id="div_genQR" class="ui-block-a"><button  id="b_Qr" type="submit" title="Generate QR" data-theme="b" class="lightbox"> Generate QR<br><img src="./images/qr_icon32.png"></img></button></div>
-								</div>
-								</div>
+										<h3>Generate QR</h3>
+											<div class="ui-grid-solo">
+											<div id="div_genQR" class="ui-block-a"><button  id="b_Qr" type="submit" title="Generate QR" data-theme="b" class="lightbox"> Generate QR<br><img src="./images/qr_icon32.png"></img></button></div>
+										</div>
+									</div>
 								<div data-role="collapsible" data-theme="b" data-content-theme="b">
 									<h3>Compartir</h3>
-										<div class="ui-grid-solo">
-									<div id="div_Compartir" class="ui-block-a"><table id="tablaComp"><tr><td><a href="http://www.facebook.com/share.php?u=http://gramola.sytes.net&t=La+mejor+página+del+mundo"><img src="./images/fb.png" /></a></td><td><img src="./images/twitter.png" /></td></tr></table></div>
-								</div>
+									<div class="ui-grid-solo">
+										<div id="div_Compartir" class="ui-block-a">
+											<table id="tablaComp">
+												<tr>
+													<td><a href="http://www.facebook.com/share.php?u=http://gramola.sytes.net&t=La+mejor+página+del+mundo"><img src="./images/fb.png" /></a></td>
+													<td><img src="./images/twitter.png" /></td>
+												</tr>
+											</table>
+											<form name="f1"> 
+												<textarea cols="50" rows="5" name="campo1" onclick="copia_portapapeles()">Url of the list</textarea> 
+												<br> 
+												
+											</form> 
+										</div>
+										
+									</div>
 								</div>
 									
 								</div>	

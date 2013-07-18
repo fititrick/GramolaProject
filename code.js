@@ -275,6 +275,7 @@ $(document).ready(function(){
 		        }); 
 		     
    }
+  
 	$(LinkNew).click(function(){
 				
 		//aqui deberias de mirar con un if si el proveedor es youtube, solo en ese caso se hace el substring!
@@ -582,6 +583,7 @@ $(document).ready(function(){
 		        	 $(this).css("background-color","green");           
 				  	var param= 'id=' + this.name;
 				  	
+					document.f1.campo1.value="http://gramola.sytes.net?v="+this.name;
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
 //var playList = new playList(0,null,null);
