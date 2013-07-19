@@ -74,6 +74,15 @@
 				vector[i].src="./images/fotoPlatano32.png";
 				x.title="no";
 			}
+			
+			
+			for(var i=0; i<5 ;i++){
+				if(vector[i].name>vector[x.name-1].name)
+				vector[i].src="./images/fotoPlatano32_dark.png";
+				vector[i].onmouseover="pulseImg(this)";
+				vector[i].onmouseout="pulseImg(this)";
+			}
+			
 				
 		}
 		

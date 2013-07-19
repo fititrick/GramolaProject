@@ -451,7 +451,8 @@ $(document).ready(function(){
 													}				   
 													else
 													{
-														alert('The the vote hasn´t been stablish');
+														alert(response);
+													//	alert('The the vote hasn´t been stablish');
 							
 													}
 											 }     
