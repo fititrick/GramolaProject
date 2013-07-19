@@ -2,7 +2,7 @@ $(document).ready(function(){
  
 				$('.lightbox').click(function(){
 					$.ajax({        
-					             url:'qr.php',        
+					             url:'getIdList.php',        
 					             type:'post',                 
 					             dataType:'html',  
 					             cache: false,            
@@ -10,7 +10,7 @@ $(document).ready(function(){
 										if (response!=-1)
 										{
 											//alert(response);
-											 qrGen(response);
+											qrGen(response);
 											$('.backdrop, .box').animate({'opacity':'.50'}, 300, 'linear');
 											$('.box').animate({'opacity':'1.00'}, 300, 'linear');
 											$('.backdrop, .box').css('display', 'block');
@@ -52,6 +52,7 @@ $(document).ready(function(){
 					width : 150,
 					height: 150
 				});
+				
 			}
 		
 	
