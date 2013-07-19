@@ -448,7 +448,7 @@ else{//si me llega una lista sin compartir
    				$('#tabs2').fadeIn();
    				$('#Perfil').fadeIn();
    				$('#tabsPerfil').hide();		
-   				$('#ContactForm').find('.form_result').html(response);
+   		
    				
 			}
 		});
@@ -493,7 +493,7 @@ else{//si me llega una lista sin compartir
 			var finalId=document.getElementById("urlLink").value
 			
 			var c13=document.getElementById("urlLink").value.substring(12,13);
-			alert(c13);
+			//alert(c13);
 			if(c13=="."){
 				finalId=document.getElementById("urlLink").value.substring(16);
 				alert(finalId);
@@ -508,27 +508,27 @@ else{//si me llega una lista sin compartir
 			   		type:'POST',
 			   		url: 'newLink.php',
 			   		data:$('#divNewLink').serialize(),
-			   		success: function(response) {  	
-		   				$('#ContactForm').find('.form_result').html(response);
+			   		success: function(response) { 
+			   			alert(response); 	
 		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
 		   				document.getElementById("urlLink").value="";
 		   				document.getElementById("number-pattern").value="";
 		   				document.getElementById("singerLink").value="";	
 		   				document.getElementById("songNameLink").value="";			
 			
-
-		   				
-					}
-					
-			   });
-			   
-			   $.ajax({        
+						$.ajax({        
 		             url:'UpdateLinks.php',        
 		             type:'post',                 
 		             dataType:'html',           
 		             cache: false,            
 		             success:data2     
-		        }); 
+		        });
+		   				
+					}
+					
+			   });
+			   
+			    
 			   
 			 
 	});

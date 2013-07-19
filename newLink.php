@@ -33,7 +33,7 @@ else{
 	echo $_POST['songName'];
 	echo $_POST['position'];
 	echo $_POST['singer'];
-	echo $_POST['url'];
+	echo $_POST['urlLink'];
 	echo $_POST['select-choice-1'];
 }
 ?>
