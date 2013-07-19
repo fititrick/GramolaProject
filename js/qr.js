@@ -2,7 +2,7 @@ $(document).ready(function(){
  
 				$('.lightbox').click(function(){
 					$.ajax({        
-					             url:'qr.php',        
+					             url:'getIdList.php',        
 					             type:'post',                 
 					             dataType:'html',  
 					             cache: false,            

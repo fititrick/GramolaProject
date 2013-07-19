@@ -334,6 +334,56 @@ $(document).ready(function(){
 			}
   		
   		});	
+  		
+  	$('#b_facebook').click(function(){
+  		$.ajax({        
+					             url:'getIdList.php',        
+					             type:'post',                 
+					             dataType:'html',  
+					             cache: false,            
+					             success: function (response) {
+										if (response!=-1)
+										{
+											
+											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net?v="+response+"&t=Compartiendo Lista:"+response;
+
+											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200" );
+										}				   
+										else
+										{
+											
+											alert('You can´t generate it');
+				
+										}
+								 }     
+					   });
+  	});
+  	$('#b_twitter').click(function(){
+  		$.ajax({        
+					             url:'getIdList.php',        
+					             type:'post',                 
+					             dataType:'html',  
+					             cache: false,            
+					             success: function (response) {
+										if (response!=-1)
+										{
+											var response=response.toString();
+											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net?v="+response;
+											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
+										}				   
+										else
+										{
+											
+											alert('You can´t generate it');
+				
+										}
+								 }     
+					   });
+  		
+
+  	});
+  	
+  	
   	function deleteLink(){
   			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
   			
@@ -444,7 +494,6 @@ $(document).ready(function(){
 								             data:param,         
 								             cache: false,            
 								             success: function (response) {
-															// alert(response);
 													if (response==true)
 													{
 														 alert('The vote has been stablish');
@@ -529,6 +578,7 @@ $(document).ready(function(){
 		
    });
    
+   
 
    
    function fLogin(response) { 
@@ -574,6 +624,7 @@ $(document).ready(function(){
 				  	var param= 'id=' + this.name;
 				  	
 					document.f1.campo1.value="http://gramola.sytes.net?v="+this.name;
+					
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
