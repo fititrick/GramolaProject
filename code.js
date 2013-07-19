@@ -1,21 +1,8 @@
 $(document).ready(function(){
-
-	$('#LogOut').hide();
-	$('#Perfil').hide();
-	$('#MainPage').hide();
-	$( "#tabs" ).tabs();
-	$( "#tabs2" ).tabs();
-	$('#tabs2').hide();
-	$( "#tabs-2" ).tabs();
-	$( "#tabsPerfil" ).tabs();
-	$( '#tabsPerfil' ).hide();
-	$('#div_BorrarLista').hide();
-	$('#div_VoteList').hide();
-	
-	
+//////VARIABLES
 	var lolailo=$("#TableLinks");
 	var tablePerfil=$("#TablePerfil");
-///////////////////////////////////////////////////////////////////////////////7	
+///////////////////////////////////////////////////////////////////////////////	
 	var playList =new playList(null, 0, null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
 	///////////////////////////////////////////////////////////////////////////////////////////
 	// empty() function used when there is nothing entered
@@ -49,6 +36,223 @@ $(document).ready(function(){
    
    
    
+
+//Capturamos la URL 
+var callingURL = document.URL;
+
+
+//Separamos los parametros 
+var cgiString = callingURL.substring(callingURL.indexOf('?')+1,callingURL.length); 
+
+//Fijamos el sepador entre parametros 
+var DELIMETER = '&'; 
+
+//Eliminamos la almohadilla, si es que existe... cortamos por lo sano! 
+if (cgiString.indexOf('#')!=-1){ 
+    cgiString=cgiString.slice(0,cgiString.indexOf('#')); 
+} 
+
+//Troceamos el cgiString ya limpiado, separando cada par variable=valor 
+//en una de las posiciones del array 
+var arrayParams=cgiString.split(DELIMETER); 
+var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('=')+1)+"\""+ 
+	    arrayParams[0].substring(arrayParams[0].indexOf('=')+1,arrayParams
+	     [0].length)+"\""); 
+	     
+///////////////////////////////////////////////////////////////////////////////
+	if(idListaCompartida!="http://gramola.sytes.net/GramolaProject/"){  //esto es lo que hago si me llega una lista compartida.
+		
+	 
+	    
+	     $('#p_index').hide();
+	     $('#p_links').fadeIn();
+	     $( "#tabsShare" ).tabs();
+	     
+	 //Primero mirar a ver si estoy logueado, si nolo estoy, mostrar solo tabla con links
+	  $.ajax({
+			type:'POST', url: 'sesionIniciada.php',
+			success: function(response) { 
+				if(response==true){
+					$.ajax({
+						type:'POST', url: 'getUser.php',
+						success: function(response2) { 
+							fLogin("Session started by "+response2);
+							$.ajax({
+								type:'POST',
+								url:'profileButton.php',
+								success:function(response){
+								$('#Perfil').html(response);
+								
+								document.getElementById('Perfil5').onclick=mainProfile;
+								$('#Perfil5').css("background-color","lightgreen");  
+							
+								}
+							});
+							}
+							
+					});
+				}
+			}
+		});
+		var param= 'id=' + idListaCompartida;	
+	  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
+	  	//alert(document.getElementById('b_BorrarLista').innerText);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+	  	playList.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+		playList.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
+	  	$.ajax({        
+	             url:'linksWithoutConexion.php',        
+	             type:'post',                 
+	             dataType:'html',  
+	             data:param,          
+	             cache: false,            
+	             success:linksShare     
+	        }); 
+	        
+function linksShare (links) {
+	//    $('#lista').fieldcontain("refresh");   
+	            //$html.filter('.list').appendTo("#nameList");
+	            //$('#Links').find('#nameLinks').html(html);
+	            function cambiaOnClickLinks(){
+	            	this.change=function change(where){
+	            		where.innerHTML="";
+	            		$('#TableLinksShare').append(links);
+	            		//$('#Links').find('#nameLinks').html(html2);
+	            		//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
+	            		//vector almancena en cada casilla uno de esos elementos
+	            		//modifico su onclick para que llamen a la funcion reproductor
+	            		//vector.length te marca cuantas canciones hay
+	            		//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
+	            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
+	            		//ahora ve a funcion reproductor
+	            			
+						var vector= document.getElementsByClassName('link');
+						
+			            for(var i=0;i<vector.length;i++){
+			            	vector[i].onclick = reproductor;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+			            	playList.addSong(new Song(vector[i].name));
+			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+			           }
+			           //alert(playList.getNumberSongs());			            
+			            var vector3=document.getElementsByClassName('buttonDelLink');
+			            for(var i=0;i<vector3.length;i++){
+			                  	vector3[i].onclick = deleteLink;
+			            }
+			            
+			              var vectorList=document.getElementsByClassName('buttonBList');
+			            for(var i=0;i<vectorList.length;i++){
+			                  	vectorList[i].onclick = deleteList;
+			            }
+			            
+			             var vectorVList=document.getElementsByClassName('buttonVList');
+			            for(var i=0;i<vectorVList.length;i++){
+			                  	vectorVList[i].onclick = voteList;
+			            }
+			            
+			             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
+			            for(var i=0;i<vectorVotes.length;i++){
+			                  	vectorVotes[i].onclick = setVote;
+			             
+
+			            }
+			            
+			            
+			            
+			            var vector2= document.getElementsByClassName('linkIcon');
+			            //alert(vector2.length);
+			           //$('#providerTabla').text("adios");
+			          
+			            for(var j=0;j<vector2.length;j++){
+			            	//alert(vector2[j].innerText);
+			            	if(vector2[j].innerText=='youtube'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
+			            		(playList.getElement(j)).setProvider("youtube");
+			            	}
+			            	if(vector2[j].innerText=='goear'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
+			            		playList.getElement(j).setProvider("goear");
+			            	}
+			            	if(vector2[j].innerText=='spotify'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
+			            		playList.getElement(j).setProvider("spotify");
+			            	}
+			            	if(vector2[j].innerText=='mp3'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
+			            		playList.getElement(j).setProvider("mp3");
+			            	}
+			            	
+			            }
+	            	
+			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
+			            //una funcion que borre el link
+			          
+			            $("#TableLinksShare").tablesorter();
+	            	};
+	            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
+	            	function reproductor(){
+	            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
+	            		//el link que te llega al reproductor es this.name
+	            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
+	            		//al final de la reproduccion (algo que tienes que controlar porque nose como)
+	            		//llamarias recursivamete/o secuencialmente a esta funcion reproductor con la siguiente cancion y el mismo vector
+	            		//problemas: saber cuando termina de reproducirse
+	            		
+	            		var code;
+	            	 	
+	            		switch(this.title)
+							{
+								
+							case "spotify":
+							   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
+							  break;
+							case "youtube":
+							   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
+							  break;
+							case "goear":
+							   code='<iframe width="560" height="315" src="http://www.goear.com/files/external.swf?file='+this.name+'" frameborder="1"></iframe>';
+							  break;
+							default:
+							   code='<iframe width="560" height="315" src="'+this.name+'" frameborder="1" allowfullscreen ></iframe>';
+						}
+	            		
+							document.getElementById("playerShare").innerHTML=code;
+							/*
+							function get_youtube_embed($youtube_video_id, $autoplay=true)
+							{
+								$embed_code = "";
+							 
+								if($autoplay)
+									$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1&autoplay=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="480" height="395" bgcolor="#ffffff" loop="false"></embed>';
+								else
+									$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="450" height="376" bgcolor="#ffffff" loop="false"></embed>';
+								return $embed_code;
+							}
+							*/
+						 };
+	            }
+	            var objetoLinks = new cambiaOnClickLinks();
+	            objetoLinks.change(document.getElementById("LinksShare"));
+	        }
+	 
+}
+else{//si me llega una lista sin compartir
+	 $('#p_links').hide();
+	$('#LogOut').hide();
+	$('#Perfil').hide();
+	$('#MainPage').hide();
+	$( "#tabs" ).tabs();
+	$( "#tabs2" ).tabs();
+	$('#tabs2').hide();
+	$( "#tabs-2" ).tabs();
+	$( "#tabsPerfil" ).tabs();
+	$( '#tabsPerfil' ).hide();
+	$('#div_BorrarLista').hide();
+	$('#div_VoteList').hide();
+	
+	
    
    $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
@@ -65,7 +269,7 @@ $(document).ready(function(){
 								$('#Perfil').html(response);
 								
 								document.getElementById('Perfil5').onclick=mainProfile;
-								
+								$('#Perfil5').css("background-color","lightgreen");  
 							
 								}
 							});
@@ -75,6 +279,8 @@ $(document).ready(function(){
 				}
 			}
 		});
+}
+//fin else
 		function mainProfile(){
 			$.ajax({
 				type:'POST',
@@ -156,7 +362,7 @@ $(document).ready(function(){
 								$('#Perfil').html(response);
 								
 								document.getElementById('Perfil5').onclick=mainProfile;
-								
+								$('#Perfil5').css("background-color","lightgreen");  
 							
 								}
 							});
@@ -345,7 +551,7 @@ $(document).ready(function(){
 										if (response!=-1)
 										{
 											
-											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net?v="+response+"&t=Compartiendo Lista:"+response;
+											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index2.html?v="+response+"&t=Compartiendo Lista:"+response;
 
 											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200" );
 										}				   
@@ -368,7 +574,7 @@ $(document).ready(function(){
 										if (response!=-1)
 										{
 											var response=response.toString();
-											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net?v="+response;
+											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net/index2.html?v="+response;
 											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
 										}				   
 										else
@@ -394,24 +600,24 @@ $(document).ready(function(){
 				if (confirm('Do you want remove this song?'))
 				{
 					$.ajax({        
-								             url:'borrarLink.php',        
-								             type:'post',                 
-								             dataType:'html',  
-								             data:param,          
-								             cache: false,            
-								             success: function (response) {
-													if (response==true)
-													{
-														 alert('The song has been deleted');
-							
-													}				   
-													else
-													{
-														alert('The song hasn´t been deleted');
-							
-													}
-											 }     
-								        }); 
+			             url:'borrarLink.php',        
+			             type:'post',                 
+			             dataType:'html',  
+			             data:param,          
+			             cache: false,            
+			             success: function (response) {
+								if (response==true)
+								{
+									 alert('The song has been deleted');
+		
+								}				   
+								else
+								{
+									alert('The song hasn´t been deleted');
+		
+								}
+						 }     
+			        }); 
 				}
 				
 				
@@ -611,7 +817,7 @@ $(document).ready(function(){
 		            	vector[i].onclick = this.muestraLinks;     
 		            	$(vector[i]).css("background-color","lightgreen");  
 		            }
-                       
+                //    $('#lista').listview("refresh");   
       			 };
       			 //esta funcion ajax es distinta, ya que envía un parametro que tu has determinado
 		        this.muestraLinks = function muestraLinks(){   
@@ -624,7 +830,7 @@ $(document).ready(function(){
 		        	 $(this).css("background-color","green");           
 				  	var param= 'id=' + this.name;
 				  	
-					document.f1.campo1.value="http://gramola.sytes.net?v="+this.name;
+					document.f1.campo1.value="http://gramola.sytes.net/index2.html?v="+this.name;
 					
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
@@ -672,7 +878,8 @@ $(document).ready(function(){
 			            	playList.addSong(new Song(vector[i].name));
 			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-			           }			            
+			           }
+			           //alert(playList.getNumberSongs());			            
 			            var vector3=document.getElementsByClassName('buttonDelLink');
 			            for(var i=0;i<vector3.length;i++){
 			                  	vector3[i].onclick = deleteLink;
@@ -705,19 +912,22 @@ $(document).ready(function(){
 			            	//alert(vector2[j].innerText);
 			            	if(vector2[j].innerText=='youtube'){
 			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
+			            		(playList.getElement(j)).setProvider("youtube");
 			            	}
 			            	if(vector2[j].innerText=='goear'){
 			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
+			            		playList.getElement(j).setProvider("goear");
 			            	}
 			            	if(vector2[j].innerText=='spotify'){
 			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
+			            		playList.getElement(j).setProvider("spotify");
 			            	}
 			            	if(vector2[j].innerText=='mp3'){
 			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
+			            		playList.getElement(j).setProvider("mp3");
 			            	}
 			            	
 			            }
-	            		
 	            	
 			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 			            //una funcion que borre el link
@@ -775,9 +985,15 @@ $(document).ready(function(){
 //objeto song con sus métodos
 	function Song(UrlLink){
 		var link = UrlLink;
-		 var idPlayList=null;
-		  var nextSong=null;
-				  
+		var idPlayList=null;
+		var nextSong=null;
+		var provider=null;
+		this.setProvider = function(pProvider) {
+			 provider = pProvider;
+		};	
+		this.getProvider=function(){
+			return provider;
+		}	  
 		this.setNextSong = function(song) {
 			 nextSong = song;
 		};
@@ -805,9 +1021,8 @@ $(document).ready(function(){
 		 var numberSongs = NSongs;
 		
 		 var firstSong = FirstSong;
-		 var lastSong = FirstSong;
+		 var lastSong = null;
 		  //el id del playlist sera el mismo id que tiene la lista en la base de datos.
-		
 		this.getNumberSongs = function() {
 			return numberSongs;
 		};
@@ -843,12 +1058,15 @@ $(document).ready(function(){
 		}
 		this.addSong= function(song){
 			if(firstSong==null){
+				song.setNextSong(null);
 				firstSong=song;
 				this.setLastSong(song);
+				
 			}
 			else{
+				song.setNextSong(null);
 				lastSong.setNextSong(song);
-				song.setNextSong(this.getFirstSong());
+				this.setLastSong(song);
 			}
 			song.setIdList(id);
 			this.incrNumberSongs();	
@@ -858,6 +1076,62 @@ $(document).ready(function(){
 				 numberSongs = 0;
 				 firstSong = null;
 				 lastSong = null;
+		}
+		this.getElement =function (n){
+			var sAux=null;
+			
+			if(n<=numberSongs){
+				sAux=this.getFirstSong();
+				
+				for(var i=0;i<n;i++){
+					sAux=sAux.getNextSong();
+				}
+			}
+			//devolvera null si n es mayor que el numero de elementos que hay			
+			return sAux;
+		}
+		this.delElemento =function (n){
+			var sAux=null;
+			
+			if(n<=numberSongs){
+				sAux=this.getFirstSong();
+				if(n==0){
+					this.setFirstSong(sAux.getNextSong());
+					
+				}
+				else{
+					for(var i=1;i<n;i++){
+						sAux=sAux.getNextSong();
+					}
+					sAux.setNextSong(sAux.getNextSong().getNextSong());
+				}
+				numberSongs--;
+				return true;
+			}
+			//devolvera null si n es mayor que el numero de elementos que hay			
+			return false;
+		}
+		this.addElementPos =function (n, song){
+			var sAux=null;
+			if(n<=numberSongs){
+				sAux=this.getFirstSong();
+				if(n==0){
+					song.setNextSong(sAux);
+					this.setFirstSong(song);
+					
+				}
+				else{
+					for(var i=1;i<n;i++){
+						sAux=sAux.getNextSong();
+					}
+					song.setNextSong(sAux.getNextSong());
+					sAux.setNextSong(song);
+				}
+				numberSongs++;
+				return true;
+			}
+			//devolvera null si n es mayor que el numero de elementos que hay			
+			return false;
 		}
 
 	}
