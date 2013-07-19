@@ -239,6 +239,7 @@ function linksShare (links) {
 	 
 }
 else{//si me llega una lista sin compartir
+	 $('#p_index').fadeIn();
 	 $('#p_links').hide();
 	$('#LogOut').hide();
 	$('#Perfil').hide();
@@ -551,7 +552,7 @@ else{//si me llega una lista sin compartir
 										if (response!=-1)
 										{
 											
-											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index2.html?v="+response+"&t=Compartiendo Lista:"+response;
+											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/shared.html?v="+response+"&t=Compartiendo Lista:"+response;
 
 											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200" );
 										}				   
@@ -574,7 +575,7 @@ else{//si me llega una lista sin compartir
 										if (response!=-1)
 										{
 											var response=response.toString();
-											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net/index2.html?v="+response;
+											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net/shared.html?v="+response;
 											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
 										}				   
 										else
@@ -830,7 +831,7 @@ else{//si me llega una lista sin compartir
 		        	 $(this).css("background-color","green");           
 				  	var param= 'id=' + this.name;
 				  	
-					document.f1.campo1.value="http://gramola.sytes.net/index2.html?v="+this.name;
+					document.f1.campo1.value="http://gramola.sytes.net/shared.html?v="+this.name;
 					
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
