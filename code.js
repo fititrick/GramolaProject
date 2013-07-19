@@ -850,7 +850,6 @@ $(document).ready(function(){
 				song.setNextSong(this.getFirstSong());
 			}
 			song.setIdList(id);
-			alert("el id es: "+id);
 			this.incrNumberSongs();	
 		}
 		this.delPlayList=function(){
