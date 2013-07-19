@@ -15,8 +15,9 @@ $(document).ready(function(){
 	
 	var lolailo=$("#TableLinks");
 	var tablePerfil=$("#TablePerfil");
-	
-	
+///////////////////////////////////////////////////////////////////////////////7	
+	var playList =new playList(null, 0, null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
+	///////////////////////////////////////////////////////////////////////////////////////////
 	// empty() function used when there is nothing entered
 	//$('#nameList').empty('');
 	
@@ -546,17 +547,6 @@ $(document).ready(function(){
 		             success:data     
 		        }); 
 			}
-   function playList(NSongs,FirstSong,LastSong){
-		  this.numberSongs = NSongs;
-		  this.firstSong = FirstSong;
-		  this.lastSong = LastSong;
-	}
-	function song(nombre,id,posList, nextSong){
-		  this.nombre = nombre;
-		  this.link = id;
-		  this.posList = posList;
-		  this.nextSong=nextSong;
-	}
         //la funcion data mete en el onclick de los links funcionalidad
    function data (html) {
             var $html = $( html ); // create DOM elements in a jQuery object
@@ -586,7 +576,10 @@ $(document).ready(function(){
 					document.f1.campo1.value="http://gramola.sytes.net?v="+this.name;
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
-//var playList = new playList(0,null,null);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+				  	playList.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+					playList.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
 				  	$.ajax({        
 				             url:'links.php',        
 				             type:'post',                 
@@ -620,53 +613,58 @@ $(document).ready(function(){
 	            		//ahora ve a funcion reproductor
 	            			
 						var vector= document.getElementsByClassName('link');
-						            for(var i=0;i<vector.length;i++){
-						            	vector[i].onclick = reproductor;
-						            }
-						            var vector3=document.getElementsByClassName('buttonDelLink');
-						            for(var i=0;i<vector3.length;i++){
-						                  	vector3[i].onclick = deleteLink;
-						            }
-						            
-						              var vectorList=document.getElementsByClassName('buttonBList');
-						            for(var i=0;i<vectorList.length;i++){
-						                  	vectorList[i].onclick = deleteList;
-						            }
-						            
-						             var vectorVList=document.getElementsByClassName('buttonVList');
-						            for(var i=0;i<vectorVList.length;i++){
-						                  	vectorVList[i].onclick = voteList;
-						            }
-						            
-						             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
-						            for(var i=0;i<vectorVotes.length;i++){
-						                  	vectorVotes[i].onclick = setVote;
-						             
+						
+			            for(var i=0;i<vector.length;i++){
+			            	vector[i].onclick = reproductor;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+			            	playList.addSong(new Song(vector[i].name));
+			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+			           }			            
+			            var vector3=document.getElementsByClassName('buttonDelLink');
+			            for(var i=0;i<vector3.length;i++){
+			                  	vector3[i].onclick = deleteLink;
+			            }
+			            
+			              var vectorList=document.getElementsByClassName('buttonBList');
+			            for(var i=0;i<vectorList.length;i++){
+			                  	vectorList[i].onclick = deleteList;
+			            }
+			            
+			             var vectorVList=document.getElementsByClassName('buttonVList');
+			            for(var i=0;i<vectorVList.length;i++){
+			                  	vectorVList[i].onclick = voteList;
+			            }
+			            
+			             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
+			            for(var i=0;i<vectorVotes.length;i++){
+			                  	vectorVotes[i].onclick = setVote;
+			             
 
-						            }
-						            
-						            
-						            
-						            var vector2= document.getElementsByClassName('linkIcon');
-						            //alert(vector2.length);
-						           //$('#providerTabla').text("adios");
-						          
-						            for(var j=0;j<vector2.length;j++){
-						            	//alert(vector2[j].innerText);
-						            	if(vector2[j].innerText=='youtube'){
-						            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
-						            	}
-						            	if(vector2[j].innerText=='goear'){
-						            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
-						            	}
-						            	if(vector2[j].innerText=='spotify'){
-						            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
-						            	}
-						            	if(vector2[j].innerText=='mp3'){
-						            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
-						            	}
-						            	
-						            }
+			            }
+			            
+			            
+			            
+			            var vector2= document.getElementsByClassName('linkIcon');
+			            //alert(vector2.length);
+			           //$('#providerTabla').text("adios");
+			          
+			            for(var j=0;j<vector2.length;j++){
+			            	//alert(vector2[j].innerText);
+			            	if(vector2[j].innerText=='youtube'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
+			            	}
+			            	if(vector2[j].innerText=='goear'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
+			            	}
+			            	if(vector2[j].innerText=='spotify'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
+			            	}
+			            	if(vector2[j].innerText=='mp3'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
+			            	}
+			            	
+			            }
 	            		
 	            	
 			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
@@ -686,7 +684,7 @@ $(document).ready(function(){
 	            		//problemas: saber cuando termina de reproducirse
 	            		
 	            		var code;
-	            	 
+	            	 	
 	            		switch(this.title)
 							{
 								
@@ -721,6 +719,98 @@ $(document).ready(function(){
 	            var objetoLinks = new cambiaOnClickLinks();
 	            objetoLinks.change(document.getElementById("Links"));
 	        }
-  		
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//objeto song con sus métodos
+	function Song(UrlLink){
+		var link = UrlLink;
+		 var idPlayList=null;
+		  var nextSong=null;
+				  
+		this.setNextSong = function(song) {
+			 nextSong = song;
+		};
+		this.getNextSong = function() {
+			return  nextSong;
+		};		  
+		this.getLink = function() {
+			return  link;
+		};
+		this.getIdList = function() {
+			return  idPlayList;
+		};	
+		this.setLink = function(URLlink) {
+			 link=URLlink;
+		};
+		this.setIdList = function(idList) {
+			 idPlayList=idList;
+		};		  
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+//objeto playList con sus métodos
+   function playList(idList, NSongs,FirstSong){
+		 //lo creo asi, para que la primera vez, al meter solo una cancion, sea tanto la primera como la ultima.
+		 var id=idList;
+		 var numberSongs = NSongs;
+		
+		 var firstSong = FirstSong;
+		 var lastSong = FirstSong;
+		  //el id del playlist sera el mismo id que tiene la lista en la base de datos.
+		
+		this.getNumberSongs = function() {
+			return numberSongs;
+		};
+		
+		this.getFirstSong = function() {
+			return firstSong;
+		};
+		
+		this.getLastSong= function() {
+			return lastSong;
+		};
+		
+		this.setNumberSongs = function(pNumber) {
+			numberSongs = pNumber;
+		};
+		this.setId = function(pId) {
+			id = pId;
+		};
+		this.getId = function() {
+			return id;
+		};
+		this.incrNumberSongs =function() {
+			numberSongs =numberSongs+ 1;
+			//alert(numberSongs);
+		};
+		
+		this.setFirstSong = function(pFirst) {
+			 firstSong = pFirst;
+		};
+		
+		this.setLastSong = function(pLast) {
+			 lastSong = pLast;
+		}
+		this.addSong= function(song){
+			if(firstSong==null){
+				firstSong=song;
+				this.setLastSong(song);
+			}
+			else{
+				lastSong.setNextSong(song);
+				song.setNextSong(this.getFirstSong());
+			}
+			song.setIdList(id);
+			alert("el id es: "+id);
+			this.incrNumberSongs();	
+		}
+		this.delPlayList=function(){
+			 	 id=0;
+				 numberSongs = 0;
+				 firstSong = null;
+				 lastSong = null;
+		}
+
+	}
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7	
 			
  });
