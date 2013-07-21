@@ -1,6 +1,5 @@
 $(document).ready(function(){
 //////VARIABLES
-	var lolailo=$("#TableLinks");
 	var tablePerfil=$("#TablePerfil");
 ///////////////////////////////////////////////////////////////////////////////	
 	var playList =new playList(null, 0, null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
@@ -58,14 +57,13 @@ var arrayParams=cgiString.split(DELIMETER);
 var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('=')+1)+"\""+ 
 	    arrayParams[0].substring(arrayParams[0].indexOf('=')+1,arrayParams
 	     [0].length)+"\""); 
-	     
 ///////////////////////////////////////////////////////////////////////////////
-	if(idListaCompartida!="http://gramola.sytes.net/GramolaProject/"){  //esto es lo que hago si me llega una lista compartida.
+	if(idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" ){  //esto es lo que hago si me llega una lista compartida.
 		
-	 
+	 window.location=("#p_links");
 	    
-	     $('#p_index').hide();
-	     $('#p_links').fadeIn();
+	     $('#contenedor').hide();
+	   //  $('#p_links').fadeIn();
 	     $( "#tabsShare" ).tabs();
 	     
 	 //Primero mirar a ver si estoy logueado, si nolo estoy, mostrar solo tabla con links
@@ -94,7 +92,9 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 				}
 			}
 		});
+		//si estoy logueado SaveSharedList aparecera, sino solo la de compartir
 		var param= 'id=' + idListaCompartida;	
+		document.f2.campo1.value="http://gramola.sytes.net/index.html?v="+idListaCompartida;
 	  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 	  	//alert(document.getElementById('b_BorrarLista').innerText);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
@@ -114,6 +114,7 @@ function linksShare (links) {
 	//    $('#lista').fieldcontain("refresh");   
 	            //$html.filter('.list').appendTo("#nameList");
 	            //$('#Links').find('#nameLinks').html(html);
+	            
 	            function cambiaOnClickLinks(){
 	            	this.change=function change(where){
 	            		where.innerHTML="";
@@ -127,15 +128,17 @@ function linksShare (links) {
 	            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
 	            		//ahora ve a funcion reproductor
 	            			
-						var vector= document.getElementsByClassName('link');
+						var vector= document.getElementsByClassName('linkshared');
 						
 			            for(var i=0;i<vector.length;i++){
-			            	vector[i].onclick = reproductor;
+			            	vector[i].onclick = reproductorShared;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+
 			            	playList.addSong(new Song(vector[i].name));
 			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
 			           }
+			           
 			           //alert(playList.getNumberSongs());			            
 			            var vector3=document.getElementsByClassName('buttonDelLink');
 			            for(var i=0;i<vector3.length;i++){
@@ -186,13 +189,22 @@ function linksShare (links) {
 			            	
 			            }
 	            	
+	            	document.getElementById ("TableLinks").listview("refresh");
 			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 			            //una funcion que borre el link
 			          
 			            $("#TableLinksShare").tablesorter();
 	            	};
-	            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
-	            	function reproductor(){
+	            	
+	            	
+	            }
+	            var objetoLinks = new cambiaOnClickLinks();
+	            objetoLinks.change(document.getElementById("LinksShare"));
+	            
+	            
+	        }
+	        //cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
+	            	function reproductorShared(){
 	            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
 	            		//el link que te llega al reproductor es this.name
 	            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
@@ -232,15 +244,9 @@ function linksShare (links) {
 							}
 							*/
 						 };
-	            }
-	            var objetoLinks = new cambiaOnClickLinks();
-	            objetoLinks.change(document.getElementById("LinksShare"));
-	        }
 	 
 }
 else{//si me llega una lista sin compartir
-	 $('#p_index').fadeIn();
-	 $('#p_links').hide();
 	$('#LogOut').hide();
 	$('#Perfil').hide();
 	$('#MainPage').hide();
@@ -449,7 +455,7 @@ else{//si me llega una lista sin compartir
    				$('#tabs2').fadeIn();
    				$('#Perfil').fadeIn();
    				$('#tabsPerfil').hide();		
-   		
+   				$('#ContactForm').find('.form_result').html(response);
    				
 			}
 		});
@@ -494,10 +500,8 @@ else{//si me llega una lista sin compartir
 			var finalId=document.getElementById("urlLink").value
 			
 			var c13=document.getElementById("urlLink").value.substring(12,13);
-			//alert(c13);
 			if(c13=="."){
 				finalId=document.getElementById("urlLink").value.substring(16);
-				alert(finalId);
 				document.getElementById("urlLink").value=finalId;
 			}
 			else{
@@ -509,27 +513,27 @@ else{//si me llega una lista sin compartir
 			   		type:'POST',
 			   		url: 'newLink.php',
 			   		data:$('#divNewLink').serialize(),
-			   		success: function(response) { 
-			   			alert(response); 	
+			   		success: function(response) {  	
+		   				$('#ContactForm').find('.form_result').html(response);
 		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
 		   				document.getElementById("urlLink").value="";
 		   				document.getElementById("number-pattern").value="";
 		   				document.getElementById("singerLink").value="";	
 		   				document.getElementById("songNameLink").value="";			
 			
-						$.ajax({        
-		             url:'UpdateLinks.php',        
-		             type:'post',                 
-		             dataType:'html',           
-		             cache: false,            
-		             success:data2     
-		        });
+
 		   				
 					}
 					
 			   });
 			   
-			    
+			   $.ajax({        
+		             url:'UpdateLinks.php',        
+		             type:'post',                 
+		             dataType:'html',           
+		             cache: false,            
+		             success:data2     
+		        }); 
 			   
 			 
 	});
@@ -552,7 +556,7 @@ else{//si me llega una lista sin compartir
 										if (response!=-1)
 										{
 											
-											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/shared.html?v="+response+"&t=Compartiendo Lista:"+response;
+											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index.html?v="+response+"&t=Compartiendo Lista:"+response;
 
 											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200" );
 										}				   
@@ -575,7 +579,7 @@ else{//si me llega una lista sin compartir
 										if (response!=-1)
 										{
 											var response=response.toString();
-											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net/shared.html?v="+response;
+											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net/index.html?v="+response;
 											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
 										}				   
 										else
@@ -817,6 +821,7 @@ else{//si me llega una lista sin compartir
 		            for(var i=0;i<vector.length;i++){
 		            	vector[i].onclick = this.muestraLinks;     
 		            	$(vector[i]).css("background-color","lightgreen");  
+//		            	alert(vector[i].onclick);
 		            }
                 //    $('#lista').listview("refresh");   
       			 };
@@ -831,7 +836,7 @@ else{//si me llega una lista sin compartir
 		        	 $(this).css("background-color","green");           
 				  	var param= 'id=' + this.name;
 				  	
-					document.f1.campo1.value="http://gramola.sytes.net/shared.html?v="+this.name;
+					document.f1.campo1.value="http://gramola.sytes.net/index.html?v="+this.name;
 					
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
@@ -845,7 +850,7 @@ else{//si me llega una lista sin compartir
 				             dataType:'html',  
 				             data:param,          
 				             cache: false,            
-				             success:data2     
+				             success:data2
 				        }); 
 				        
 		        };
@@ -855,13 +860,15 @@ else{//si me llega una lista sin compartir
 		    
 		}
   		function data2 (html2) {
-				        
 	            //$html.filter('.list').appendTo("#nameList");
 	            //$('#Links').find('#nameLinks').html(html);
 	            function cambiaOnClickLinks(){
 	            	this.change=function change(where){
+	            		
 	            		where.innerHTML="";
 	            		$('#TableLinks').append(html2);
+	            		//$( "#TableLinks" ).table( "refresh" );
+	            	//	document.getElementById ("TableLinks").refresh();
 	            		//$('#Links').find('#nameLinks').html(html2);
 	            		//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
 	            		//vector almancena en cada casilla uno de esos elementos
@@ -872,7 +879,6 @@ else{//si me llega una lista sin compartir
 	            		//ahora ve a funcion reproductor
 	            			
 						var vector= document.getElementsByClassName('link');
-						
 			            for(var i=0;i<vector.length;i++){
 			            	vector[i].onclick = reproductor;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7

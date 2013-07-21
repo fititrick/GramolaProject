@@ -47,7 +47,9 @@
 		 function copia_portapapeles(){ 
 		  	  document.f1.campo1.select() ;
 			} 
-		
+		 function copia_portapapeles2(){ 
+		  	  document.f2.campo1.select() ;
+			} 
 		function colorImg(x){
 			var vector=document.getElementsByClassName(x.className);
 			
@@ -93,6 +95,7 @@
 </head>
 		<body background="./images/background.jpg">
 		<div data-role="page" id="p_index" >	
+		<div id="contenedor">
 			<div id="tabs"  style="position:absolute; height: 100%; width: 100%;">
 				
 					<ul id="pestanasPrincipales">
@@ -143,20 +146,20 @@
 							<div data-role="footer" data-theme="a" class="ui-bar ui-grid-a">
 								<div class="ui-block-a" >
 									<div data-role="fieldcontain">
-										<label for="basic">Nick:</label>
+										<label for="user">Nick:</label>
 										<input type="text" id="user1" name="user" value="" data-mini="true" />
 									</div>
 								</div>
 								<div class="ui-block-b">
 									<div data-role="fieldcontain">
-										<label for="basic">Password:</label>
+										<label for="pass">Password:</label>
 										<input type="password" id="pass1" name="pass" value="" data-mini="true" />
 									</div>
 	
 								</div>
 								<div class="ui-block-c">
 									<div data-role="fieldcontain">
-										<label for="basic">E-MAIL:</label>
+										<label for="email">E-MAIL:</label>
 										<input type="email" id="email" name="email" value="" data-mini="true" />
 									</div>
 	
@@ -174,7 +177,7 @@
 	
 					</div>
 				</div>
-				<div id="tabs2" class="transbox" style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%;">
+				<div id="tabs2"  style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%;">
 					<ul style="background-color: #2E2E2E">
 						<li>
 							<a href="#tabs2-1" style="background-color:lightgreen">Lists</a>
@@ -195,27 +198,18 @@
 							</button>
 							
 						</div>
-				
-						
-					
-						
-						<div data-role="footer" data-theme="a" >
-
-							<div data-role="fieldcontain">
-								<label for="basic">Name of lists:</label>
-
-							</div>
 							<div id="List">
+								<label style="color: white" >Name of lists:</label>
 								<div id="div-clase2"></div>
 							</div>
 
-						</div>
+						
 
 						<div id="LinksContainer" data-role="footer"   data-theme="a" >
 							<div class="ui-block-a ui-body-a"  >
 								<label for="basic">Links:</label>
 								
-								<div  data-role="fieldcontain" style="width:100%; height:58%; overflow:scroll;">
+								<div  data-role="fieldcontain" style="max-width:100%; max-height:58%; overflow:scroll;">
 
 									<table id="TableLinks" class="tablesorter" >
 										<thead>
@@ -251,7 +245,6 @@
 									</table>
 
 								</div>
-
 							</div>
 							
 							<div  data-role="collapsible-set" data-content-theme="b" style="opacity:1%;width: 25%; height:68%; float:right;overflow: auto">
@@ -538,7 +531,109 @@
 
 				</div>
 			</div>
+			</div>
+			<div data-role="page" id="p_links">	
+						<div id="tabsShare" style="position: absolute; width: 100%; height: 98%;">
+					<ul style="background-color: #2E2E2E">
+						<li>
+							<a href="#tabs2-1Share">List</a>
+						</li>
+						<li>
+							<a href="#tabs2-4Share">Player</a>
+						</li>
+					</ul>
+					<div id="tabs2-1Share">
+						
+						<div id="PerfilShare"  style="position:absolute; left: 74.5%; top: 1.5%;">
+					
+						</div>
+						<div id="LogOutShare" style="position:absolute; left: 90%; top: 0%;">
+							
+							<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >
+								LOG OUT
+							</button>
+							
+						</div>
+						<div id="LinksContainerShare" data-role="footer" data-theme="a" >
+							<div class="ui-block-a ui-body-a"  >
+								<label for="basic">Links:</label>
+								
+								<div  data-role="fieldcontain" style="position:relative; max-width:100%; max-height:80%; overflow:auto;">
 
+									<table id="TableLinksShare" class="tablesorter" >
+										<thead>
+											<tr>
+												<th >
+												Name
+												</th>
+												
+												<th >
+												Artist
+												</th>
+												
+												<th >
+												Genre
+												</th>
+												<th >
+												Icon
+												</th>
+												<th >
+												Position in List
+												</th>
+												
+											</tr>
+										</thead>
+										<tbody  id="LinksShare" style="background-color: #A9E2F3; color:black" >
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="ui-block-c ui-body-b" style="width: 40%" >
+							
+							
+							<div data-role="collapsible-set" >
+								<div data-role="collapsible" data-theme="b" data-content-theme="b" id="SaveSharedList">
+									<h3>Save List</h3>
+									<input id="txtNewListShare" type="text" name="name" value='List name'  onblur="if(this.value == '') { this.value='List name'}" onfocus="if (this.value == 'List name') {this.value=''}" />
+									<a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>
+								</div>
+								<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Share</h3>
+
+									<div class="ui-grid-solo">
+										<div id="div_CompartirShare" class="ui-block-a">
+											<table id="tablaCompShare">
+												<tr>
+													<td id="b_facebookShare"><img src="./images/fb.png" /></td>
+													<td id="b_twitterShare"><img src="./images/twitter.png" /></td>
+												</tr>
+											</table>
+											<form name="f2"> 
+												<textarea cols="50" rows="5" name="campo1" onclick="copia_portapapeles2()">Url of the list</textarea> 
+												<br> 
+												
+											</form> 
+										</div>
+										
+									</div>
+
+								</div>
+								</div>
+							</div>
+							</div>
+							</div>
+							
+							
+							
+				</div>
+					<div id="tabs2-4Share">
+						<div id="playerShare" style="position:absolute; left: 55%; top: 50%"></div>
+										
+					</div>
+
+				
+
+		</div>
 		</body>
 		<div class="backdrop"></div>
 	<div class="box"><div id="qrBox"><canvas id="miCanvas" width="150" height="150"></canvas></div></div>
