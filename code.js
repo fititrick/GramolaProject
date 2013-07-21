@@ -19,6 +19,7 @@ $(document).ready(function(){
    var login= $('#BLogin');
    var lista = $('.list');
     var ListNew=$('#btnNewList');
+     var ListNewShare=$('#btnNewListShare');
     var BotonUpdate=$('#update');
     var LinkNew=$('#btnNewLink');
    // checking if there is nothing submitted
@@ -58,7 +59,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	    arrayParams[0].substring(arrayParams[0].indexOf('=')+1,arrayParams
 	     [0].length)+"\""); 
 ///////////////////////////////////////////////////////////////////////////////
-	if(idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" ){  //esto es lo que hago si me llega una lista compartida.
+	if(idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
 		
 	 window.location=("#p_links");
 	    
@@ -70,7 +71,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	  $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
 			success: function(response) { 
-				if(response==true){
+				if(response==true){//si hay sesion
 					$.ajax({
 						type:'POST', url: 'getUser.php',
 						success: function(response2) { 
@@ -79,16 +80,20 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 								type:'POST',
 								url:'profileButton.php',
 								success:function(response){
-								$('#Perfil').html(response);
+								$('#PerfilShare').html(response);
 								
 								document.getElementById('Perfil5').onclick=mainProfile;
-								$('#Perfil5').css("background-color","lightgreen");  
+								document.getElementById('Perfil5').className='button';  
 							
 								}
 							});
 							}
 							
 					});
+					$('#LogOutShare').html('<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >LOG OUT</button>');
+				}
+				else{
+					
 				}
 			}
 		});
@@ -258,7 +263,8 @@ else{//si me llega una lista sin compartir
 	$( '#tabsPerfil' ).hide();
 	$('#div_BorrarLista').hide();
 	$('#div_VoteList').hide();
-	
+	// $('#contenedor').fadeIn();
+	 // $('#p_links').hide();
 	
    
    $.ajax({
@@ -477,6 +483,22 @@ else{//si me llega una lista sin compartir
 		     
 	   
 	});
+	$(ListNewShare).click(function(){
+			   $.ajax({
+			   		type:'POST',
+			   		url: 'newlist.php',
+			   		data:$('#txtNewListShare').serialize(),
+			   		success: function(response) {  	
+		   				alert(response);
+		   				updateLists();
+					}
+			   });
+			   
+			   
+		     
+	   
+	});
+	
 	function updateLists(){
    		$('#Links').hide();
    	

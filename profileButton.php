@@ -10,7 +10,7 @@ $nickpass=$_SESSION["nick"];
 	$result=mysqli_query($conexion, $consulta) ;
 	if (mysqli_num_rows($result)==1){
 		while( $row = mysqli_fetch_row($result) ){
-			echo "<button id='Perfil5' ' data-theme='e' href='#'  ><img src='$row[0]'  border='3'  height='20' width='20' /> 
+			echo "<button id='Perfil5'  href='#'  ><img src='$row[0]'  border='3'  height='20' width='20' /> 
 						Welcome $nickpass
 					</button>";
 		}

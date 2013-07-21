@@ -8,6 +8,9 @@
      background-color:#F2F2F2;
      overflow:auto;
 }
+.button{
+	background-color:lightgreen;
+}
 
 div.background
   {
