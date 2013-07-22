@@ -2,7 +2,7 @@ $(document).ready(function(){
 //////VARIABLES
 	var tablePerfil=$("#TablePerfil");
 ///////////////////////////////////////////////////////////////////////////////	
-	var playList =new playList(null, 0, null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
+	playlist = new Playlist(null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
 	///////////////////////////////////////////////////////////////////////////////////////////
 	// empty() function used when there is nothing entered
 	//$('#nameList').empty('');
@@ -91,6 +91,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 							
 					});
 					$('#LogOutShare').html('<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >LOG OUT</button>');
+					$('#SaveSharedList').html('<h3>Save List</h3><input id="txtNewListShare" type="text" name="name" value="List name"  onblur="if(this.value == "") { this.value="List name"}" onfocus="if (this.value == "List name") {this.value=""}" /><a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>');
 				}
 				else{
 					
@@ -104,7 +105,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	  	//alert(document.getElementById('b_BorrarLista').innerText);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
 	  	playList.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
-		playList.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+		playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
 	  	$.ajax({        
 	             url:'linksWithoutConexion.php',        
@@ -114,7 +115,22 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	             cache: false,            
 	             success:linksShare     
 	        }); 
-	        
+	 $('#b_facebookShare').click(function(){
+	             
+		var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index.html?v="+idListaCompartida+"&t=Compartiendo Lista:"+idListaCompartida;
+		nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200" );
+					
+  	});
+  	$('#b_twitterShare').click(function(){
+  		var dir = "http://gramola.sytes.net/index.html?v="+idListaCompartida;
+	var dir2 = encodeURIComponent(dir);
+	var tit = "Shared the list nº "+idListaCompartida+ " of Gramola ";
+	var tit2 = encodeURIComponent(tit);
+
+		var url='http://twitter.com/?status='+tit2+'%20'+dir2+''
+		nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
+  	});
+  	
 function linksShare (links) {
 	//    $('#lista').fieldcontain("refresh");   
 	            //$html.filter('.list').appendTo("#nameList");
@@ -139,7 +155,7 @@ function linksShare (links) {
 			            	vector[i].onclick = reproductorShared;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
 
-			            	playList.addSong(new Song(vector[i].name));
+			            	playlist.addSong(new Song(vector[i].name, null));
 			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
 			           }
@@ -177,19 +193,19 @@ function linksShare (links) {
 			            	//alert(vector2[j].innerText);
 			            	if(vector2[j].innerText=='youtube'){
 			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
-			            		(playList.getElement(j)).setProvider("youtube");
+			            		(playlist.getElement(j)).setProvider("youtube");
 			            	}
 			            	if(vector2[j].innerText=='goear'){
 			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
-			            		playList.getElement(j).setProvider("goear");
+			            		playlist.getElement(j).setProvider("goear");
 			            	}
 			            	if(vector2[j].innerText=='spotify'){
 			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
-			            		playList.getElement(j).setProvider("spotify");
+			            		playlist.getElement(j).setProvider("spotify");
 			            	}
 			            	if(vector2[j].innerText=='mp3'){
 			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
-			            		playList.getElement(j).setProvider("mp3");
+			            		playlist.getElement(j).setProvider("mp3");
 			            	}
 			            	
 			            }
@@ -474,7 +490,6 @@ else{//si me llega una lista sin compartir
 			   		url: 'newlist.php',
 			   		data:$('#txtNewList').serialize(),
 			   		success: function(response) {  	
-		   				alert(response);
 		   				updateLists();
 					}
 			   });
@@ -486,11 +501,14 @@ else{//si me llega una lista sin compartir
 	$(ListNewShare).click(function(){
 			   $.ajax({
 			   		type:'POST',
-			   		url: 'newlist.php',
+			   		url: 'copylist.php',
 			   		data:$('#txtNewListShare').serialize(),
 			   		success: function(response) {  	
 		   				alert(response);
-		   				updateLists();
+		   				//llamada a la principal
+		   				window.location=("#p_links");
+						$('#contenedor').hide();
+					   //  $('#p_links').fadeIn();
 					}
 			   });
 			   
@@ -569,27 +587,28 @@ else{//si me llega una lista sin compartir
   		});	
   		
   	$('#b_facebook').click(function(){
+  		alert("hola");
   		$.ajax({        
-					             url:'getIdList.php',        
-					             type:'post',                 
-					             dataType:'html',  
-					             cache: false,            
-					             success: function (response) {
-										if (response!=-1)
-										{
-											
-											var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index.html?v="+response+"&t=Compartiendo Lista:"+response;
+	             url:'getIdList.php',        
+	             type:'post',                 
+	             dataType:'html',  
+	             cache: false,            
+	             success: function (response) {
+						if (response!=-1)
+						{
+							
+							var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index.html?v="+response+"&t=Compartiendo Lista:"+response;
 
-											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200" );
-										}				   
-										else
-										{
-											
-											alert('You can´t generate it');
-				
-										}
-								 }     
-					   });
+							nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200" );
+						}				   
+						else
+						{
+							
+							alert('You can´t generate it. Please select a list');
+
+						}
+				 }     
+	   });
   	});
   	$('#b_twitter').click(function(){
   		$.ajax({        
@@ -607,7 +626,7 @@ else{//si me llega una lista sin compartir
 										else
 										{
 											
-											alert('You can´t generate it');
+											alert('You can´t generate it. Please select a list');
 				
 										}
 								 }     
@@ -863,8 +882,8 @@ else{//si me llega una lista sin compartir
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-				  	playList.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
-					playList.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+				  	playlist.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+					playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
 				  	$.ajax({        
 				             url:'links.php',        
@@ -902,9 +921,9 @@ else{//si me llega una lista sin compartir
 	            			
 						var vector= document.getElementsByClassName('link');
 			            for(var i=0;i<vector.length;i++){
-			            	vector[i].onclick = reproductor;
+			            	//vector[i].onclick = reproductor;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-			            	playList.addSong(new Song(vector[i].name));
+			            	playlist.addSong(new Song(vector[i].name));
 			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
 			           }
@@ -941,19 +960,19 @@ else{//si me llega una lista sin compartir
 			            	//alert(vector2[j].innerText);
 			            	if(vector2[j].innerText=='youtube'){
 			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
-			            		(playList.getElement(j)).setProvider("youtube");
+			            		(playlist.getElement(j)).setProvider( PROVIDER.YOUTUBE);
 			            	}
 			            	if(vector2[j].innerText=='goear'){
 			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
-			            		playList.getElement(j).setProvider("goear");
+			            		playlist.getElement(j).setProvider(PROVIDER.GOEAR);
 			            	}
 			            	if(vector2[j].innerText=='spotify'){
 			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
-			            		playList.getElement(j).setProvider("spotify");
+			            		playlist.getElement(j).setProvider("spotify");
 			            	}
 			            	if(vector2[j].innerText=='mp3'){
 			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
-			            		playList.getElement(j).setProvider("mp3");
+			            		playlist.getElement(j).setProvider(PROVIDER.MP3);
 			            	}
 			            	
 			            }
@@ -1010,161 +1029,5 @@ else{//si me llega una lista sin compartir
 	            var objetoLinks = new cambiaOnClickLinks();
 	            objetoLinks.change(document.getElementById("Links"));
 	        }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//objeto song con sus métodos
-	function Song(UrlLink){
-		var link = UrlLink;
-		var idPlayList=null;
-		var nextSong=null;
-		var provider=null;
-		this.setProvider = function(pProvider) {
-			 provider = pProvider;
-		};	
-		this.getProvider=function(){
-			return provider;
-		}	  
-		this.setNextSong = function(song) {
-			 nextSong = song;
-		};
-		this.getNextSong = function() {
-			return  nextSong;
-		};		  
-		this.getLink = function() {
-			return  link;
-		};
-		this.getIdList = function() {
-			return  idPlayList;
-		};	
-		this.setLink = function(URLlink) {
-			 link=URLlink;
-		};
-		this.setIdList = function(idList) {
-			 idPlayList=idList;
-		};		  
-	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-//objeto playList con sus métodos
-   function playList(idList, NSongs,FirstSong){
-		 //lo creo asi, para que la primera vez, al meter solo una cancion, sea tanto la primera como la ultima.
-		 var id=idList;
-		 var numberSongs = NSongs;
-		
-		 var firstSong = FirstSong;
-		 var lastSong = null;
-		  //el id del playlist sera el mismo id que tiene la lista en la base de datos.
-		this.getNumberSongs = function() {
-			return numberSongs;
-		};
-		
-		this.getFirstSong = function() {
-			return firstSong;
-		};
-		
-		this.getLastSong= function() {
-			return lastSong;
-		};
-		
-		this.setNumberSongs = function(pNumber) {
-			numberSongs = pNumber;
-		};
-		this.setId = function(pId) {
-			id = pId;
-		};
-		this.getId = function() {
-			return id;
-		};
-		this.incrNumberSongs =function() {
-			numberSongs =numberSongs+ 1;
-			//alert(numberSongs);
-		};
-		
-		this.setFirstSong = function(pFirst) {
-			 firstSong = pFirst;
-		};
-		
-		this.setLastSong = function(pLast) {
-			 lastSong = pLast;
-		}
-		this.addSong= function(song){
-			if(firstSong==null){
-				song.setNextSong(null);
-				firstSong=song;
-				this.setLastSong(song);
-				
-			}
-			else{
-				song.setNextSong(null);
-				lastSong.setNextSong(song);
-				this.setLastSong(song);
-			}
-			song.setIdList(id);
-			this.incrNumberSongs();	
-		}
-		this.delPlayList=function(){
-			 	 id=0;
-				 numberSongs = 0;
-				 firstSong = null;
-				 lastSong = null;
-		}
-		this.getElement =function (n){
-			var sAux=null;
-			
-			if(n<=numberSongs){
-				sAux=this.getFirstSong();
-				
-				for(var i=0;i<n;i++){
-					sAux=sAux.getNextSong();
-				}
-			}
-			//devolvera null si n es mayor que el numero de elementos que hay			
-			return sAux;
-		}
-		this.delElemento =function (n){
-			var sAux=null;
-			
-			if(n<=numberSongs){
-				sAux=this.getFirstSong();
-				if(n==0){
-					this.setFirstSong(sAux.getNextSong());
-					
-				}
-				else{
-					for(var i=1;i<n;i++){
-						sAux=sAux.getNextSong();
-					}
-					sAux.setNextSong(sAux.getNextSong().getNextSong());
-				}
-				numberSongs--;
-				return true;
-			}
-			//devolvera null si n es mayor que el numero de elementos que hay			
-			return false;
-		}
-		this.addElementPos =function (n, song){
-			var sAux=null;
-			if(n<=numberSongs){
-				sAux=this.getFirstSong();
-				if(n==0){
-					song.setNextSong(sAux);
-					this.setFirstSong(song);
-					
-				}
-				else{
-					for(var i=1;i<n;i++){
-						sAux=sAux.getNextSong();
-					}
-					song.setNextSong(sAux.getNextSong());
-					sAux.setNextSong(song);
-				}
-				numberSongs++;
-				return true;
-			}
-			//devolvera null si n es mayor que el numero de elementos que hay			
-			return false;
-		}
 
-	}
-	
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7	
-			
  });
