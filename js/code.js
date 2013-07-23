@@ -882,7 +882,7 @@ else{//si me llega una lista sin compartir
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-				  	playlist.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+				  	playlist.delPlaylist();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
 					playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
 				  	$.ajax({        
@@ -1029,5 +1029,10 @@ else{//si me llega una lista sin compartir
 	            var objetoLinks = new cambiaOnClickLinks();
 	            objetoLinks.change(document.getElementById("Links"));
 	        }
+
+	
+	$('.html5Player').append(stopButton);
+	$('.html5Player').append(nextSongButton); 
+	$('#playButtonPlace').append(playButton);
 
  });

@@ -4,15 +4,18 @@
 *
 * DEPENDENCIES
 *  - //ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js
-* - ./js/swfobjects.js
+*  - /js/swfobjects.js
+*
+* VERSION
+*  - v0.1.201307231550
 *
 *-------------------------------------------------------------------------*/
 
 // Global Variables
 var PROVIDER = {
 	YOUTUBE : 0,
-	GOEAR : 1, 
-	MP3: 2
+	GOEAR : 1,
+	MP3 : 2
 }
 
 // Variables needed in the workflow of the YTAPI
@@ -22,23 +25,17 @@ var player, apiReady = false;
 var audioFile;
 
 // Variables for the player to use
-var playlist, repeat = false, actualPosition, lastProvider = -1;
-//metodo que busque una url y te devuelva la posicion
-//asignaria actualPosition a la cancion que has pulsado, y llamar a playSong(song)
-function next(song) {
-    actualPosition = song;
-    playSong(song);
-}
+var playlist, lastProvider = -1;
 
 // Variables for YouTube API to use
-var youTubePlayerStarted = false, mp3PlayerStarted = false;
+var youTubePlayerStarted = false;
 
 // Object definition
 /**
  * Class: Song
  *
- * @param String id Unique identifier of a playlist.
- * @param int nSongs Number of the song?.
+ * @param String id Unique identifier of a song
+ * @param int Provider Provider of the song
  */
 function Song(id, provider) {
 	this._id = id;
@@ -71,47 +68,71 @@ function Song(id, provider) {
  * Class: Playlist
  *
  * @param String id Unique identifier of a playlist.
- * @param int nSongs Number of the song?.
  */
 function Playlist(id) {
-	//lo creo asi, para que la primera vez, al meter solo una cancion, sea tanto la primera como la ultima.
 	this.id = id;
-	this.numberSongs = 0;
+	this.actualPosition = null;
 	this.firstSong = null;
 	this.lastSong = null;
+	this.numberSongs = 0;
+	this.repeat = false;
 
-	//el id del playlist sera el mismo id que tiene la lista en la base de datos.
-	this.getNumberSongs = function() {
-		return this.numberSongs;
-	};
+	this.getActualPosition = function() {
+		return this.actualPosition;
+	}
+
+	this.getElement = function(n) {
+		var sAux = null;
+
+		if (n <= this.numberSongs) {
+			sAux = this.getFirstSong();
+
+			for (var i = 0; i < n; i++) {
+				sAux = sAux.getNextSong();
+			}
+		}
+		//devolvera null si n es mayor que el numero de elementos que hay
+		return sAux;
+	}
 
 	this.getFirstSong = function() {
 		return this.firstSong;
-	};
-
-	this.getLastSong = function() {
-		return this.lastSong;
-	};
-
-	this.setId = function(newId) {
-		this.id = newId;
 	};
 
 	this.getId = function() {
 		return this.id;
 	};
 
-	this.incrNumberSongs = function() {
-		this.numberSongs = this.numberSongs + 1;
-		//alert(numberSongs);
+	this.getNumberSongs = function() {
+		return this.numberSongs;
 	};
+
+	this.getLastSong = function() {
+		return this.lastSong;
+	};
+
+	this.getRepeat = function() {
+		return this.repeat;
+	}
+
+	this.setActualPosition = function(actualPosition) {
+		this.actualPosition = actualPosition;
+	}
 
 	this.setFirstSong = function(pFirst) {
 		this.firstSong = pFirst;
 	};
 
+	this.setId = function(newId) {
+		this.id = newId;
+	};
+
 	this.setLastSong = function(pLast) {
 		this.lastSong = pLast;
+	}
+
+	this.setRepeat = function(repeat) {
+		this.repeat = repeat;
 	}
 
 	this.addSong = function(song) {
@@ -126,25 +147,6 @@ function Playlist(id) {
 			this.setLastSong(song);
 		}
 		this.incrNumberSongs();
-	}
-	this.delPlayList = function() {
-		this.id = 0;
-		this.numberSongs = 0;
-		this.firstSong = null;
-		this.lastSong = null;
-	}
-	this.getElement = function(n) {
-		var sAux = null;
-
-		if (n <= this.numberSongs) {
-			sAux = this.getFirstSong();
-
-			for (var i = 0; i < n; i++) {
-				sAux = sAux.getNextSong();
-			}
-		}
-		//devolvera null si n es mayor que el numero de elementos que hay
-		return sAux;
 	}
 
 	this.delElement = function(n) {
@@ -189,18 +191,53 @@ function Playlist(id) {
 		//devolvera null si n es mayor que el numero de elementos que hay
 		return false;
 	}
+
+	this.delPlaylist = function() {
+		this.id = 0;
+		this.numberSongs = 0;
+		this.firstSong = null;
+		this.lastSong = null;
+	}
+
+	this.incrNumberSongs = function() {
+		this.numberSongs = this.numberSongs + 1;
+		//alert(numberSongs);
+	};
 }
 
 // This code loads the IFrame Player API code asynchronously.
 var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
+tag.src = "http://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var playButton, stopButton, nextSongButton;
+
+// Create playback buttons
+playButton = $('<button/>', {
+	text : 'Start Playlist',
+	id : 'b_startPlayer',
+	class : 'button',
+	click : startPlayer
+});
+stopButton = $('<button/>', {
+	text : 'Stop',
+	id : 'b_stopPlayer',
+	class : 'button',
+	click : stopPlayer,
+	disabled : true
+});
+nextSongButton = $('<button/>', {
+	text : 'Next Song',
+	id : 'b_nextSong',
+	class : 'button',
+	click : next,
+	disabled : true
+});
 
 function onYouTubeIframeAPIReady() {
 	apiReady = true;
-	$('#play').attr("disabled", false);
+	playButton.attr('disabled', false);
 }
 
 /* Functions...*/
@@ -244,14 +281,15 @@ function createAudio(audioURI) {
 
 function destroyAudio() {
 
-	$('#mp3Player')[0].remove();
+	if($('#mp3Player')[0] != null)
+		$('#mp3Player')[0].remove();
 
 }
 
 function createGoear(goearId) {
 	$.ajax({
 		type : 'GET',
-		url : 'php/goearScript.php',
+		url : './php/goearScript.php',
 		dataType : 'json',
 		data : {
 			'id' : goearId
@@ -276,7 +314,6 @@ function onPlayerReady(event) {
 // 5. The API calls this function when the player's state changes.
 //    The function indicates that when playing a video (state=1),
 //    the player should play for six seconds and then stop.
-var done = false;
 function onPlayerStateChange(event) {
 	if (event.data == YT.PlayerState.ENDED) {
 		next();
@@ -284,39 +321,58 @@ function onPlayerStateChange(event) {
 }
 
 function next() {
+	var auxSong;
 
+	if (playlist == null) {
+		throw {
+			name : "Player undefined",
+			level : "Show Stopper",
+			message : "Error detected. The player has not been specified.",
+		}
+		return false;
+	}
 	// If it is not empty
 	if (playlist.getNumberSongs() > 0) {
-
+		auxSong = playlist.getActualPosition();
 		// If the playlist hasn't started yet
-		if (actualPosition == null) {
+		if (auxSong == null) {
+			auxSong = playlist.getFirstSong();
+			
 			// Retrieve the first element and play
-			actualPosition = playlist.getFirstSong();
-			playSong(actualPosition);
+			playlist.setActualPosition(auxSong);
+			playSong(auxSong);
 			return true;
 		}
 		// If the playlist is not over
-		else if (actualPosition.getNextSong() != null) {
+		else if (auxSong.getNextSong() != null) {
+			auxSong = auxSong.getNextSong();
 			// Retrieve the next song and play it
-			actualPosition = actualPosition.getNextSong();
-			playSong(actualPosition);
+			playlist.setActualPosition(auxSong);
+			playSong(auxSong);
 			return true;
 		}
 		// In case it is over, check if we should start again
-		else if (repeat) {
-			// 3.1 Go back at the beginning
-			actualPosition = playlist.getFirstSong();
-			playSong(actualPosition);
+		else if (playlist.getRepeat()) {
+			auxSong = playlist.getFirstSong();
+			// Retrieve the first element and play
+			playlist.setActualPosition(auxSong);
+			playSong(auxSong);
 			return true;
 		}
 		// 3.3 The playlist is over
 		else {
 			// 3.3 Set the playlist as not started and leave
-			actualPosition = null;
+			playlist.setActualPosition(null);
 			return false;
 		}
 	}
 	return false;
+}
+
+function playOnClick(song) {
+	//TODO: Check if the song is in the playlist
+	playlist.setActualPosition(song);
+	playSong(song);
 }
 
 function playSong(song) {
@@ -374,30 +430,40 @@ function playSong(song) {
 
 }
 
-function stopVideo() {
-	player.stopVideo();
-}
-
-function playVideo() {
-	player.playVideo();
-}
-
 function startPlayer() {
-//	printPlaylist();
+	$('#b_stopPlayer').attr('disabled', false);
+	$('#b_nextSong').attr('disabled', false);
 	next();
 }
+function stopPlayer() {
+	$('#b_stopPlayer').attr('disabled', true);
+	$('#b_nextSong').attr('disabled', true);
+	// 1. If any player has been played previously and the provider is different
+	if (lastProvider > -1) {
+		switch (lastProvider) {
+			case PROVIDER.YOUTUBE:
+				player.stopVideo();
+				break;
+			case PROVIDER.GOEAR:
+				destroyAudio()
+				break;
+			default:
+		}
 
-function printPlaylist(){
+		hiddenElements = true;
+	}
+	playlist.setActualPosition(null);
+}
+
+function printPlaylist() {
 	var auxSong = playlist.getFirstSong();
 	$('#order').children().remove();
-	
-	for (var j = 0; j < playlist.getNumberSongs(); j++){
+
+	for (var j = 0; j < playlist.getNumberSongs(); j++) {
 		$('#order').append($('<li>', {
-         	text: auxSong.getId()
+			text : auxSong.getId()
 		}));
 		auxSong = auxSong.getNextSong();
 
-	}	
+	}
 }
-
-$('#play').click(startPlayer);
