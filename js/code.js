@@ -38,8 +38,7 @@ $(document).ready(function(){
 	
 	$( "#tabsPerfil" ).tabs();
    
-   
-
+  
 //Capturamos la URL 
 var callingURL = document.URL;
 
@@ -62,8 +61,15 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	    arrayParams[0].substring(arrayParams[0].indexOf('=')+1,arrayParams
 	     [0].length)+"\""); 
 ///////////////////////////////////////////////////////////////////////////////
-	if(idListaCompartida!="http://localhost/GramolaProject/" && idListaCompartida!="http://localhost/GramolaProject/index.html" &&  idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
-		
+  function leerGET(){ 
+			var cadGET = location.search.substr(1,location.search.length); 
+			var aux = cadGET.split("=");
+			return aux[1]; 
+		} 
+	if(start==true){
+	//if(idListaCompartida!="http://localhost/GramolaProject/" && idListaCompartida!="http://localhost/GramolaProject/index.html" &&  idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
+	
+	//if(leerGet()!=null){	
 	 window.location=("#p_links");
 	    
 	     $('#contenedor').hide();
@@ -214,7 +220,6 @@ function linksShare (links) {
 			            	
 			            }
 	            	
-	            	document.getElementById ("TableLinks").listview("refresh");
 			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
 			            //una funcion que borre el link
 			          

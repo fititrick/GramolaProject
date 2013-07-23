@@ -43,6 +43,25 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 		<script>
+		var start;
+		function preloadFunc()
+    {
+        if(leerGET()!=null){
+				start=true;
+			}
+			else{
+				start=false;
+			}
+    }
+    function leerGET(){ 
+			var cadGET = location.search.substr(1,location.search.length); 
+			var aux = cadGET.split("=");
+			return aux[1]; 
+		} 
+    window.onpaint = preloadFunc();
+		
+		
+		
 			function copia_portapapeles() {
 				document.f1.campo1.select();
 			}
