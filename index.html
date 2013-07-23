@@ -115,14 +115,20 @@
 	<body background="./images/background.jpg">
 		<div data-role="page" id="p_index" >
 			<div id="contenedor">
-				<div id="tabs"  style="position:absolute; height: 100%; width: 100%;">
+				<div id="tabs"  style="position:relative; height: 100%; width: 100%;">
 
-					<ul id="pestanasPrincipales">
+					<ul id="pestanasPrincipales" style="background-color: #2E2E2E;">
+						<li>
+							<img align='top' src="./images/Gramola1.png" width="50px" height="50px"/>
+						</li>
 						<li>
 							<a href="#tabs-1">Login</a>
 						</li>
 						<li>
 							<a id="desaparecer"  href="#tabs-2">Register</a>
+						</li>
+						<li style="float:right;">
+							<img align='absmiddle'  src="./images/Logo2.png" width="50px" height="50px"/>
 						</li>
 					</ul>
 					<div id="tabs-1" class="transbox">
@@ -193,7 +199,22 @@
 					</div>
 				</div>
 				<div id="tabs2"  style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%;">
-					<ul style="background-color: #2E2E2E">
+					<ul style="background-color: #2E2E2E;">
+						<li>
+							<img align='top' src="./images/Gramola1.png" width="50px" height="50px"/>
+						</li>
+						<li style="float:right;">
+							<img align='absmiddle'  src="./images/Logo2.png" width="50px" height="50px"/>
+						</li>
+						<li style="float:right;">
+							<div id="LogOut">
+							<button id="LogOut1" class="b_LogOut" type="submit" data-theme="e" >
+								LOG OUT
+							</button>
+							</div>
+						
+						</li>
+						
 						<li>
 							<a href="#tabs2-1" class="button">Lists</a>
 						</li>
@@ -201,6 +222,7 @@
 							<a href="#tabs2-4" class="button">Player</a>
 
 						</li>
+						
 					</ul>
 					<div id="tabs2-1" >
 
@@ -208,13 +230,7 @@
 						<div id="Perfil"  style="position:absolute; left: 74.5%; top: 0%;">
 					
 						</div>
-						<div id="LogOut" style="position:absolute; left: 90%; top: 0%;">
-
-							<button id="LogOut1" class="b_LogOut" type="submit" data-theme="e" >
-								LOG OUT
-							</button>
-
-						</div>
+						
 						<div id="List">
 							<label style="color: white" >Name of lists:</label>
 							<div id="div-clase2"></div>
@@ -402,7 +418,7 @@
 				
 			</div>
 			</div>
-			<div data-role="page" id="p_links">	
+		<div data-role="page" id="p_links">	
 						<div id="tabsShare" style="position: absolute; width: 100%; height: 98%;">
 					<ul style="background-color: #2E2E2E">
 						<li>
