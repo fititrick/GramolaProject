@@ -431,6 +431,7 @@ function playSong(song) {
 }
 
 function startPlayer() {
+	stopPlayer();
 	$('#b_stopPlayer').attr('disabled', false);
 	$('#b_nextSong').attr('disabled', false);
 	next();
