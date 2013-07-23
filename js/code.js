@@ -26,14 +26,17 @@ $(document).ready(function(){
    
    var logOut= $('#LogOut1');
    var Perfil= $('#Perfil1');
-   var MainPage=$('#MainPage1');
    var changePass=$('#changePass');
    var changeNick=$('#changeNick');
    var changeEmail=$('#changeEmail');
    var changeImage=$('#changeImage');
    var sendfile=$('#sendfile');
    var enviararchivo=$('#enviararchivo');
-   
+   $( "#tabs" ).tabs();
+	$( "#tabs2" ).tabs();
+	
+	$( "#tabs-2" ).tabs();
+	$( "#tabsPerfil" ).tabs();
    
    
 
@@ -92,6 +95,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 					});
 					$('#LogOutShare').html('<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >LOG OUT</button>');
 					$('#SaveSharedList').html('<h3>Save List</h3><input id="txtNewListShare" type="text" name="name" value="List name"  onblur="if(this.value == "") { this.value="List name"}" onfocus="if (this.value == "List name") {this.value=""}" /><a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>');
+					$('#SaveSharedList').collapsible({refresh:true});
 				}
 				else{
 					
@@ -269,14 +273,7 @@ function linksShare (links) {
 }
 else{//si me llega una lista sin compartir
 	$('#LogOut').hide();
-	$('#Perfil').hide();
-	$('#MainPage').hide();
-	$( "#tabs" ).tabs();
-	$( "#tabs2" ).tabs();
 	$('#tabs2').hide();
-	$( "#tabs-2" ).tabs();
-	$( "#tabsPerfil" ).tabs();
-	$( '#tabsPerfil' ).hide();
 	$('#div_BorrarLista').hide();
 	$('#div_VoteList').hide();
 	// $('#contenedor').fadeIn();
@@ -311,21 +308,18 @@ else{//si me llega una lista sin compartir
 }
 //fin else
 		function mainProfile(){
+			
 			$.ajax({
 				type:'POST',
 				 url: 'Perfil.php',
 				success: function(response) { 
-					$('#tabs2').hide();	
-					$('#Perfil').hide();
-					$('#MainPage').fadeIn();
-					$('#tabsPerfil').fadeIn();
 					$('#PerfilContainer').html(response);		
-					             
 	   				
 				}
 			});
 									
 		}
+		
 	
    $('.b_LogOut').click(function(){
    		$.ajax({
@@ -465,24 +459,7 @@ else{//si me llega una lista sin compartir
 
    });
    
-  
-   $(MainPage).click(function(){
-   		$.ajax({
-			type:'POST',
-			 url: 'MainPage.php',
-			success: function(response) { 
-				$('#MainPage').hide();
-				$('#DLogin').hide();
-				$('#LogOut').fadeIn();
-   				$('#tabs2').fadeIn();
-   				$('#Perfil').fadeIn();
-   				$('#tabsPerfil').hide();		
-   				$('#ContactForm').find('.form_result').html(response);
-   				
-			}
-		});
-		 
-   });   
+ 
    
     $(ListNew).click(function(){
 			   $.ajax({
