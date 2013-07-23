@@ -59,7 +59,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	    arrayParams[0].substring(arrayParams[0].indexOf('=')+1,arrayParams
 	     [0].length)+"\""); 
 ///////////////////////////////////////////////////////////////////////////////
-	if(idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
+	if(idListaCompartida!="http://localhost/GramolaProject/" && idListaCompartida!="http://localhost/GramolaProject/index.html" &&  idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
 		
 	 window.location=("#p_links");
 	    
@@ -104,7 +104,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 	  	//alert(document.getElementById('b_BorrarLista').innerText);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-	  	playList.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+	  //	playList.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
 		playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
 	  	$.ajax({        
