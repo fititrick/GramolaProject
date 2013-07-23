@@ -121,7 +121,7 @@ $(document).ready(function(){
 		   			document.getElementById("actualpass").value="";	
 		   			document.getElementById("newpass").value="";	
 					document.getElementById("confnewpass").value="";
-	   				alert("tu pass ha sido cambiado");	
+	   				alert("Your password has been changed");	
 	   				location.reload(true);
 
 			},
@@ -191,7 +191,7 @@ $(document).ready(function(){
 		   			document.getElementById("newemail").value="";
 		   			document.getElementById("confnewemail").value="";	
 		   			document.getElementById("actualpassemail").value="";	
-		   			alert("tu email ha sido cambiado");	
+		   			alert("Your email has changed");	
    				location.reload(true);
 
 			},
@@ -367,7 +367,7 @@ $(document).ready(function(){
 					             success: function (response) {
 										if (response!=-1)
 										{
-											var response=response.toString();
+											
 											var url="https://twitter.com/intent/tweet?text=Compartiendo la lista:"+response+"&url=http://gramola.sytes.net?v="+response;
 											nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
 										}				   
@@ -383,6 +383,71 @@ $(document).ready(function(){
 
   	});
   	
+  	$('#b_setPublic').click(function(){
+  		
+  		
+  		var param= 'cambio=' + this.name;
+  			$.ajax({        
+					             url:'setRights.php',        
+					             type:'post',                 
+					             dataType:'html',
+					             data:param,  
+					             cache: false,            
+					             success: function (response) {
+					             	alert(response);
+										if (response==true)
+										{
+											
+											alert("The right has been set up");
+											$('#div_Compartir').fadeIn();
+										}				   
+										else
+										{
+											alert("The right has not been set up");			
+				
+										}
+								 }     
+					   });
+  			
+  		
+  		
+  	
+  	
+  	});
+  	
+		 
+  	
+  	$('#b_setPrivate').click(function(){
+  		
+  		//Ocultamos el div
+  		//OAdiv(true);
+
+	
+  		var param= 'cambio=' + this.name;
+  			$.ajax({        
+					             url:'setRights.php',        
+					             type:'post',                 
+					             dataType:'html',
+					             data:param,  
+					             cache: false,            
+					             success: function (response) {
+					             	alert(response);
+										if (response==true)
+										{
+											
+											alert("The right has been set up");
+											$('#div_Compartir').hide();
+											
+										}				   
+										else
+										{
+											alert("The right has not been set up");			
+				
+										}
+								 }     
+					   });
+  		  			
+  	});
   	
   	function deleteLink(){
   			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
@@ -569,7 +634,7 @@ $(document).ready(function(){
 					location.reload(true);
 				}
 				else{
-					alert("usuario no identificado");
+					alert("Unidentified User");
 					location.reload(true);
 
 				}
@@ -862,6 +927,5 @@ $(document).ready(function(){
 
 	}
 	
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7	
 			
  });
