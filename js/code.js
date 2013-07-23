@@ -35,7 +35,7 @@ $(document).ready(function(){
    $( "#tabs" ).tabs();
 	$( "#tabs2" ).tabs();
 	
-	$( "#tabs-2" ).tabs();
+	
 	$( "#tabsPerfil" ).tabs();
    
    
@@ -329,7 +329,6 @@ else{//si me llega una lista sin compartir
 				$('#LogOut').hide();
 				$('#tabs2').remove();			
 				location.reload(true);
-   				$('#ContactForm').find('.form_result').html(response);
    				
 			}
 		});
@@ -344,13 +343,12 @@ else{//si me llega una lista sin compartir
 			data:$('#changepass').serialize(),
 			cache: false,
 			success: function(response) {  	
-   				$('#ContactForm').find('.form_result').html(response);
    					document.getElementById("nickpass").value="";
 		   			document.getElementById("newnickpass").value="";
 		   			document.getElementById("actualpass").value="";	
 		   			document.getElementById("newpass").value="";	
 					document.getElementById("confnewpass").value="";
-	   				alert("tu pass ha sido cambiado");	
+	   				alert("Your password change was successful");	
 	   				location.reload(true);
 
 			},
@@ -415,12 +413,11 @@ else{//si me llega una lista sin compartir
 			data:$('#changeEmail').serialize(),
 			cache: false,
 			success: function(response) {  	
-   				$('#ContactForm').find('.form_result').html(response);
    					document.getElementById("email").value="";
 		   			document.getElementById("newemail").value="";
 		   			document.getElementById("confnewemail").value="";	
 		   			document.getElementById("actualpassemail").value="";	
-		   			alert("tu email ha sido cambiado");	
+		   			alert("Your email change was successful");	
    				location.reload(true);
 
 			},
@@ -443,7 +440,6 @@ else{//si me llega una lista sin compartir
 			data:$('#changeImage').serialize(),
 			cache: false,
 			success: function(response) {  	
-   				$('#ContactForm').find('.form_result').html(response);
    					document.getElementById("imageLink").value="";
 		   				
 
@@ -530,8 +526,10 @@ else{//si me llega una lista sin compartir
 			   		type:'POST',
 			   		url: 'newLink.php',
 			   		data:$('#divNewLink').serialize(),
-			   		success: function(response) {  	
-		   				$('#ContactForm').find('.form_result').html(response);
+			   		success: function(response) {		   				
+		   				if(!response){
+		   					confirm('A failure occurred inserting new link');
+		   				}
 		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
 		   				document.getElementById("urlLink").value="";
 		   				document.getElementById("number-pattern").value="";
@@ -563,8 +561,7 @@ else{//si me llega una lista sin compartir
   		
   		});	
   		
-  	$('#b_facebook').click(function(){
-  		alert("hola");
+  	$('#b_facebook').click(function(){  		
   		$.ajax({        
 	             url:'getIdList.php',        
 	             type:'post',                 
@@ -713,9 +710,7 @@ else{//si me llega una lista sin compartir
   			//definir funcion ajax que llame a setVote.php que has de crear, y pasas este numero como parametro
   				
   				
-  			 	var param= "numVote=" + this.name + "&idLink=" + this.title;
-					//alert(param);
-				
+  			 	var param= "numVote=" + this.name + "&idLink=" + this.title;				
 					$.ajax({        
 								             url:'setVote.php',        
 								             type:'post',                 
@@ -765,9 +760,7 @@ else{//si me llega una lista sin compartir
 			type:'POST', 
 			url: 'registro.php', 
 			data:$('#registro').serialize(),
-			success: function(response) {  	
-   				$('#ContactForm1').find('.form_result1').html(response);
-   				
+			success: function(response) {  	   				
    				$('#DLogin').hide();
 				$('#LogOut').fadeIn();
    				$('#tabs2').fadeIn();
@@ -798,7 +791,7 @@ else{//si me llega una lista sin compartir
 					location.reload(true);
 				}
 				else{
-					alert("usuario no identificado");
+					alert("Not correct user");
 					location.reload(true);
 
 				}

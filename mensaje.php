@@ -34,6 +34,7 @@ if(isset($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['user'])){
 				$_SESSION["autentificado"]="SI";
 				$_SESSION["nick"]=$row[0];
 				$_SESSION["idUser"]=$row[2];
+				//$_SESSION["N_linksEnLista"]=0;
 				//header("Location: principal.php");
 				$variable=$_SESSION["nick"];
 				echo 1;
