@@ -621,8 +621,7 @@ else{//si me llega una lista sin compartir
 					             dataType:'html',
 					             data:param,  
 					             cache: false,            
-					             success: function (response) {
-					             	alert(response);
+					             success: function (response) {					             	
 										if (response==true)
 										{
 											
@@ -658,8 +657,7 @@ else{//si me llega una lista sin compartir
 					             dataType:'html',
 					             data:param,  
 					             cache: false,            
-					             success: function (response) {
-					             	alert(response);
+					             success: function (response) {					             	
 										if (response==true)
 										{
 											
