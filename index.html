@@ -185,8 +185,9 @@
 					</ul>
 					<div id="tabs2-1" >
 
-						<div id="Perfil"  style="position:absolute; left: 74.5%; top: 1.5%;">
-
+						
+						<div id="Perfil"  style="position:absolute; left: 74.5%; top: 0%;">
+					
 						</div>
 						<div id="LogOut" style="position:absolute; left: 90%; top: 0%;">
 
@@ -365,21 +366,111 @@
 					</div>
 
 				</div>
-				<div id="tabsPerfil" data-theme="a" style="background-color:#2E2E2E ;position: absolute; top: 1%; left: 1%; width: 99%; height: 90%;">
-					<div id="LogOut" style="position:absolute; left: 90%; top: 0%;">
-
-						<button id="LogOut1" class="b_LogOut" type="submit" data-theme="e" >
-							LOG OUT
-						</button>
-
-					</div>
-
-					<div id="MainPage" style="position:absolute; left: 78.5%; top: 0%;">
-						<button id="MainPage1" type="submit" data-theme="e" >
-							Go main page
-						</button>
-					</div>
+				
+			</div>
+			</div>
+			<div data-role="page" id="p_links">	
+						<div id="tabsShare" style="position: absolute; width: 100%; height: 98%;">
 					<ul style="background-color: #2E2E2E">
+						<li>
+							<a href="#tabs2-1Share" class="button">List</a>
+						</li>
+						<li>
+							<a href="#tabs2-4Share" class="button">Player</a>
+						</li>
+					</ul>
+					<div id="tabs2-1Share">
+						
+						<div id="PerfilShare"  style="position:absolute; left: 74.5%; top: 1%;">
+					
+						</div>
+						<div id="LogOutShare" style="position:absolute; left: 90%; top: 0%;">
+							
+							
+							
+						</div>
+						<div id="LinksContainerShare" data-role="footer" data-theme="a" >
+							<div class="ui-block-a ui-body-a"  >
+								<label for="basic">Links:</label>
+								
+								<div  data-role="fieldcontain" style="position:relative; max-width:100%; max-height:80%; overflow:auto;">
+
+									<table id="TableLinksShare" class="tablesorter" >
+										<thead>
+											<tr>
+												<th >
+												Name
+												</th>
+												
+												<th >
+												Artist
+												</th>
+												
+												<th >
+												Genre
+												</th>
+												<th >
+												Icon
+												</th>
+												<th >
+												Position in List
+												</th>
+												
+											</tr>
+										</thead>
+										<tbody  id="LinksShare" style="background-color: #A9E2F3; color:black" >
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="ui-block-c " style="width: 40%" >
+							
+							
+							<div data-role="collapsible-set" >
+								<div id="SaveSharedList" data-role="collapsible" data-theme="b" data-content-theme="b" >
+									
+								</div>
+								<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Share</h3>
+
+									<div class="ui-grid-solo">
+										<div id="div_CompartirShare" class="ui-block-a">
+											<table id="tablaCompShare">
+												<tr>
+													<td id="b_facebookShare"><img src="./images/fb.png" /></td>
+													<td id="b_twitterShare"><img src="./images/twitter.png" /></td>
+
+											</tr>
+											</table>
+											<form name="f2"> 
+												<textarea cols="50" rows="5" name="campo1" onclick="copia_portapapeles2()">Url of the list</textarea> 
+												<br> 
+												
+											</form> 
+										</div>
+										
+									</div>
+
+								</div>
+								</div>
+							</div>
+							</div>
+							</div>
+							
+							
+							
+				</div>
+					<div id="tabs2-4Share">
+						<div id="playerShare" style="position:absolute; left: 55%; top: 50%"></div>
+										
+					</div>
+
+				
+
+		</div>
+		<div data-role="page" id="profile-Page" >
+			<div id="tabsPerfil" data-theme="a" style="background-color:#2E2E2E ;position: absolute; top: 1%; left: 1%; width: 99%; height: 90%;">
+				<ul style="background-color: #2E2E2E">
 						<li>
 							<a href="#tabsPerfil-perfil">Profile</a>
 						</li>
@@ -397,7 +488,7 @@
 						</div>
 
 					</div>
-					<div id="tabsPerfil-MyAccount" data-theme="b">
+			<div id="tabsPerfil-MyAccount" data-theme="b">
 
 						<div data-role:"content" data-theme="a">
 							<h4><font color="white">Modify Account:</h4></font></a>
@@ -623,6 +714,10 @@
 				<div id="playerShare" style="position:absolute; left: 55%; top: 50%"></div>
 
 			</div>
+
+
+			<p><a href="#p_index" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to page "one"</a></p>	
+		</div>
 
 		</div>
 	</body>

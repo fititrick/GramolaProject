@@ -289,7 +289,7 @@ function destroyAudio() {
 function createGoear(goearId) {
 	$.ajax({
 		type : 'GET',
-		url : './php/goearScript.php',
+		url : 'goearScript.php',
 		dataType : 'json',
 		data : {
 			'id' : goearId
@@ -388,6 +388,9 @@ function playSong(song) {
 			case PROVIDER.GOEAR:
 				destroyAudio()
 				break;
+			case PROVIDER.MP3:
+				destroyAudio()
+				break;
 			default:
 		}
 
@@ -424,6 +427,13 @@ function playSong(song) {
 
 			break;
 		// 2.3 In case of standard mp3 audio file
+		case PROVIDER.MP3:
+			lastProvider = PROVIDER.MP3;
+
+			// 2.3.2 Create the audio file
+			createAudio(song.getId());
+
+			break;
 		default:
 
 	}
@@ -446,6 +456,9 @@ function stopPlayer() {
 				player.stopVideo();
 				break;
 			case PROVIDER.GOEAR:
+				destroyAudio()
+				break;
+			case PROVIDER.MP3:
 				destroyAudio()
 				break;
 			default:
