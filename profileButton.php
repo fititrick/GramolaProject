@@ -11,7 +11,7 @@ $nickpass=$_SESSION["nick"];
 	if (mysqli_num_rows($result)==1){
 		while( $row = mysqli_fetch_row($result) ){
 			
-			echo "<p><a id='Perfil5' href='#profile-Page' data-role='button' ><img src='$row[0]'  border='3'  height='20' width='20' >Welcome $nickpass</a></p>";
+			echo "<p><a id='Perfil5' href='#profile-Page' data-role='button' ><img align='Absbottom' src='$row[0]'  border='2'  height='23' width='23' >Welcome $nickpass</a></p>";
 		}
 	}
 	

@@ -62,7 +62,6 @@ if($_SESSION["autentificado"]=="SI"){
 			 //$line = '<div id="list'.$var.'">'.$row[0].', list nº: '.$row[0].'</div>';	
 	    	 echo '<tr ><td><a id="Link'.$row[2].'" class="link" name='.$row[5].' title='.$row[6].' href="#" >'.$row[0].'</a></td>';
 			 echo '<td >'.$row[3].'</td>';
-			 echo '<td >'.$row[4].'</td>';
 			 echo '<td class="linkIcon">'.$row[6].'</td>';
 			 echo '<td class="PosLinkInList">'.$row[1].'</td>';
 			 echo '<td><div class:"votePanel">
@@ -76,9 +75,9 @@ if($_SESSION["autentificado"]=="SI"){
 			 	   </td> ';
 			 echo '<td><button id="b_BorrarLink"  title= "Delete" name="'.$row[2].'" type="submit" value= "'.$i.'" data-theme="b" class="buttonDelLink"><target="_blank"> <img src="./images/eliminar32.png"></img></button></td></tr>';
 			//aqui habria que meter un nuevo elemento de la tabla que sea la x para borrar con otra classe
-			
-			
 		}
+		//meter en session el numero de links de la lista
+		//$_SESSION["N_linksEnLista"]=$i;
 	}
 }
 else {
