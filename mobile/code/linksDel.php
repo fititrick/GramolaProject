@@ -20,7 +20,7 @@ if($_SESSION["autentificado"]=="SI"){
 	//echo $ciudades;
 			
 			$consulta ="SELECT name, posList, idLink, artist, genre, link, provider FROM links where idList=\"$idLista\" order by posList";	
-			$result=mysqli_query($con, $consulta) ;
+			$result=mysqli_query($conexion, $consulta) ;
 			
 			
 		

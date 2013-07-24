@@ -9,7 +9,7 @@ if($_SESSION["autentificado"]=="SI"){
 	$usuario=$_SESSION["idUser"];
 	
 	$consulta ="SELECT name, idList FROM lists where idUser=\"$usuario\"";	
-	$result=mysqli_query($con, $consulta) ;	
+	$result=mysqli_query($conexion, $consulta) ;	
 
 	if (mysqli_num_rows($result)==0){
 	  //echo "<p>No se pudo efectuar la consulta de la tabla <b>lists</b></p>\n";
