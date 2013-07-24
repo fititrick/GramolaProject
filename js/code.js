@@ -1,6 +1,17 @@
 $(document).ready(function() {
 	//////VARIABLES
 	var tablePerfil = $("#TablePerfil");
+	function placePlayer() {
+
+		$('.contentDiv:visible .playerPlaceholder')[0].innerHTML = "<div id='html5Player' class='player'>"
+																 + "<div id='youTubePlayer'></div>"
+																 + "</div>";
+		
+		$('.contentDiv:visible .player').first().append(stopButton);
+		$('.contentDiv:visible .player').first().append(nextSongButton);
+		$('.contentDiv:visible .startButtonHolder').first().append(playButton);
+	}
+
 	///////////////////////////////////////////////////////////////////////////////
 	//playlist = new Playlist(null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +60,7 @@ $(document).ready(function() {
 		$('#contenedor').hide();
 		//  $('#p_links').fadeIn();
 		$("#tabsShare").tabs();
-		placePlayer();
+		
 		//Primero mirar a ver si estoy logueado, si nolo estoy, mostrar solo tabla con links
 		$.ajax({
 			type : 'POST',
@@ -85,6 +96,7 @@ $(document).ready(function() {
 				}
 			}
 		});
+		
 		//si estoy logueado SaveSharedList aparecera, sino solo la de compartir
 		var param = 'id=' + idListaCompartida;
 		document.f2.campo1.value = "http://gramola.sytes.net/index.html?v=" + idListaCompartida;
@@ -123,7 +135,7 @@ $(document).ready(function() {
 			//    $('#lista').fieldcontain("refresh");
 			//$html.filter('.list').appendTo("#nameList");
 			//$('#Links').find('#nameLinks').html(html);
-
+			
 			function cambiaOnClickLinks() {
 				this.change = function change(where) {
 					where.innerHTML = "";
@@ -140,7 +152,7 @@ $(document).ready(function() {
 					var vector = document.getElementsByClassName('linkshared');
 
 					for (var i = 0; i < vector.length; i++) {
-						//vector[i].onclick = reproductorShared;
+						vector[i].onclick = playOnlyOne;
 
 						playlist.addSong(new Song(vector[i].name, null));
 						//alert(i);
@@ -177,9 +189,8 @@ $(document).ready(function() {
 
 			var objetoLinks = new cambiaOnClickLinks();
 			objetoLinks.change(document.getElementById("LinksShare"));
-
+			placePlayer();
 		}
-
 	} else {//si me llega una lista sin compartir
 		$('#LogOut').hide();
 		$('#tabs2').hide();
@@ -829,7 +840,7 @@ $(document).ready(function() {
 
 				var vector = document.getElementsByClassName('link');
 				for (var i = 0; i < vector.length; i++) {
-					//vector[i].onclick = reproductor;
+					vector[i].onclick = playOnlyOne;
 					/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
 					playlist.addSong(new Song(vector[i].name, null));
 					//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
@@ -922,15 +933,8 @@ $(document).ready(function() {
 		objetoLinks.change(document.getElementById("Links"));
 
 	}
-	
+	function playOnlyOne(){
+		playOnClick(playlist.searchIdSong(this.name));
+	}
 }); 
 
-function placePlayer() {
-		$('.contentDiv:visible .playerPlaceholder')[0].innerHTML = "<div id='html5Player' class='player'>"
-																 + "<div id='youTubePlayer'></div>"
-																 + "</div>";
-		
-		$('.contentDiv:visible .player').first().append(stopButton);
-		$('.contentDiv:visible .player').first().append(nextSongButton);
-		$('.contentDiv:visible .startButtonHolder').first().append(playButton);
-	}

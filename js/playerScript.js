@@ -76,7 +76,21 @@ function Playlist(id) {
 	this.lastSong = null;
 	this.numberSongs = 0;
 	this.repeat = false;
-
+	this.searchIdSong=function (id){
+		var sAux;
+		for(var i=0;i<this.numberSongs;i++){
+			if(i==0){
+				sAux=this.getFirstSong();
+			}
+			else{
+				if(sAux.getId()==id){
+					return sAux;
+				}
+				sAux=sAux.getNextSong();
+			}
+		}
+		return null;
+	}
 	this.getActualPosition = function() {
 		return this.actualPosition;
 	}
