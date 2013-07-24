@@ -1005,10 +1005,45 @@ else{//si me llega una lista sin compartir
 			            $("#TableLinks").tablesorter();
 	            	};
 	            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
+	            	 //Permisos
+			            $.ajax({        
+							             url:'getRights.php',        
+							             type:'post',                 
+							             dataType:'html',
+							             cache: false,            
+							             success: function (response) {		
+							             					             	
+												if (response=="N")
+												{
+													
+													
+													$('#tablaComp').hide();
+													$('#f1').hide();
+													$('#textLink').hide();
+													$('#messagePrivate').fadeIn();
+													//$('#messagePrivate').style="block";
+																												
+												}				   
+												else
+												{
+													$('#tablaComp').fadeIn();
+													$('#f1').fadeIn();
+													$('#textLink').fadeIn();
+													$('#messagePrivate').hide();		
+						
+												}
+										 }     
+							   });
+	            	
+	            	
+	            	
 	            	
 	            }
 	            var objetoLinks = new cambiaOnClickLinks();
 	            objetoLinks.change(document.getElementById("Links"));
+	            
+	           
+	            
 	        }
 
 	$('.html5Player').append(stopButton);
