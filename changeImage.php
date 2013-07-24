@@ -18,20 +18,20 @@ $result=mysqli_query($conexion,$consulta) ;
 				
 	        			
 						mysqli_query($conexion,"UPDATE users SET imgPerfil=\"$imageLink\" WHERE nick=\"$nickpass\"");
-						echo "Disfruta de tu nueva imagen";
+						echo "Enjoy your new Image";
 	        							 			
 				}
 			}
 			else {
-		echo "<p>No se pudo efectuar el cambio</p>\n";
-		echo "no encontrado o mas de uno";
+		echo "<p>We couldn´t make the change</p>\n";
+		echo "Not found or more than one";
  		exit();
 	}
 
 include "close_conexion.php";
 }
 else{
-	echo "Error en los datos\n";
+	echo "Error in the data\n";
 
 }
 ?>
