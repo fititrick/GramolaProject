@@ -853,90 +853,129 @@ else{//si me llega una lista sin compartir
   		function data2 (html2) {
 	            //$html.filter('.list').appendTo("#nameList");
 	            //$('#Links').find('#nameLinks').html(html);
-            function cambiaOnClickLinks(){
-            	this.change=function change(where){
-            		where.innerHTML="";
-            		$('#TableLinks').append(html2);
-            		//$( "#TableLinks" ).table( "refresh" );
-            		//	document.getElementById ("TableLinks").refresh();
-            		//$('#Links').find('#nameLinks').html(html2);
-            		//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
-            		//vector almancena en cada casilla uno de esos elementos
-            		//modifico su onclick para que llamen a la funcion reproductor
-            		//vector.length te marca cuantas canciones hay
-            		//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
-            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
-            		//ahora ve a funcion reproductor
-            			
-					var vector= document.getElementsByClassName('link');
-		            for(var i=0;i<vector.length;i++){
-		            	//vector[i].onclick = reproductor;
-		            	playlist.addSong(new Song(vector[i].name));
-		            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
-		           }
-		           //alert(playlist.getNumberSongs());			            
-		            var vector3=document.getElementsByClassName('buttonDelLink');
-		            for(var i=0;i<vector3.length;i++){
-		                  	vector3[i].onclick = deleteLink;
-		            }
-		            
-		              var vectorList=document.getElementsByClassName('buttonBList');
-		            for(var i=0;i<vectorList.length;i++){
-		                  	vectorList[i].onclick = deleteList;
-		            }
-		            
-		             var vectorVList=document.getElementsByClassName('buttonVList');
-		            for(var i=0;i<vectorVList.length;i++){
-		                  	vectorVList[i].onclick = voteList;
-		            }
-		            
-		             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
-		            for(var i=0;i<vectorVotes.length;i++){
-		                  	vectorVotes[i].onclick = setVote;
-		             
+        function cambiaOnClickLinks(){
+	            	this.change=function change(where){
+	            		
+	            		where.innerHTML="";
+	            		$('#TableLinks').append(html2);
+	            		//$( "#TableLinks" ).table( "refresh" );
+	            	//	document.getElementById ("TableLinks").refresh();
+	            		//$('#Links').find('#nameLinks').html(html2);
+	            		//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
+	            		//vector almancena en cada casilla uno de esos elementos
+	            		//modifico su onclick para que llamen a la funcion reproductor
+	            		//vector.length te marca cuantas canciones hay
+	            		//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
+	            		//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
+	            		//ahora ve a funcion reproductor
+	            			
+						var vector= document.getElementsByClassName('link');
+			            for(var i=0;i<vector.length;i++){
+			            	//vector[i].onclick = reproductor;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+			            	playlist.addSong(new Song(vector[i].name));
+			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+			           }
+			           //alert(playList.getNumberSongs());			            
+			            var vector3=document.getElementsByClassName('buttonDelLink');
+			            for(var i=0;i<vector3.length;i++){
+			                  	vector3[i].onclick = deleteLink;
+			            }
+			            
+			              var vectorList=document.getElementsByClassName('buttonBList');
+			            for(var i=0;i<vectorList.length;i++){
+			                  	vectorList[i].onclick = deleteList;
+			            }
+			            
+			             var vectorVList=document.getElementsByClassName('buttonVList');
+			            for(var i=0;i<vectorVList.length;i++){
+			                  	vectorVList[i].onclick = voteList;
+			            }
+			            
+			             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
+			            for(var i=0;i<vectorVotes.length;i++){
+			                  	vectorVotes[i].onclick = setVote;
+			             
 
-		            }
+			            }
+			            
+			            
+			            
+			            var vector2= document.getElementsByClassName('linkIcon');
+			            //alert(vector2.length);
+			           //$('#providerTabla').text("adios");
+			          
+			            for(var j=0;j<vector2.length;j++){
+			            	//alert(vector2[j].innerText);
+			            	if(vector2[j].innerText=='youtube'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
+			            		(playlist.getElement(j)).setProvider( PROVIDER.YOUTUBE);
+			            	}
+			            	if(vector2[j].innerText=='goear'){
+			            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
+			            		playlist.getElement(j).setProvider(PROVIDER.GOEAR);
+			            	}
+			            	if(vector2[j].innerText=='spotify'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
+			            		playlist.getElement(j).setProvider("spotify");
+			            	}
+			            	if(vector2[j].innerText=='mp3'){
+			            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
+			            		playlist.getElement(j).setProvider(PROVIDER.MP3);
+			            	}
+			            	
+			            }
+	            	
+			            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
+			            //una funcion que borre el link
+			            
+			            $('#div_BorrarLista').fadeIn();
+			            $('#div_VoteList').fadeIn();
+			            $("#TableLinks").tablesorter();
+	            	};
+	            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
+	            	 //Permisos
+			            $.ajax({        
+							             url:'getRights.php',        
+							             type:'post',                 
+							             dataType:'html',
+							             cache: false,            
+							             success: function (response) {		
+							             					             	
+												if (response=="N")
+												{
+													
+													
+													$('#tablaComp').hide();
+													$('#f1').hide();
+													$('#textLink').hide();
+													$('#messagePrivate').fadeIn();
+													//$('#messagePrivate').style="block";
+																												
+												}				   
+												else
+												{
+													$('#tablaComp').fadeIn();
+													$('#f1').fadeIn();
+													$('#textLink').fadeIn();
+													$('#messagePrivate').hide();		
+						
+												}
+										 }     
+							   });
+	            	
+	            	
+	            	
+	            	
+	            }
+	            var objetoLinks = new cambiaOnClickLinks();
+	            objetoLinks.change(document.getElementById("Links"));
+	            
+	        }
+
 		            
-		            
-		            
-		            var vector2= document.getElementsByClassName('linkIcon');
-		            //alert(vector2.length);
-		           //$('#providerTabla').text("adios");
-		          
-		            for(var j=0;j<vector2.length;j++){
-		            	//alert(vector2[j].innerText);
-		            	if(vector2[j].innerText=='youtube'){
-		            		vector2[j].innerHTML= '<image style="width=60px height=60" src="./images/youtube.png">';
-		            		(playlist.getElement(j)).setProvider( PROVIDER.YOUTUBE);
-		            	}
-		            	if(vector2[j].innerText=='goear'){
-		            		vector2[j].innerHTML= '<image style="width=60px height=60px" src="./images/goear.png">';
-		            		playlist.getElement(j).setProvider(PROVIDER.GOEAR);
-		            	}
-		            	if(vector2[j].innerText=='spotify'){
-		            		vector2[j].innerHTML= '<image style="width=50px height=50px" src="./images/spotify.png">';
-		            		playlist.getElement(j).setProvider("spotify");
-		            	}
-		            	if(vector2[j].innerText=='mp3'){
-		            		vector2[j].innerHTML= '<image style="width=50px height=40px" src="./images/music.png">';
-		            		playlist.getElement(j).setProvider(PROVIDER.MP3);
-		            	}
-		            	
-		            }
-            	
-		            //aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
-		            //una funcion que borre el link
-		            
-		            $('#div_BorrarLista').fadeIn();
-		            $('#div_VoteList').fadeIn();
-		            $("#TableLinks").tablesorter();
-            	};
-            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
-            	
-            }
-            var objetoLinks = new cambiaOnClickLinks();
-            objetoLinks.change(document.getElementById("Links"));
-	   }
+		    
 	$('.html5Player').append(stopButton);
 	$('.html5Player').append(nextSongButton); 
 	$('#playButtonPlace').append(playButton);

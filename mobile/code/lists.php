@@ -28,7 +28,6 @@ if($_SESSION["autentificado"]=="SI"){
 					       $line='<div data-role="collapsible"  data-theme="a">
 							<h3>'.$row[0].' </h3>
 							<ul data-role="listview" id='.$row[1].'  class="lista">
-							
 							</ul>
 							</div>';
 					            
