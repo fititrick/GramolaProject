@@ -122,9 +122,15 @@
         
         
         <article data-role="footer" data-position="fixed">
-        	<div data-role="controlgroup">
-            <a href="#newList" data-role="button" align="center" data-theme="e" data-rel="dialog">New List</a>
-           </div>
+        	<div data-role="navbar">
+				<ul>
+					<li><a href="#newList" data-role="button"  data-theme="e" data-rel="dialog" data-icon="plus">New List</a></li>
+					<li><a href="#newLink" data-role="button" id="newLinkButton" data-theme="e" data-rel="dialog" data-icon="plus">New Link</a></li>
+					<li><a href="#deleteList" data-role="button" id="deleteListButton" data-theme="a" data-icon="delete" data-rel="dialog"> List</a></li>
+					<li><a href="#deleteLink" data-role="button" id="deleteLinkButton" data-theme="a" data-rel="dialog" data-icon="delete"> Link</a></li>
+				</ul>
+			</div>
+        	
         </article>
         
     </section>
@@ -146,9 +152,122 @@
         </article>
     </section>
     
+    <section id="newLink" data-role="page">
+        <header data-role="header" >
+            <h1>Insert a new link</h1>
+           
+        </header>
+        <article data-role="content" data-theme="e">
+        	<form name="frpanel" id="divNewLink" method="post" >
+        								<div data-role="fieldcontain" id="linkLists">
+        									<label for="select-choice-2" style="font-size: 13" >Select List</label>
+											<select data-theme="b" name="select-choice-2" id="select-choice-2"  >
+											</select>
+        								</div>
+        		
+										<div data-role="fieldcontain" >
+											<label for="url">Link:</label>
+											<input type="url" name="urlLink" id="urlLink" value="" />
+										</div>
+
+										<div data-role="fieldcontain" >
+											<label for="select-choice-1" style="font-size: 13" >Select Provider</label>
+											<select data-theme="b" name="select-choice-1" id="select-choice-1">
+												<option  value="youtube">Youtube</option>
+												<option value="spotify">Spotify</option>
+												<option value="mp3">MP3</option>
+												<option value="goear">Goear</option>
+											</select>
+										</div>
+
+										<div data-role="fieldcontain">
+											<label for="number-pattern" style="font-size: 13">List Position</label>
+											<input type="number" min="0" name="position" pattern="[0-9]*" id="number-pattern" value="" placeholder="Pattern attribute [0-9]* for a numeric keypad" />
+										</div>
+
+										<div data-role="fieldcontain">
+											<label for="text">Singer or Group name</label>
+											<input type="text" name="singer" id="singerLink" value="" />
+										</div>
+										<div data-role="fieldcontain">
+											<label for="text">Song Name</label>
+											<input type="text" name="songName" id="songNameLink" value="" />
+										</div>
+
+									</form>
+                
+                
+                <input type="button" value="Insert your link" id="btnNewLink" data-theme="a">
+            </form>
+        </article>
+    </section>
+    
+    <section id="deleteList" data-role="page">
+        <header data-role="header" >
+            <h1>Delete a List</h1>
+           
+        </header>
+        <article data-role="content" data-theme="a">
+        	
+            <form id="form_DeleteList">
+               <div data-role="fieldcontain" id="deleteListsDiv">
+        		<label for="select-choice-3" style="font-size: 13" >Delete List</label>
+				<select data-theme="b" name="select-choice-3" id="select-choice-3"  >
+					
+				</select>
+        		</div> 
+                
+                <input type="button" value="Delete List" id="btnDeleteList" data-theme="a">
+            </form>
+        </article>
+    </section>
+    
+    <section id="deleteLink" data-role="page">
+        <header data-role="header" >
+            <h1>Select the list that stores the link</h1>
+           
+        </header>
+        <article data-role="content" data-theme="a">
+        	
+            <form id="form_DeleteLink">
+               <div data-role="fieldcontain" id="deleteLinksDiv">
+        		<label for="select-choice-4" style="font-size: 13" >Delete Link</label>
+				<select data-theme="b" name="select-choice-4" id="select-choice-4"  >
+					
+				</select>
+        		</div> 
+        		
+                <input type="button" href="#deleteLink2" value="Delete Link" id="btnDeleteLink" data-theme="a" data-rel="dialog">
+            </form>
+        </article>
+    </section>
+    
+    <section id="deleteLink2" data-role="page">
+        <header data-role="header" >
+            <h1>Select the link to delete</h1>
+           
+        </header>
+        <article data-role="content" data-theme="a">
+        	
+            <form id="form_DeleteLink">
+               <div data-role="fieldcontain" id="deleteLinksDiv">
+        		
+        		<h1>Select the link to delete</h1>
+        		<div data-role="fieldcontain" id="deleteLinksDiv2">
+        		<label for="select-choice-5" style="font-size: 13" >Delete Link 2</label>
+				<select data-theme="b" name="select-choice-5" id="select-choice-5"  >
+					
+				</select>
+        		</div> 
+                
+                <input type="button" href="#deleteLink2" value="Delete Link" id="btnDeleteLink" data-theme="a" data-rel="dialog">
+            </form>
+        </article>
+    </section>
+    
     <section id="Player" data-role="page">
         <header data-role="header" data-position="fixed" data-id="header">
-            <h1>¡Welcome!</h1>
+            <h1>¡Gramola!</h1>
             <div data-role="navbar">
                 <ul>
                     <li><a href="#home" id="btnLists" >Your Lists</a></li>
@@ -170,23 +289,103 @@
     
     <section id="Profile" data-role="page">
         <header data-role="header" data-position="fixed" data-id="header">
-            <h1>¡Welcome!</h1>
+            <h1>¡Gramola!</h1>
             <div data-role="navbar">
                 <ul>
                     <li><a href="#home" id="btnLists" >Your Lists</a></li>
-                    <li><a href="#Player" id="btnPlayer" class="ui-btn-active" data-role="button">Player</a></li>
-                    <li><a href="#" id="btnProfile" data-role="button">Profile</a></li>
+                    <li><a href="#Player" id="btnPlayer"  data-role="button">Player</a></li>
+                    <li><a href="#" id="btnProfile" data-role="button" class="ui-btn-active">Profile</a></li>
                 </ul>
             </div>
         </header>
         <article data-role="content" data-theme="e">                          
-            <p>Hola, estas en el perfil</p>
+            
+            <div id="profileData"></div>
+            
           </article>
         <article data-role="footer" data-position="fixed">
         	<div data-role="controlgroup">
+        		<div data-role="controlgroup">
+            <a href="#accSettings" data-role="button" align="center" data-theme="e" data-rel="dialog">Account settings</a>
+           </div>
            </div>
         </article>
         
+    </section>
+    
+    <section id="accSettings" data-role="page">
+        <header data-role="header" >
+            <h1>Settings</h1>
+           
+        </header>
+        <article data-role="content" data-theme="e">
+        	<p align="center">Here you can change your data</p>
+        	<div data-role="collapsible-set">
+
+				<div data-role="collapsible" >
+				<h3>Change your nick</h3>
+				<p><form id="form_accSettingsNick">
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="text" name="changeNick" id="changeNick" value="" placeholder="Your new nick" />
+                </div>
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="password" name="changeNickPass" id="changeNickPass" value="" placeholder="Your Password" />
+                </div>
+                
+                
+                <input type="button" value="Save your changes" id="btnChangeNick" data-theme="a">
+            </form></p>
+				</div>
+				
+				<div data-role="collapsible">
+				<h3>Change your password</h3>
+				<p><form id="form_accSettingsPass">
+                
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="password" name="changePass" id="changePass" value="" placeholder="Your Password" />
+                </div>
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="password" name="chNewPass" id="chNewPass" value="" placeholder="Your new Password" />
+                </div>
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="password" name="chNewPassConf" id="chNewPassConf" value="" placeholder="Confirm your new Password" />
+                </div>
+                
+                <input type="button" value="Save your changes" id="btnChangePass" data-theme="a">
+            </form></p>
+				</div>
+				
+				<div data-role="collapsible">
+				<h3>Change your email</h3>
+				<p><form id="form_accSettingsEmail">
+                
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="text" name="changeEmail" id="changeEmail" value="" placeholder="Your new e-mail" />
+                </div>
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="password" name="chEmailPass" id="chEmailPass" value="" placeholder="Your Password" />
+                </div>
+                                
+                <input type="button" value="Save your changes" id="btnChangeEmail" data-theme="a">
+            </form></p>
+				</div>
+				
+				<div data-role="collapsible">
+				<h3>Change your avatar</h3>
+				<p><form id="form_accSettingsAvatar">
+                
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="text" name="changeAvatar" id="changeAvatar" value="" placeholder="Your avatar´s Url" />
+                </div>
+                             
+                
+                <input type="button" value="Save your changes" id="btnChangeAvatar" data-theme="a">
+            </form></p>
+				</div>
+				
+			</div>
+            
+        </article>
     </section>
     
 </body>
