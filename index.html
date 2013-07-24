@@ -2,6 +2,10 @@
 
 	<head>
 		<title>gramola.sytes.es share your music</title>
+		<meta property="og:title" content="GRAMOLA  -share your music lists-" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="http://gramola.sytes.net/" />
+		<meta property="og:image" content="http://gramola.sytes.net/images/Logo_web.png"/>
 		<meta name="og:title" content="gramola.sytes.net share your music" />
 		<meta name="og:url" content="gramola.sytes.net" />
 		<meta name="og:description" content="Number 1 Service Sharing Music Around the World">
@@ -19,7 +23,7 @@
 		<meta http-equiv="refresh" content="900" />
 		<meta name="distribution" content="global" />
 		<meta name="resource-type" content="document" />
-		<meta property="og:image" content="http://gramola.sytes.net/images/Logo_web.png"/>
+		
 		<link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
 		<link rel="stylesheet" href="./css/jquery-ui.css" />
 		<link rel="stylesheet" href="./css/tablesorter.css" type="text/css" media="print, projection, screen" />
@@ -114,7 +118,8 @@
 		</script>
 
 	</head>
-	<body background="./images/background.jpg">
+	<!--<body background="./images/background.jpg">-->
+		<body>
 		<div data-role="page" id="p_index" >
 			<div id="contenedor">
 				<div id="tabs"  style="position:relative; height: 100%; width: 100%;">
@@ -417,7 +422,7 @@
 				
 			</div>
 			</div>
-		<div data-role="page" id="p_links">	
+		<div data-role="page" id="p_links" >	
 			<div id="tabsShare" style="position: absolute; width: 100%; height: 98%;">
 			<ul style="background-color: #2E2E2E;">
 			<li>
@@ -434,7 +439,6 @@
 			</li>
 			<li style="float: right">
 				<div id="LogInShare">
-					<!--<p><a href="#p_login"  data-role="button" >LOG IN</a></p>-->
 					
 				</div>
 			</li>
@@ -489,7 +493,9 @@
 			<div data-role="collapsible-set" >
 				<div id="playButtonPlaceShared"></div>
 				<div id="SaveSharedList" data-role="collapsible" data-theme="b" data-content-theme="b" >
-					
+					<h3>Save List</h3>
+					<input id="txtNewListShare" type="text" name="name" value="List name"  onblur='if(this.value == "") { this.value="List name"}' onfocus='if (this.value == "List name") {this.value=""}'/>
+					<a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>
 				</div>
 				<div data-role="collapsible" data-theme="b" data-content-theme="b">
 					<h3>Share</h3>
@@ -517,10 +523,10 @@
 			</div>
 			</div>
 			
-					<div id="tabs2-4Share">
-						
-										
-					</div>
+			<div id="tabs2-4Share">
+				
+								
+			</div>
 
 				</div>
 
@@ -689,7 +695,7 @@
 				</div>
 			</div>
 		<div data-role="page" id="p_login">
-			<div id="DLoginShare">
+			
 				<form name="frpanel" id="loginShare" method="post" >
 					<div data-role="footer" data-theme="a" class="ui-grid-b">
 		
@@ -715,7 +721,7 @@
 		
 					</div>
 				</form>
-			</div>
+			
 			<p><a href="#p_links" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to previous page</a></p>
 			<p><a href="#p_links" data-rel="back" data-role="button" data-inline="true" data-icon="plus">Register</a></p>
 		</div>
