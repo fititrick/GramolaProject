@@ -2,7 +2,7 @@ $(document).ready(function(){
 //////VARIABLES
 	var tablePerfil=$("#TablePerfil");
 ///////////////////////////////////////////////////////////////////////////////	
-	playlist = new Playlist(null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
+	//playlist = new Playlist(null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
 	///////////////////////////////////////////////////////////////////////////////////////////
 	// empty() function used when there is nothing entered
 	//$('#nameList').empty('');
@@ -38,37 +38,9 @@ $(document).ready(function(){
 	
 	$( "#tabsPerfil" ).tabs();
    
-  
-//Capturamos la URL 
-var callingURL = document.URL;
-
-
-//Separamos los parametros 
-var cgiString = callingURL.substring(callingURL.indexOf('?')+1,callingURL.length); 
-
-//Fijamos el sepador entre parametros 
-var DELIMETER = '&'; 
-
-//Eliminamos la almohadilla, si es que existe... cortamos por lo sano! 
-if (cgiString.indexOf('#')!=-1){ 
-    cgiString=cgiString.slice(0,cgiString.indexOf('#')); 
-} 
-
-//Troceamos el cgiString ya limpiado, separando cada par variable=valor 
-//en una de las posiciones del array 
-var arrayParams=cgiString.split(DELIMETER); 
-var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('=')+1)+"\""+ 
-	    arrayParams[0].substring(arrayParams[0].indexOf('=')+1,arrayParams
-	     [0].length)+"\""); 
-///////////////////////////////////////////////////////////////////////////////
 
 //Se le añade esto aqui para que esconda que la lista es privada.
 $('#messagePrivate').hide();
-  function leerGET(){ 
-			var cadGET = location.search.substr(1,location.search.length); 
-			var aux = cadGET.split("=");
-			return aux[1]; 
-		} 
 	if(start==true){
 	//if(idListaCompartida!="http://localhost/GramolaProject/" && idListaCompartida!="http://localhost/GramolaProject/index.html" &&  idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
 	
@@ -103,13 +75,14 @@ $('#messagePrivate').hide();
 							}
 							
 					});
-					
-					$('#SaveSharedList').html('<h3>Save List</h3><input id="txtNewListShare" type="text" name="name" value="List name"  onblur="if(this.value == "") { this.value="List name"}" onfocus="if (this.value == "List name") {this.value=""}" /><a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>');
-					$('#SaveSharedList').collapsible({refresh:true});
+					$('#LogInShare').hide();
+					$('#SaveSharedList').fadeIn();
+					//$('#SaveSharedList').collapsible({refresh:true});
 				}
-				else{//si no hay sesion, deberian de desaparecer el boton de logout					
+				else{//si no hay sesion, deberian de desaparecer el boton de logout	
+					$('#SaveSharedList').hide();				
 					$('#LogOutShare').hide();
-					
+					$('#LogInShare').html( "<p><a href='#p_login' class='button' data-role='button'  data-transition='pop'><font color='black'>Log in</font></a></p>");
 				}
 			}
 		});
@@ -119,8 +92,9 @@ $('#messagePrivate').hide();
 	  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 	  	//alert(document.getElementById('b_BorrarLista').innerText);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-	  //	playList.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
-		playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+	  	//playlist.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+		//playlist.setId(idListaCompartida);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+		playlist = new Playlist(idListaCompartida);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
 	  	$.ajax({        
 	             url:'linksWithoutConexion.php',        
@@ -167,40 +141,13 @@ function linksShare (links) {
 						var vector= document.getElementsByClassName('linkshared');
 						
 			            for(var i=0;i<vector.length;i++){
-			            	vector[i].onclick = reproductorShared;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+			            	//vector[i].onclick = reproductorShared;
 
 			            	playlist.addSong(new Song(vector[i].name, null));
+			            	//alert(i);
 			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-			           }
-			           
-			           //alert(playList.getNumberSongs());			            
-			            var vector3=document.getElementsByClassName('buttonDelLink');
-			            for(var i=0;i<vector3.length;i++){
-			                  	vector3[i].onclick = deleteLink;
-			            }
-			            
-			              var vectorList=document.getElementsByClassName('buttonBList');
-			            for(var i=0;i<vectorList.length;i++){
-			                  	vectorList[i].onclick = deleteList;
-			            }
-			            
-			             var vectorVList=document.getElementsByClassName('buttonVList');
-			            for(var i=0;i<vectorVList.length;i++){
-			                  	vectorVList[i].onclick = voteList;
-			            }
-			            
-			             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
-			            for(var i=0;i<vectorVotes.length;i++){
-			                  	vectorVotes[i].onclick = setVote;
-			             
-
-			            }
-			            
-			            
-			            
-			            var vector2= document.getElementsByClassName('linkIcon');
+			           }			          
+			            var vector2= document.getElementsByClassName('linkIconshared');
 			            //alert(vector2.length);
 			           //$('#providerTabla').text("adios");
 			          
@@ -238,10 +185,6 @@ function linksShare (links) {
 	            
 	            
 	        }
-//	$('.html5PlayerShared').append(stopButton);
-//	$('.html5PlayerShared').append(nextSongButton); 
-//	$('#playButtonPlaceShared').append(playButton);
-
 }
 else{//si me llega una lista sin compartir
 	$('#LogOut').hide();
@@ -303,19 +246,27 @@ else{//si me llega una lista sin compartir
 		});
 		 
    });
-   function salida(){
-   	alert("Hola en share");
+    $('#B_LoginShare').click(function(){
    		$.ajax({
-			type:'POST', url: 'logOut.php',
-			success: function(response) {  				
-				location.reload(true);
-   				
-			}
+			type:'POST', 
+			url: 'mensaje.php', 
+			data:$('#loginShare').serialize(),
+			success:function(result){
+				if(result==1){
+					location.reload(true);
+				}
+				else{
+					alert("Unidentified User");
+
+					location.reload(true);
+
+				}
+			 
+		},
 		});
 		 
-   }
-   
-   $(cambiapass).click(function(){
+   });
+     $(cambiapass).click(function(){
 	
 		$.ajax({
 			type:'POST', 
@@ -459,10 +410,14 @@ else{//si me llega una lista sin compartir
 			   		url: 'copylist.php',
 			   		data:$('#txtNewListShare').serialize(),
 			   		success: function(response) {  	
-		   				alert(response);
+		   				if(response==true){
+		   					window.location=("#p_index");
+		   				}
+		   				else{
+		   					confirm('A failure occurred inserting new list');
+		   				}
 		   				//llamada a la principal
-		   				window.location=("#p_links");
-						$('#contenedor').hide();
+		   				
 					   //  $('#p_links').fadeIn();
 					}
 			   });
@@ -512,26 +467,24 @@ else{//si me llega una lista sin compartir
 		   				if(!response){
 		   					confirm('A failure occurred inserting new link');
 		   				}
+		   				else{
+							   $.ajax({        
+						             url:'UpdateLinks.php',        
+						             type:'post',                 
+						             dataType:'html',           
+						             cache: false,            
+						             success:data2     
+						        }); 
+		   				}
 		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
 		   				document.getElementById("urlLink").value="";
 		   				document.getElementById("number-pattern").value="";
 		   				document.getElementById("singerLink").value="";	
 		   				document.getElementById("songNameLink").value="";			
-			
-
-		   				
 					}
 					
 			   });
-			   
-			   $.ajax({        
-		             url:'UpdateLinks.php',        
-		             type:'post',                 
-		             dataType:'html',           
-		             cache: false,            
-		             success:data2     
-		        }); 
-			   
+			  
 			 
 	});
 		
@@ -659,132 +612,124 @@ else{//si me llega una lista sin compartir
   
   	function deleteLink(){
   			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
-  			
-  			 
-  			 	var param= 'idLinkBorrar=' + this.name;
-  	
-				
-				if (confirm('Do you want remove this song?'))
-				{
-					$.ajax({        
-			             url:'borrarLink.php',        
-			             type:'post',                 
-			             dataType:'html',  
-			             data:param,          
-			             cache: false,            
-			             success: function (response) {
-								if (response==true)
-								{
-									 alert('The song has been deleted');
-		
-								}				   
-								else
-								{
-									alert('The song hasn´t been deleted');
-		
-								}
-						 }     
-			        }); 
-				}
-				
-				
-				
-				
-		
-  	}
-  	
-  	
-  	
+	 	var param= 'idLinkBorrar=' + this.name;
+		if (confirm('Do you want remove this song?'))
+		{
+			$.ajax({        
+	             url:'borrarLink.php',        
+	             type:'post',                 
+	             dataType:'html',  
+	             data:param,          
+	             cache: false,            
+	             success: function (response) {
+						if (response==true)
+						{
+							 alert('The song has been deleted');
+							  $.ajax({        
+					             url:'UpdateLinks.php',        
+					             type:'post',                 
+					             dataType:'html',           
+					             cache: false,            
+					             success:data2     
+				     		   }); 
+
+						}				   
+						else
+						{
+							alert('The song hasn´t been deleted');
+	
+							}
+					 }     
+		        }); 
+			}
+	}
+
   	  	function deleteList(){
   			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
-  			 	var param= 'idLinkBorrar=' + this.name;
-				if (confirm('Do you want to remove this list?'))
-				{
-					$.ajax({        
-								             url:'borrarLista.php',        
-								             type:'post',                 
-								             dataType:'html',  
-								             data:param,          
-								             cache: false,            
-								             success: function (response) {
-													if (response==true)
-													{
-														 alert('The list has been deleted');
-							
-													}				   
-													else
-													{
-														alert('The list hasn´t been deleted');
-							
-													}
-											 }     
-								        }); 
-				updateLists();
-				}
-				
+		 	var param= 'idLinkBorrar=' + this.name;
+			if (confirm('Do you want to remove this list?'))
+			{
+				$.ajax({        
+		             url:'borrarLista.php',        
+		             type:'post',                 
+		             dataType:'html',  
+		             data:param,          
+		             cache: false,            
+		             success: function (response) {
+							if (response==true)
+							{
+								 alert('The list has been deleted');
+	
+							}				   
+							else
+							{
+								alert('The list hasn´t been deleted');
+	
+							}
+					 }     
+		        }); 
+			updateLists();
+			}
   	}
   	
   	function voteList(){
   			//definir funcion ajax que llame a voteList.php que has de crear, y pasas este idLink como parametro
-  			 	var param= 'numVote=' + this.name;
-				if (confirm('Do you want to vote for this list?'))
-				{
-					$.ajax({        
-								             url:'votarLista.php',        
-								             type:'post',                 
-								             dataType:'html',  
-								             data:param,          
-								             cache: false,            
-								             success: function (response) {
-													if (response==true)
-													{
-														 alert('The list has been voted');
-														location.reload(true);
-													}				   
-													else
-													{
-														alert('The list hasn´t been voted');
-							
-													}
-											 }     
-								        }); 
-				
-				}
+	 	var param= 'numVote=' + this.name;
+		if (confirm('Do you want to vote for this list?'))
+		{
+			$.ajax({        
+	             url:'votarLista.php',        
+	             type:'post',                 
+	             dataType:'html',  
+	             data:param,          
+	             cache: false,            
+	             success: function (response) {
+						if (response==true)
+						{
+							 alert('The list has been voted');
+							location.reload(true);
+						}				   
+						else
+						{
+							alert('The list hasn´t been voted');
+
+						}
+				 }     
+	        }); 
+		
+		}
 				
   	}
   	
   	function setVote(){
   			//definir funcion ajax que llame a setVote.php que has de crear, y pasas este numero como parametro
-  				
-  				
-  			 	var param= "numVote=" + this.name + "&idLink=" + this.title;				
-					$.ajax({        
-								             url:'setVote.php',        
-								             type:'post',                 
-								             dataType:'html',  
-								             data:param,         
-								             cache: false,            
-								             success: function (response) {
-													if (response==true)
-													{
-														 alert('The vote has been stablish');
-														 
-							
-													}				   
-													else
-													{
-														alert(response);
-													//	alert('The the vote hasn´t been stablish');
-							
-													}
-											 }     
-								        }); 
-				
+	 	var param= "numVote=" + this.name + "&idLink=" + this.title;				
+			$.ajax({        
+	             url:'setVote.php',        
+	             type:'post',                 
+	             dataType:'html',  
+	             data:param,         
+	             cache: false,            
+	             success: function (response) {
+						if (response==true)
+						{
+							 alert('The vote has been stablish');
+							 
+
+						}				   
+						else
+						{
+							alert(response);
+						//	alert('The the vote hasn´t been stablish');
+
+						}
+				 }     
+	        }); 
+
 
   	}
 
     $(button).click(function(){
-	
 		if(document.getElementById("user").value.length < 3 && document.getElementById("user1").value.length< 3){
 			//alert("Your nick must have at least 3 letters");
 	
@@ -798,11 +743,9 @@ else{//si me llega una lista sin compartir
 			location.reload(true);
 		}
 		return false;
-	
    });
   
 	$(registro).click(function(){
-	
 		$.ajax({
 			type:'POST', 
 			url: 'registro.php', 
@@ -824,7 +767,6 @@ else{//si me llega una lista sin compartir
 		
 
    });
-   
    
   
     $(login).click(function(){
@@ -848,9 +790,6 @@ else{//si me llega una lista sin compartir
 		});
 		
    });
-   
-   
-
    
    function fLogin(response) { 
 				$('#DLogin').hide();
@@ -894,15 +833,8 @@ else{//si me llega una lista sin compartir
 		            }
 		        	 $(this).css("background-color","green");           
 				  	var param= 'id=' + this.name;
-				  	
 					document.f1.campo1.value="http://gramola.sytes.net/index.html?v="+this.name;
-					
-				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
-				  	//alert(document.getElementById('b_BorrarLista').innerText);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-				  	playlist.delPlaylist();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
-					playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
+					playlist = new Playlist(this.name);					
 				  	$.ajax({        
 				             url:'links.php',        
 				             type:'post',                 
@@ -921,7 +853,7 @@ else{//si me llega una lista sin compartir
   		function data2 (html2) {
 	            //$html.filter('.list').appendTo("#nameList");
 	            //$('#Links').find('#nameLinks').html(html);
-	            function cambiaOnClickLinks(){
+        function cambiaOnClickLinks(){
 	            	this.change=function change(where){
 	            		
 	            		where.innerHTML="";
@@ -1003,12 +935,47 @@ else{//si me llega una lista sin compartir
 			            $("#TableLinks").tablesorter();
 	            	};
 	            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
+	            	 //Permisos
+			            $.ajax({        
+							             url:'getRights.php',        
+							             type:'post',                 
+							             dataType:'html',
+							             cache: false,            
+							             success: function (response) {		
+							             					             	
+												if (response=="N")
+												{
+													
+													
+													$('#tablaComp').hide();
+													$('#f1').hide();
+													$('#textLink').hide();
+													$('#messagePrivate').fadeIn();
+													//$('#messagePrivate').style="block";
+																												
+												}				   
+												else
+												{
+													$('#tablaComp').fadeIn();
+													$('#f1').fadeIn();
+													$('#textLink').fadeIn();
+													$('#messagePrivate').hide();		
+						
+												}
+										 }     
+							   });
+	            	
+	            	
+	            	
 	            	
 	            }
 	            var objetoLinks = new cambiaOnClickLinks();
 	            objetoLinks.change(document.getElementById("Links"));
+	            
 	        }
 
+		            
+		    
 	$('.html5Player').append(stopButton);
 	$('.html5Player').append(nextSongButton); 
 	$('#playButtonPlace').append(playButton);

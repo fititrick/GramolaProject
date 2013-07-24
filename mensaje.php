@@ -37,6 +37,7 @@ if(isset($_POST['user']) && !empty($_POST['pass']) && !empty($_POST['user'])){
 				//$_SESSION["N_linksEnLista"]=0;
 				//header("Location: principal.php");
 				$variable=$_SESSION["nick"];
+				$_SESSION["NList"]=0;
 				echo 1;
 			 }
 			 else{
