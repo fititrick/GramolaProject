@@ -27,6 +27,7 @@ if ($resultado = mysqli_query( $conexion,$sql)){
 					$_SESSION["autentificado"]="SI";
 					$_SESSION["nick"]=$row[0];
 					$_SESSION["idUser"]=$row[2];
+					$_SESSION["pwd"]=$row[1];
 					//header("Location: principal.php");
 					$variable=$_SESSION["nick"];
 					

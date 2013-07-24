@@ -226,6 +226,21 @@ $(document).ready(function(){
        });
     
     
+    $("#chao").click(function(){
+    	
+    	$.ajax({
+			   		type:'POST',
+			   		url: 'logOut.php',
+			   		success: function(response) {
+				   		$.mobile.changePage("#login");	
+	    				document.getElementById("txtuser").value="";
+			   			document.getElementById("txtpassword").value="";
+        
+        			}	
+    	});
+    	
+    	   	
+       });
     
    
      $("#btngoBack").click(function(){
