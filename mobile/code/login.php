@@ -8,11 +8,11 @@ $pass = ($_POST["pass"]);
  
 $sql = "SELECT nick FROM users WHERE nick='$usu' AND pwd='$pass'";
  
-if ($resultado = mysqli_query( $con,$sql)){
+if ($resultado = mysqli_query( $conexion,$sql)){
     if (mysqli_num_rows($resultado) > 0){
     	
 		$consulta ="SELECT nick, pwd, idUser FROM users where nick=\"$usu\"";	
-			$result=mysqli_query($con,$consulta) ;	
+			$result=mysqli_query($conexion,$consulta) ;	
 			if (! $result){
 				
 			  echo "<p>No se pudo efectuar la consulta de la tabla <b>users</b></p>\n";
@@ -41,6 +41,6 @@ else{
 	
     echo false;
 }
-mysqli_close($con);
+mysqli_close($conexion);
  
 ?>

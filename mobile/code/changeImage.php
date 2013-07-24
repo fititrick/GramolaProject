@@ -10,14 +10,14 @@ $imageLink=$_POST["changeAvatar"];
 
 
 $consulta="SELECT idUser FROM users where nick=\"$nickpass\"";
-$result=mysqli_query($con,$consulta) ;	
+$result=mysqli_query($conexion,$consulta) ;	
 
 			
 			if (mysqli_num_rows($result)==1){
 				while( $row = mysqli_fetch_row($result) ) {
 				
 	        			
-						mysqli_query($con,"UPDATE users SET imgPerfil=\"$imageLink\" WHERE nick=\"$nickpass\"");
+						mysqli_query($conexion,"UPDATE users SET imgPerfil=\"$imageLink\" WHERE nick=\"$nickpass\"");
 						echo "Disfruta de tu nueva imagen";
 	        							 			
 				}

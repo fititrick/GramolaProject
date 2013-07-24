@@ -6,11 +6,11 @@ if(isset($_POST['nameList'])){
 	$usuario=$_SESSION["idUser"];
 	$nameList=$_POST['nameList'];
 	$consulta ="SELECT * FROM lists where idUser=\"$usuario\" and name=\"$nameList\"";
-	$result=mysqli_query($con,$consulta);
+	$result=mysqli_query($conexion,$consulta);
 		
 	try {
 			if (mysqli_num_rows($result)==0){
-			 	 $resultado = mysqli_query($con,"INSERT INTO lists (name, idUser) values ('".$nameList."','".$usuario."')");
+			 	 $resultado = mysqli_query($conexion,"INSERT INTO lists (name, idUser) values ('".$nameList."','".$usuario."')");
 				 if (! $resultado){
 				 		echo "<p>No se pudo efectuar</p>, error en los datos\n";
 					}

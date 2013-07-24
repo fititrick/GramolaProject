@@ -13,16 +13,16 @@ $actualpassemail=$_POST["chEmailPass"];
 
 
 $consulta="SELECT idUser FROM users where nick=\"$nickpass\"";
-$result=mysqli_query($con,$consulta) ;	
+$result=mysqli_query($conexion,$consulta) ;	
 $consulta1="SELECT pwd FROM users where nick=\"$nickpass\"";
-$result1=mysqli_query($con,$consulta1) ;
+$result1=mysqli_query($conexion,$consulta1) ;
 			
 			if (mysqli_num_rows($result)==1){
 				while( $row = mysqli_fetch_row($result1) ) {
 				
 	        	if ($actualpassemail == $row[0]){
 	        			
-						mysqli_query($con,"UPDATE users SET email=\"$newemail\" WHERE nick=\"$nickpass\"");
+						mysqli_query($conexion,"UPDATE users SET email=\"$newemail\" WHERE nick=\"$nickpass\"");
 						echo "Disfruta de tu nuevo email $newemail!";
 	        		
 					

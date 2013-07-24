@@ -10,10 +10,10 @@ if($_SESSION["autentificado"]=="SI"){
 	$idUser=$_SESSION["idUser"];
 	
 	$consulta ="SELECT  idList FROM lists where name=\"$nameList\" and idUser=\"$idUser\"";	
-	$result=mysqli_query($con, $consulta) ;	
+	$result=mysqli_query($conexion, $consulta) ;	
 	$row = mysqli_fetch_row($result);
 	
-	$resultado = mysqli_query($con,"DELETE FROM lists WHERE idList='$row[0]'");
+	$resultado = mysqli_query($conexion,"DELETE FROM lists WHERE idList='$row[0]'");
 		echo true;
 }
 else
