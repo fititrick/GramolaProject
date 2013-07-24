@@ -192,12 +192,12 @@ function Playlist(id) {
 		return false;
 	}
 
-	this.delPlaylist = function() {
+/*	this.delPlaylist = function() {
 		this.id = 0;
 		this.numberSongs = 0;
 		this.firstSong = null;
 		this.lastSong = null;
-	}
+	}*/
 
 	this.incrNumberSongs = function() {
 		this.numberSongs = this.numberSongs + 1;

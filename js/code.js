@@ -2,7 +2,7 @@ $(document).ready(function(){
 //////VARIABLES
 	var tablePerfil=$("#TablePerfil");
 ///////////////////////////////////////////////////////////////////////////////	
-	playlist = new Playlist(null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
+	//playlist = new Playlist(null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
 	///////////////////////////////////////////////////////////////////////////////////////////
 	// empty() function used when there is nothing entered
 	//$('#nameList').empty('');
@@ -41,11 +41,6 @@ $(document).ready(function(){
 
 //Se le añade esto aqui para que esconda que la lista es privada.
 $('#messagePrivate').hide();
-  function leerGET(){ 
-			var cadGET = location.search.substr(1,location.search.length); 
-			var aux = cadGET.split("=");
-			return aux[1]; 
-		} 
 	if(start==true){
 	//if(idListaCompartida!="http://localhost/GramolaProject/" && idListaCompartida!="http://localhost/GramolaProject/index.html" &&  idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
 	
@@ -82,7 +77,7 @@ $('#messagePrivate').hide();
 					});
 					$('#LogInShare').hide();
 					$('#SaveSharedList').html('<h3>Save List</h3><input id="txtNewListShare" type="text" name="name" value="List name"  onblur="if(this.value == "") { this.value="List name"}" onfocus="if (this.value == "List name") {this.value=""}" /><a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>');
-					$('#SaveSharedList').collapsible({refresh:true});
+					//$('#SaveSharedList').collapsible({refresh:true});
 				}
 				else{//si no hay sesion, deberian de desaparecer el boton de logout					
 					$('#LogOutShare').hide();
@@ -96,8 +91,9 @@ $('#messagePrivate').hide();
 	  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 	  	//alert(document.getElementById('b_BorrarLista').innerText);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-	  //	playList.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
-		playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+	  	//playlist.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+		//playlist.setId(idListaCompartida);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+		playlist = new Playlist(idListaCompartida);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
 	  	$.ajax({        
 	             url:'linksWithoutConexion.php',        
@@ -144,40 +140,13 @@ function linksShare (links) {
 						var vector= document.getElementsByClassName('linkshared');
 						
 			            for(var i=0;i<vector.length;i++){
-			            	vector[i].onclick = reproductorShared;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+			            	//vector[i].onclick = reproductorShared;
 
 			            	playlist.addSong(new Song(vector[i].name, null));
+			            	//alert(i);
 			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-			           }
-			           
-			           //alert(playList.getNumberSongs());			            
-			            var vector3=document.getElementsByClassName('buttonDelLink');
-			            for(var i=0;i<vector3.length;i++){
-			                  	vector3[i].onclick = deleteLink;
-			            }
-			            
-			              var vectorList=document.getElementsByClassName('buttonBList');
-			            for(var i=0;i<vectorList.length;i++){
-			                  	vectorList[i].onclick = deleteList;
-			            }
-			            
-			             var vectorVList=document.getElementsByClassName('buttonVList');
-			            for(var i=0;i<vectorVList.length;i++){
-			                  	vectorVList[i].onclick = voteList;
-			            }
-			            
-			             var vectorVotes=document.getElementsByClassName('buttonOfVotes');
-			            for(var i=0;i<vectorVotes.length;i++){
-			                  	vectorVotes[i].onclick = setVote;
-			             
-
-			            }
-			            
-			            
-			            
-			            var vector2= document.getElementsByClassName('linkIcon');
+			           }			          
+			            var vector2= document.getElementsByClassName('linkIconshared');
 			            //alert(vector2.length);
 			           //$('#providerTabla').text("adios");
 			          
@@ -902,8 +871,9 @@ else{//si me llega una lista sin compartir
 				  	//document.getElementById('b_BorrarLista').innerText= "Delete ";
 				  	//alert(document.getElementById('b_BorrarLista').innerText);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-				  	playlist.delPlaylist();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
-					playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+				  //	playlist.delPlaylist();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+					//playlist.setId(this.name);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+					playlist = new Playlist(this.name);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7					
 				  	$.ajax({        
 				             url:'links.php',        
@@ -947,7 +917,7 @@ else{//si me llega una lista sin compartir
 			            	//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
 			           }
-			           //alert(playList.getNumberSongs());			            
+			           //alert(playlist.getNumberSongs());			            
 			            var vector3=document.getElementsByClassName('buttonDelLink');
 			            for(var i=0;i<vector3.length;i++){
 			                  	vector3[i].onclick = deleteLink;

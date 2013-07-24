@@ -17,10 +17,9 @@ header("Content-Type: text/html;charset=utf-8");
 	    {
 	    	
 	    	 echo '<tr ><td><a id="Link'.$row[2].'" class="linkshared" name='.$row[5].' title='.$row[6].' href="#" >'.$row[0].'</a></td>';
-			 echo '<td >'.$row[3].'</td>';
-			 echo '<td >'.$row[4].'</td>';
-			 echo '<td class="linkIcon">'.$row[6].'</td>';
-			 echo '<td class="PosLinkInList">'.$row[1].'</td>';
+			 echo '<td >'.$row[3].'</td>';			 
+			 echo '<td class="linkIconshared">'.$row[6].'</td>';
+			 echo '<td class="PosLinkInListshared">'.$row[1].'</td>';
 			//aqui habria que meter un nuevo elemento de la tabla que sea la x para borrar con otra classe
 			
 			

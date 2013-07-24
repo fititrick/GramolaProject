@@ -44,6 +44,7 @@
 
 		<script>
 		var start;
+		var idListaCompartida;
 		function preloadFunc()
     {
         if(leerGET()!=null){
@@ -56,6 +57,7 @@
     function leerGET(){ 
 			var cadGET = location.search.substr(1,location.search.length); 
 			var aux = cadGET.split("=");
+			idListaCompartida=aux[1];
 			return aux[1]; 
 		} 
     window.onpaint = preloadFunc();
