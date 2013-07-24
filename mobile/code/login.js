@@ -6,10 +6,7 @@ $(document).ready(function(){
     	
         var usu = $("#txtuser").val();
         var pass = $("#txtpassword").val();
-        
-       
-
-        
+               
         $.post("login.php",{ user : usu, pass : pass},function(respuesta){
             if (respuesta == true) {
                 $.mobile.changePage("#home");
@@ -25,6 +22,7 @@ $(document).ready(function(){
             }
         });
     });
+    
     
     $("#btnReg").click(function(){
     	
@@ -47,7 +45,246 @@ $(document).ready(function(){
         });
     });
     
-  function  muestraListas(){
+    $("#btnProfile").click(function(){
+    
+        $.post("Perfil.php",{},function(respuesta){
+        	
+        	var profileData = $('#profileData');
+			profileData.html(respuesta);
+           
+        });
+    });
+    
+     $("#btnChangeNick").click(function(){
+    
+        $.ajax({
+			type:'POST', 
+			url: 'changeNick.php', 
+			data:$('#form_accSettingsNick').serialize(),
+			cache: false,
+			success: function(response) { 
+				//alert(response); 	
+   					document.getElementById("changeNick").value="";
+		   			document.getElementById("changeNickPass").value="";
+		   			$.mobile.changePage("#home");
+	   				
+
+			},
+			error: function (response) {
+                        $.mobile.changePage('#pageError', 'pop', true, true);
+            }
+		});
+    });
+    
+    $("#btnChangePass").click(function(){
+    
+        $.ajax({
+			type:'POST', 
+			url: 'changePass.php', 
+			data:$('#form_accSettingsPass').serialize(),
+			cache: false,
+			success: function(response) { 
+				alert(response); 	
+   					document.getElementById("changePass").value="";
+		   			document.getElementById("chNewPass").value="";
+		   			document.getElementById("chNewPassConf").value="";
+		   		//	$.mobile.changePage("#home");
+	   				
+
+			},
+			error: function (response) {
+                        $.mobile.changePage('#pageError', 'pop', true, true);
+            }
+		});
+    });
+    
+    $("#btnChangeEmail").click(function(){
+    
+        $.ajax({
+			type:'POST', 
+			url: 'changeEmail.php', 
+			data:$('#form_accSettingsEmail').serialize(),
+			cache: false,
+			success: function(response) { 
+				alert(response); 	
+   					document.getElementById("changeEmail").value="";
+		   			document.getElementById("chEmailPass").value="";
+		   		//	$.mobile.changePage("#home");
+	   				
+
+			},
+			error: function (response) {
+                        $.mobile.changePage('#pageError', 'pop', true, true);
+            }
+		});
+    });
+    
+    $("#btnChangeAvatar").click(function(){
+    
+        $.ajax({
+			type:'POST', 
+			url: 'changeImage.php', 
+			data:$('#form_accSettingsAvatar').serialize(),
+			cache: false,
+			success: function(response) { 
+				alert(response); 	
+   					document.getElementById("changeAvatar").value="";
+		   		//	$.mobile.changePage("#home");
+	   				
+
+			},
+			error: function (response) {
+                        $.mobile.changePage('#pageError', 'pop', true, true);
+            }
+		});
+    });
+    
+   
+    
+  
+    
+    $("#btnNewList").click(function(){
+    	
+        var nameList = $("#nameList").val();
+    
+        
+        $.post("newlist.php",{ nameList : nameList},function(respuesta){
+        //	alert(respuesta);
+            if (respuesta == true) {
+            	//alert("vamos bien");
+            	document.getElementById("nameList").value="";
+                $.mobile.changePage("#home");
+                muestraListas();
+            }
+            else{
+            	document.getElementById("nameList").value="";
+                $.mobile.changePage('#pageErNewList', 'pop', true, true);
+                
+                /*$("#errorMsg").fadeIn(300);
+                $("#errorMsg").css("display", "block");*/
+           }
+        });
+    });
+    
+    $("#newLinkButton").click(function(){
+    	$.ajax({
+			   		type:'POST',
+			   		url: 'newLink0.php',
+			   		success: function(response) {	
+			   			$('#select-choice-2').append(response);	
+    
+        
+        			}		
+    	});
+    });
+    
+    
+    $("#deleteListButton").click(function(){
+    	$.ajax({
+			   		type:'POST',
+			   		url: 'deleteList0.php',
+			   		success: function(response) {	
+			   			$('#select-choice-3').append(response);	
+    
+        
+        			}		
+    	});
+    });
+    
+    $("#btnDeleteList").click(function(){
+    	
+		if (confirm('Do you want remove this list?'))
+				{
+    	$.ajax({
+			   		type:'POST',
+			   		data:$('#form_DeleteList').serialize(),
+			   		url: 'deleteList.php',
+			   		success: function(response) {	
+			   			$.mobile.changePage("#home");
+    				    muestraListas();
+    
+        
+        			}		
+    	});
+    }
+    });
+    
+    $("#deleteLinkButton").click(function(){
+    	$.ajax({
+			   		type:'POST',
+			   		url: 'deleteLink0.php',
+			   		success: function(response) {	
+			   			$('#select-choice-4').append(response);	
+    
+        
+        			}		
+    	});
+    });
+    
+    $("#borrar").click(function(){
+    	$.ajax({
+			   		type:'POST',
+			   		url: 'deleteLink1.php',
+			   		data:$('#form_DeleteLink').serialize(),
+			   		success: function(response) {
+			   			alert(response);	
+			   			$('#select-choice-5').append(response);	
+    
+        
+        			}		
+    	});
+    });
+    
+    
+    
+    
+    
+    $("#btnLists").click(function(){
+    	$.mobile.changePage("#home");
+        muestraListas();
+    });
+    
+     $("#btnNewLink").click(function(){
+    	
+    	var provider=document.getElementById("select-choice-1").value;
+		//si es youtube, realiza el filtro del enlace		
+		if(provider=="youtube"){
+			var finalId=document.getElementById("urlLink").value
+			
+			var c13=document.getElementById("urlLink").value.substring(12,13);
+			if(c13=="."){
+				finalId=document.getElementById("urlLink").value.substring(16);
+				document.getElementById("urlLink").value=finalId;
+			}
+			else{
+				finalId=document.getElementById("urlLink").value.substring(31,42);			
+				document.getElementById("urlLink").value=finalId;
+			}			
+		}
+				$.ajax({
+			   		type:'POST',
+			   		url: 'newLink.php',
+			   		data:$('#divNewLink').serialize(),
+			   		success: function(res) {
+			   			//alert(res);		   				
+		   				if(!res){
+		   					confirm('A failure occurred inserting new link');
+		   				}
+		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
+		   				document.getElementById("urlLink").value="";
+		   				document.getElementById("number-pattern").value="";
+		   				document.getElementById("singerLink").value="";	
+		   				document.getElementById("songNameLink").value="";			
+				   		$.mobile.changePage("#home");
+                		muestraListas();		
+					}
+						   				
+					});		   
+  
+    });
+    
+    
+    function  muestraListas(){
     	 $.post("lists.php",{ },function(respuesta){
                 					
 						var lists = $('#lists');
@@ -99,32 +336,6 @@ $(document).ready(function(){
 	
 						});
     }
-    
-    $("#btnNewList").click(function(){
-    	
-        var nameList = $("#nameList").val();
-    
-        
-        $.post("newlist.php",{ nameList : nameList},function(respuesta){
-        //	alert(respuesta);
-            if (respuesta == true) {
-            	//alert("vamos bien");
-            	document.getElementById("nameList").value="";
-                $.mobile.changePage("#home");
-                muestraListas();
-            }
-            else{
-            	document.getElementById("nameList").value="";
-                $.mobile.changePage('#pageErNewList', 'pop', true, true);
-                
-                /*$("#errorMsg").fadeIn(300);
-                $("#errorMsg").css("display", "block");*/
-           }
-        });
-    });
-    
-    
-    
      
     
     

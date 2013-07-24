@@ -11,8 +11,7 @@ if($_SESSION["autentificado"]=="SI"){
 	$idLista = ($_POST["idList"]);	
 	//echo $idLista;
 	
-	 $ciudades[0] = "vino";
-	 $ciudades[1]="tinto";
+
 	 
 	 
 //echo implode(" ",$ciudades);

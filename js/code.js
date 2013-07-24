@@ -61,6 +61,9 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	    arrayParams[0].substring(arrayParams[0].indexOf('=')+1,arrayParams
 	     [0].length)+"\""); 
 ///////////////////////////////////////////////////////////////////////////////
+
+//Se le añade esto aqui para que esconda que la lista es privada.
+$('#messagePrivate').hide();
   function leerGET(){ 
 			var cadGET = location.search.substr(1,location.search.length); 
 			var aux = cadGET.split("=");
@@ -76,6 +79,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 	   //  $('#p_links').fadeIn();
 	     $( "#tabsShare" ).tabs();
 	     
+	       
 	 //Primero mirar a ver si estoy logueado, si nolo estoy, mostrar solo tabla con links
 	  $.ajax({
 			type:'POST', url: 'sesionIniciada.php',
