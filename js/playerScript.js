@@ -321,7 +321,6 @@ function onPlayerStateChange(event) {
 }
 
 function next() {
-	alert("llego");
 	var auxSong;
 
 	if (playlist == null) {

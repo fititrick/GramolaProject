@@ -99,13 +99,13 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 							}
 							
 					});
-					
+					$('#LogInShare').hide();
 					$('#SaveSharedList').html('<h3>Save List</h3><input id="txtNewListShare" type="text" name="name" value="List name"  onblur="if(this.value == "") { this.value="List name"}" onfocus="if (this.value == "List name") {this.value=""}" /><a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>');
 					$('#SaveSharedList').collapsible({refresh:true});
 				}
 				else{//si no hay sesion, deberian de desaparecer el boton de logout					
 					$('#LogOutShare').hide();
-					
+					$('#LogInShare').fadeIn();
 				}
 			}
 		});
@@ -296,6 +296,26 @@ else{//si me llega una lista sin compartir
 				location.reload(true);
    				
 			}
+		});
+		 
+   });
+    $('#B_LoginShare').click(function(){
+   		$.ajax({
+			type:'POST', 
+			url: 'mensaje.php', 
+			data:$('#loginShare').serialize(),
+			success:function(result){
+				if(result==1){
+					location.reload(true);
+				}
+				else{
+					alert("Unidentified User");
+
+					location.reload(true);
+
+				}
+			 
+		},
 		});
 		 
    });
@@ -508,26 +528,24 @@ else{//si me llega una lista sin compartir
 		   				if(!response){
 		   					confirm('A failure occurred inserting new link');
 		   				}
+		   				else{
+							   $.ajax({        
+						             url:'UpdateLinks.php',        
+						             type:'post',                 
+						             dataType:'html',           
+						             cache: false,            
+						             success:data2     
+						        }); 
+		   				}
 		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
 		   				document.getElementById("urlLink").value="";
 		   				document.getElementById("number-pattern").value="";
 		   				document.getElementById("singerLink").value="";	
 		   				document.getElementById("songNameLink").value="";			
-			
-
-		   				
 					}
 					
 			   });
-			   
-			   $.ajax({        
-		             url:'UpdateLinks.php',        
-		             type:'post',                 
-		             dataType:'html',           
-		             cache: false,            
-		             success:data2     
-		        }); 
-			   
+			  
 			 
 	});
 		
@@ -672,6 +690,13 @@ else{//si me llega una lista sin compartir
 								if (response==true)
 								{
 									 alert('The song has been deleted');
+									  $.ajax({        
+							             url:'UpdateLinks.php',        
+							             type:'post',                 
+							             dataType:'html',           
+							             cache: false,            
+							             success:data2     
+						     		   }); 
 		
 								}				   
 								else

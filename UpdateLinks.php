@@ -15,6 +15,7 @@ if($_SESSION["autentificado"]=="SI"){
 	if (mysqli_num_rows($result)==0){
 	  //echo "<p>No se pudo efectuar la consulta de la tabla <b>lists</b></p>\n";
 	}
+		
 	$i=0;
 	if(mysqli_num_rows($result)>0){
 		while( $row = mysqli_fetch_row($result) )
@@ -53,14 +54,13 @@ if($_SESSION["autentificado"]=="SI"){
 			}
 			
 	    	++$i;
-	    	$boton="boton'.$row[2].'";
-	    	 //$line = '<div id="list'.$var.'">'.$row[0].', list nº: '.$row[0].'</div>';	
+			$boton="boton'.$row[2].'";
+			 //$line = '<div id="list'.$var.'">'.$row[0].', list nº: '.$row[0].'</div>';	
 	    	 echo '<tr ><td><a id="Link'.$row[2].'" class="link" name='.$row[5].' title='.$row[6].' href="#" >'.$row[0].'</a></td>';
 			 echo '<td >'.$row[3].'</td>';
-			 echo '<td WIDTH=100>'.$row[4].'</td>';
 			 echo '<td class="linkIcon">'.$row[6].'</td>';
 			 echo '<td class="PosLinkInList">'.$row[1].'</td>';
-			  echo '<td><div class:"votePanel">
+			 echo '<td><div class:"votePanel">
 			 		
 			<button  id="banana1" title= "'.$row[2].'" name="1" type="submit" class="buttonOfVotes"><img class="'.$boton.'" name="1" title="'.$title.'" onmouseover="colorImg(this)" src="'.$src1.'" onmouseout="normalImg(this)" onClick="pulseImg(this)" border="0" alt="banana" width="22" height="20"></button>
 			<button  id="banana2" title= "'.$row[2].'" name="2" type="submit" class="buttonOfVotes"><img class="'.$boton.'" name="2" title="'.$title.'" onmouseover="colorImg(this)" src="'.$src2.'" onmouseout="normalImg(this)" onClick="pulseImg(this)" border="0"  alt="banana" width="22" height="20"></button>
@@ -71,9 +71,9 @@ if($_SESSION["autentificado"]=="SI"){
 			 	   </td> ';
 			 echo '<td><button id="b_BorrarLink"  title= "Delete" name="'.$row[2].'" type="submit" value= "'.$i.'" data-theme="b" class="buttonDelLink"><target="_blank"> <img src="./images/eliminar32.png"></img></button></td></tr>';
 			//aqui habria que meter un nuevo elemento de la tabla que sea la x para borrar con otra classe
-			
-			
 		}
+		//meter en session el numero de links de la lista
+		//$_SESSION["N_linksEnLista"]=$i;
 	}
 }
 else {

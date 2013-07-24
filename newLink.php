@@ -32,7 +32,7 @@ if(!empty($_POST['urlLink']) && !empty($_POST['select-choice-1']) ){
 					}
 				 else{
 				 	//$_SESSION["N_linksEnLista"]++;
-				    echo "<p>Link inserted</p>\n";
+				    echo true;
 	
 				  } 	
 	    } catch (ErrorException $e) {
