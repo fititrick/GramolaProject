@@ -594,7 +594,10 @@ else{//si me llega una lista sin compartir
 										{
 											
 											alert("The right has been set up");
-											$('#div_Compartir').fadeIn();
+											$('#tablaComp').fadeIn();
+											$('#f1').fadeIn();
+											$('#textLink').fadeIn();
+											$('#messagePrivate').hide();
 										}				   
 										else
 										{
@@ -630,7 +633,13 @@ else{//si me llega una lista sin compartir
 										{
 											
 											alert("The right has been set up");
-											$('#div_Compartir').hide();
+											$('#tablaComp').hide();
+											$('#f1').hide();
+											$('#textLink').hide();
+											$('#messagePrivate').fadeIn();
+											//$('#messagePrivate').style="block";
+											
+									
 											
 										}				   
 										else
@@ -642,7 +651,7 @@ else{//si me llega una lista sin compartir
 					   });
   		  			
   	});
-  	
+  
   	function deleteLink(){
   			//definir funcion ajax que llame a deleteLink.php que has de crear, y pasas este idLink como parametro
   			
