@@ -206,6 +206,7 @@ $(document).ready(function(){
 			   			flag=0;	
 			   			$.mobile.changePage("#home");
     				    muestraListas();
+
     
         
         			},
@@ -221,7 +222,136 @@ $(document).ready(function(){
     
     $("#deleteLinkButton").click(function(){
     	
-    	  $.post("listsDelLinks.php",{ },function(respuesta){
+    	muestraLinkDel();
+    	
+       });
+    
+    
+    $("#chao").click(function(){
+    	
+    	$.ajax({
+			   		type:'POST',
+			   		url: 'logOut.php',
+			   		success: function(response) {
+				   		$.mobile.changePage("#login");	
+	    				document.getElementById("txtuser").value="";
+			   			document.getElementById("txtpassword").value="";
+        
+        			}	
+    	});
+    	
+    	   	
+       });
+    
+    $("#btnshare").click(function(){
+      	$.ajax({
+			   		type:'POST',
+			   		url: 'shareList0.php',
+			   		success: function(response) {	
+			   			$('#select-choice-share').append(response);	
+    					
+           			}		
+    	});
+    	
+    	
+    	
+    });
+
+    $("#btngoBack").click(function(){
+    	
+    	$.mobile.changePage("#home");
+ 		muestraListas();
+    	
+       });
+    
+    
+    $("#b_facebook").click(function()
+    {
+    	 $.ajax({
+			type:'POST', 
+			url: 'numList.php', 
+			data:$('#select-choice-share').serialize(),
+			cache: false,
+			success: function(response) { 
+					
+	   				var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index.html?v="+response+"&t=Compartiendo Lista:"+response;
+					nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200");
+    	    	
+				}
+    	});
+       	    	
+    });
+    
+      $("#b_twitter").click(function(){
+      	
+      	$.ajax({
+			type:'POST', 
+			url: 'numList.php', 
+			data:$('#select-choice-share').serialize(),
+			cache: false,
+			success: function(response) { 
+					
+	   				var dir = "http://gramola.sytes.net/index.html?v="+response;
+					var dir2 = encodeURIComponent(dir);
+					var tit = "Shared the list nº "+response+ " of Gramola ";
+					var tit2 = encodeURIComponent(tit);
+
+		var url='http://twitter.com/?status='+tit2+'%20'+dir2+''
+		nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
+    	    	
+				}
+    	});
+    	
+    	
+   	});
+    	
+    
+    $("#btnLists").click(function(){
+    	$.mobile.changePage("#home");
+        muestraListas();
+    });
+    
+     $("#btnNewLink").click(function(){
+    	
+    	var provider=document.getElementById("select-choice-1").value;
+		//si es youtube, realiza el filtro del enlace		
+		if(provider=="youtube"){
+			var finalId=document.getElementById("urlLink").value
+			
+			var c13=document.getElementById("urlLink").value.substring(12,13);
+			if(c13=="."){
+				finalId=document.getElementById("urlLink").value.substring(16);
+				document.getElementById("urlLink").value=finalId;
+			}
+			else{
+				finalId=document.getElementById("urlLink").value.substring(31,42);			
+				document.getElementById("urlLink").value=finalId;
+			}			
+		}
+				$.ajax({
+			   		type:'POST',
+			   		url: 'newLink.php',
+			   		data:$('#divNewLink').serialize(),
+			   		success: function(res) {
+			   			//alert(res);		   				
+		   				if(!res){
+		   					confirm('A failure occurred inserting new link');
+		   				}
+		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
+		   				document.getElementById("urlLink").value="";
+		   				document.getElementById("number-pattern").value="";
+		   				document.getElementById("singerLink").value="";	
+		   				document.getElementById("songNameLink").value="";			
+				   		$.mobile.changePage("#home");
+                		muestraListas();		
+					}
+						   				
+					});		   
+  
+    });
+    
+    function  muestraLinkDel(){
+    	$.post("listsDelLinks.php",{ },function(respuesta){
                 					
 						var listsLinks = $('#linksDel');
 						//alert(lists);
@@ -281,66 +411,7 @@ $(document).ready(function(){
 							}
 	
 						});
-						
-					
-		
-
-
-
-    });
-    
-    
-    
-   
-    
-    
-    
-    
-    $("#btnLists").click(function(){
-    	$.mobile.changePage("#home");
-        muestraListas();
-    });
-    
-     $("#btnNewLink").click(function(){
-    	
-    	var provider=document.getElementById("select-choice-1").value;
-		//si es youtube, realiza el filtro del enlace		
-		if(provider=="youtube"){
-			var finalId=document.getElementById("urlLink").value
-			
-			var c13=document.getElementById("urlLink").value.substring(12,13);
-			if(c13=="."){
-				finalId=document.getElementById("urlLink").value.substring(16);
-				document.getElementById("urlLink").value=finalId;
-			}
-			else{
-				finalId=document.getElementById("urlLink").value.substring(31,42);			
-				document.getElementById("urlLink").value=finalId;
-			}			
-		}
-				$.ajax({
-			   		type:'POST',
-			   		url: 'newLink.php',
-			   		data:$('#divNewLink').serialize(),
-			   		success: function(res) {
-			   			//alert(res);		   				
-		   				if(!res){
-		   					confirm('A failure occurred inserting new link');
-		   				}
-		 //tras lanzar el mensaje de link insertado, borra todo lo escrito en el formulario sustituyéndolo por "".
-		   				document.getElementById("urlLink").value="";
-		   				document.getElementById("number-pattern").value="";
-		   				document.getElementById("singerLink").value="";	
-		   				document.getElementById("songNameLink").value="";			
-				   		$.mobile.changePage("#home");
-                		muestraListas();		
-					}
-						   				
-					});		   
-  
-    });
-    
-    
+    }
     
     function  muestraListas(){
     	 $.post("lists.php",{ },function(respuesta){

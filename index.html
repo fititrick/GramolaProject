@@ -23,7 +23,7 @@
 		<meta http-equiv="refresh" content="900" />
 		<meta name="distribution" content="global" />
 		<meta name="resource-type" content="document" />
-		
+
 		<link rel="stylesheet" href="./css/jquery.mobile-1.3.1.css">
 		<link rel="stylesheet" href="./css/jquery-ui.css" />
 		<link rel="stylesheet" href="./css/tablesorter.css" type="text/css" media="print, projection, screen" />
@@ -47,27 +47,26 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 		<script>
-		var start;
-		var idListaCompartida;
-		function preloadFunc()
-    {
-        if(leerGET()!=null){
-				start=true;
+			var start;
+			var idListaCompartida;
+			function preloadFunc() {
+				if (leerGET() != null) {
+					start = true;
+				} else {
+					start = false;
+				}
 			}
-			else{
-				start=false;
+
+			function leerGET() {
+				var cadGET = location.search.substr(1, location.search.length);
+				var aux = cadGET.split("=");
+				idListaCompartida = aux[1];
+				return aux[1];
 			}
-    }
-    function leerGET(){ 
-			var cadGET = location.search.substr(1,location.search.length); 
-			var aux = cadGET.split("=");
-			idListaCompartida=aux[1];
-			return aux[1]; 
-		} 
-    window.onpaint = preloadFunc();
-		
-		
-		
+
+
+			window.onpaint = preloadFunc();
+
 			function copia_portapapeles() {
 				document.f1.campo1.select();
 			}
@@ -119,8 +118,8 @@
 
 	</head>
 	<!--<body background="./images/background.jpg">-->
-		<body>
-		<div data-role="page" id="p_index" >
+	<body>
+		<div data-role="page" id="p_index" class="contentDiv">
 			<div id="contenedor">
 				<div id="tabs"  style="position:relative; height: 100%; width: 100%;">
 
@@ -215,13 +214,13 @@
 						</li>
 						<li style="float:right;">
 							<div id="LogOut">
-							<button id="LogOut1" class="b_LogOut" type="submit" data-theme="e" >
-								LOG OUT
-							</button>
+								<button id="LogOut1" class="b_LogOut" type="submit" data-theme="e" >
+									LOG OUT
+								</button>
 							</div>
-						
+
 						</li>
-						
+
 						<li>
 							<a href="#tabs2-1" class="button">Lists</a>
 						</li>
@@ -229,15 +228,14 @@
 							<a href="#tabs2-4" class="button">Player</a>
 
 						</li>
-						
+
 					</ul>
 					<div id="tabs2-1" >
 
-						
 						<div id="Perfil"  style="position:absolute; left: 74.5%; top: 0%;">
-					
+
 						</div>
-						
+
 						<div id="List">
 							<label style="color: white" >Name of lists:</label>
 							<div id="div-clase2"></div>
@@ -266,9 +264,10 @@
 
 								</div>
 							</div>
-
 							<div  data-role="collapsible-set" data-content-theme="b" style="opacity:1%;width: 25%; height:68%; float:right;overflow: auto">
-								<div id="playButtonPlace"></div>
+
+								<button data-role="button" value="Click" onclick="placePlayer()"></button>
+								<div id="playButtonPlace" class="startButtonHolder"></div>
 								<div data-role="collapsible" data-theme="b" data-content-theme="b">
 									<h3>Vote for this List</h3>
 									<div class="ui-grid-solo">
@@ -379,190 +378,186 @@
 													<td id="b_facebook"><img src="./images/fb.png" /></td>
 													<td id="b_twitter"><img src="./images/twitter.png" /></td>
 												</tr>
-												
+
 											</table>
-											<div id="messagePrivate" class="hidePrivate"> <label>This is a private list.</label></div>
+											<div id="messagePrivate" class="hidePrivate">
+												<label>This is a private list.</label>
+											</div>
 											<form name="f1" id="f1">
 												<textarea id="textLink" cols="50" rows="5" name="campo1" onclick="copia_portapapeles()">Url of the list</textarea>
 												<br>
 
 											</form>
-											
+
 										</div>
 
 									</div>
 
 								</div>
-								
-									<div data-role="collapsible" data-theme="b" data-content-theme="b">
-										<h3>Rights</h3>
-											<div class="ui-grid-solo">
-											<div id="div_Right" class="ui-block-a"><tr>
-												<td><button id="b_setPublic" class="share" name="public" input="submit"><img src="./images/unlock24.png" />Public</button></td>
-												<td><button id="b_setPrivate" class="share" name="private" input="submit"><img src="./images/lock24.png" />Private</button></td>
-												</tr></div>
+
+								<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Rights</h3>
+									<div class="ui-grid-solo">
+										<div id="div_Right" class="ui-block-a">
+											<tr>
+												<td>
+												<button id="b_setPublic" class="share" name="public" input="submit"><img src="./images/unlock24.png" />Public
+												</button></td>
+												<td>
+												<button id="b_setPrivate" class="share" name="private" input="submit"><img src="./images/lock24.png" />Private
+												</button></td>
+											</tr>
 										</div>
-									
-									
-								</div>	
+									</div>
+
+								</div>
 							</div>
 						</div>
 
 					</div>
 
-					<div id="tabs2-4">
-						<div id="player"></div>
-						<div class='html5Player'>
-							<div id="youTubePlayer"></div>
-						</div>
+					<div id="tabs2-4" class="playerPlaceholder">
 
 					</div>
 
 				</div>
-				
+
 			</div>
-			</div>
-		<div data-role="page" id="p_links" >	
-			<div id="tabsShare" style="position: absolute; width: 100%; height: 98%;">
-			<ul style="background-color: #2E2E2E;">
-			<li>
-				<img align='top' src="./images/Gramola1.png" width="50px" height="50px"/>
-			</li>
-			
-			<li style="float:right;">
-				<img align='absmiddle'  src="./images/Logo2.png" width="50px" height="50px"/>
-			</li>
-			<li style="float:right;">
-				<div id="LogOutShare">
-					<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >LOG OUT</button>
-				</div>
-			</li>
-			<li style="float: right">
-				<div id="LogInShare">
-					
-				</div>
-			</li>
-			<li style="float:right;">
-				<div id="PerfilShare" >
-		
-				</div>
-			</li>
-			<li>
-				<a href="#tabs2-1Share" class="button">List</a>
-			</li>
-			<li>
-				<a href="#tabs2-4Share" class="button">Player</a>
-			</li>
-		</ul>
-			
-		
-
-		<div id="tabs2-1Share" data-role="footer" data-theme="a" >
-			<div class="ui-block-a ui-body-a"  >
-				<label for="basic">Links:</label>
-				
-				<div  data-role="fieldcontain" style="position:relative; max-width:100%; max-height:80%; overflow:auto;">
-
-					<table id="TableLinksShare" class="tablesorter" >
-						<thead>
-							<tr>
-								<th >
-								Name
-								</th>
-								
-								<th >
-								Artist
-								</th>
-								<th >
-								Icon
-								</th>
-								<th >
-								Position in List
-								</th>
-								
-							</tr>
-						</thead>
-						<tbody  id="LinksShare" style="background-color: #A9E2F3; color:black" >
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="ui-block-c " style="width: 40%" >
-			
-			
-			<div data-role="collapsible-set" >
-				<div id="playButtonPlaceShared"></div>
-				<div id="SaveSharedList" data-role="collapsible" data-theme="b" data-content-theme="b" >
-					<h3>Save List</h3>
-					<input id="txtNewListShare" type="text" name="name" value="List name"  onblur='if(this.value == "") { this.value="List name"}' onfocus='if (this.value == "List name") {this.value=""}'/>
-					<a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>
-				</div>
-				<div data-role="collapsible" data-theme="b" data-content-theme="b">
-					<h3>Share</h3>
-
-					<div class="ui-grid-solo">
-						<div id="div_CompartirShare" class="ui-block-a">
-							<table id="tablaCompShare">
-								<tr>
-									<td id="b_facebookShare"><img src="./images/fb.png" /></td>
-									<td id="b_twitterShare"><img src="./images/twitter.png" /></td>
-
-							</tr>
-							</table>
-							<form name="f2"> 
-								<textarea cols="50" rows="5" name="campo1" onclick="copia_portapapeles2()">Url of the list</textarea> 
-								<br> 
-								
-							</form> 
-						</div>
-						
-					</div>
-
-				</div>
-				</div>
-			</div>
-			</div>
-			
-			<div id="tabs2-4Share">
-				
-								
-			</div>
-
-				</div>
-
 		</div>
-		<div data-role="page" id="profile-Page" >
-			<div id="tabsPerfil" data-theme="a" >
-				<ul style="background-color: #2E2E2E">
+		<div data-role="page" id="p_links" class="contentDiv" >
+			<div id="contenedor2">
+				<div id="tabsShare" style="position: absolute; width: 100%; height: 98%;">
+					<ul style="background-color: #2E2E2E;">
 						<li>
-							<a href="#tabsPerfil-perfil">Profile</a>
+							<img align='top' src="./images/Gramola1.png" width="50px" height="50px"/>
+						</li>
+
+						<li style="float:right;">
+							<img align='absmiddle'  src="./images/Logo2.png" width="50px" height="50px"/>
+						</li>
+						<li style="float:right;">
+							<div id="LogOutShare">
+								<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >
+									LOG OUT
+								</button>
+							</div>
+						</li>
+						<li style="float: right">
+							<div id="LogInShare">
+
+							</div>
+						</li>
+						<li style="float:right;">
+							<div id="PerfilShare" >
+
+							</div>
 						</li>
 						<li>
-							<a href="#tabsPerfil-MyAccount">My Account</a>
+							<a href="#tabs2-1Share" class="button">List</a>
+						</li>
+						<li>
+							<a href="#tabs2-4Share" class="button">Player</a>
 						</li>
 					</ul>
-					<div id="tabsPerfil-perfil" data-theme="a" >
-						<div id="PerfilContainer" data-role="footer" data-theme="a" class="ui-bar ui-grid-b" >
 
-							<div class="ui-block-b" style="width: 10%" >
+					<div id="tabs2-1Share" data-role="footer" data-theme="a" >
+						<div class="ui-block-a ui-body-a"  >
+							<label for="basic">Links:</label>
 
+							<div  data-role="fieldcontain" style="position:relative; max-width:100%; max-height:80%; overflow:auto;">
+
+								<table id="TableLinksShare" class="tablesorter" >
+									<thead>
+										<tr>
+											<th > Name </th>
+
+											<th > Artist </th>
+											<th > Icon </th>
+											<th > Position in List </th>
+
+										</tr>
+									</thead>
+									<tbody  id="LinksShare" style="background-color: #A9E2F3; color:black" ></tbody>
+								</table>
 							</div>
-
 						</div>
-						<p><a href="#p_index" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to main page</a></p>
+						<div class="ui-block-c " style="width: 40%" >
+							<div data-role="collapsible-set" >
+								<button data-role="buttonList" value="Click" onclick="placePlayer()"></button>
+								<div id="playButtonPlaceShared" class="startButtonHolder"></div>
+								<div id="SaveSharedList" data-role="collapsible" data-theme="b" data-content-theme="b" >
+									<h3>Save List</h3>
+									<input id="txtNewListShare" type="text" name="name" value="List name"  onblur='if(this.value == "") { this.value="List name"}' onfocus='if (this.value == "List name") {this.value=""}'/>
+									<a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>
+								</div>
+								<div data-role="collapsible" data-theme="b" data-content-theme="b">
+									<h3>Share</h3>
+
+									<div class="ui-grid-solo">
+										<div id="div_CompartirShare" class="ui-block-a">
+											<table id="tablaCompShare">
+												<tr>
+													<td id="b_facebookShare"><img src="./images/fb.png" /></td>
+													<td id="b_twitterShare"><img src="./images/twitter.png" /></td>
+
+												</tr>
+											</table>
+											<form name="f2">
+												<textarea cols="50" rows="5" name="campo1" onclick="copia_portapapeles2()">Url of the list</textarea>
+												<br>
+
+											</form>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
 					</div>
-					<div id="tabsPerfil-MyAccount" data-theme="b">
 
-						<div data-role:"content" data-theme="a">
-							<h4><font color="white">Modify Account:</h4></font></a>
+					<div id="tabs2-4Share" class="playerPlaceholder">
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div data-role="page" id="profile-Page" class="contentDiv">
+			<div id="tabsPerfil" data-theme="a" >
+				<ul style="background-color: #2E2E2E">
+					<li>
+						<a href="#tabsPerfil-perfil">Profile</a>
+					</li>
+					<li>
+						<a href="#tabsPerfil-MyAccount">My Account</a>
+					</li>
+				</ul>
+				<div id="tabsPerfil-perfil" data-theme="a" >
+					<div id="PerfilContainer" data-role="footer" data-theme="a" class="ui-bar ui-grid-b" >
+
+						<div class="ui-block-b" style="width: 10%" >
+
 						</div>
-						<div id="settingsconteiner" data-role="footer" data-theme="a" class="ui-bar ui-grid-b" style="max-height: 50%; overflow: auto;">
-							<div class="ui-block-c ui-body-e"  >
-								<form name="frpanel" id="changepass" method="post">
 
-									<div data-role="collapsible">
-										<h3>Change your password</h3>
-										<p>
+					</div>
+					<p>
+						<a href="#p_index" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to main page</a>
+					</p>
+				</div>
+				<div id="tabsPerfil-MyAccount" data-theme="b">
+
+					<div data-role:"content" data-theme="a">
+						<h4><font color="white">Modify Account:</h4></font></a>
+					</div>
+					<div id="settingsconteiner" data-role="footer" data-theme="a" class="ui-bar ui-grid-b" style="max-height: 50%; overflow: auto;">
+						<div class="ui-block-c ui-body-e"  >
+							<form name="frpanel" id="changepass" method="post">
+
+								<div data-role="collapsible">
+									<h3>Change your password</h3>
+									<p>
 
 										<div data-role="fieldcontain">
 											<label for="basic">Actual_Password:</label>
@@ -591,109 +586,111 @@
 												changePass
 											</button>
 										</div>
+								</div>
+								</p>
+
+							</form>
+							<form name="frpanel" id="changeNick" method="post">
+								<div data-role="collapsible">
+									<h3>Change your nick</h3>
+									<div data-role="fieldcontain">
+										<label for="basic">New_Nick:</label>
 									</div>
-									</p>
+									<div>
+										<input type="text" id="newnickpass" name="newnickpass" value="" data-mini="true" />
+									</div>
 
-								</form>
-								<form name="frpanel" id="changeNick" method="post">
-									<div data-role="collapsible">
-										<h3>Change your nick</h3>
+									<div data-role="fieldcontain">
+										<label for="basic">Confirm_New_Nick:</label>
+									</div>
+									<div>
+										<input type="text" id="confnewnick" name="confnewnick" value="" data-mini="true" />
+									</div>
+
+									<div data-role="fieldcontain">
+										<label for="basic">Password:</label>
+									</div>
+									<div>
+										<input type="password" id="actualpassnick" name="actualpassnick" value="" data-mini="true" />
+									</div>
+
+									<div style="margin:6px 0 0 10px;">
+										<button id="cambianick" type="submit" data-theme="b" class="button">
+											changeNick
+										</button>
+									</div>
+								</div>
+							</form>
+							<form name="frpanel" id="changeEmail" method="post">
+
+								<div data-role="collapsible">
+									<h3>Change your email</h3>
+									<p>
 										<div data-role="fieldcontain">
-											<label for="basic">New_Nick:</label>
+											<label for="basic">email:</label>
 										</div>
 										<div>
-											<input type="text" id="newnickpass" name="newnickpass" value="" data-mini="true" />
+											<input type="text" id="email" name="email" value="" data-mini="true" />
 										</div>
 
 										<div data-role="fieldcontain">
-											<label for="basic">Confirm_New_Nick:</label>
+											<label for="basic">New_email:</label>
 										</div>
 										<div>
-											<input type="text" id="confnewnick" name="confnewnick" value="" data-mini="true" />
+											<input type="text" id="newemail" name="newemail" value="" data-mini="true" />
 										</div>
 
 										<div data-role="fieldcontain">
+											<label for="basic">Confirm_New_email:</label>
+										</div>
+										<div>
+											<input type="text" id="confnewemail" name="confnewemail" value="" data-mini="true" />
+										</div>
+
+										<div data-role="fieldcontain">
+
 											<label for="basic">Password:</label>
 										</div>
 										<div>
-											<input type="password" id="actualpassnick" name="actualpassnick" value="" data-mini="true" />
+											<input type="password" id="actualpassemail" name="actualpassemail" value="" data-mini="true" />
 										</div>
 
 										<div style="margin:6px 0 0 10px;">
-											<button id="cambianick" type="submit" data-theme="b" class="button">
-												changeNick
+											<button id="cambiaemail" type="submit" data-theme="b" class="button">
+												change email
 											</button>
 										</div>
-									</div>
-								</form>
-								<form name="frpanel" id="changeEmail" method="post">
 
-									<div data-role="collapsible">
-										<h3>Change your email</h3>
-										<p>
-											<div data-role="fieldcontain">
-												<label for="basic">email:</label>
-											</div>
-											<div>
-												<input type="text" id="email" name="email" value="" data-mini="true" />
-											</div>
-
-											<div data-role="fieldcontain">
-												<label for="basic">New_email:</label>
-											</div>
-											<div>
-												<input type="text" id="newemail" name="newemail" value="" data-mini="true" />
-											</div>
-
-											<div data-role="fieldcontain">
-												<label for="basic">Confirm_New_email:</label>
-											</div>
-											<div>
-												<input type="text" id="confnewemail" name="confnewemail" value="" data-mini="true" />
-											</div>
-
-											<div data-role="fieldcontain">
-
-												<label for="basic">Password:</label>
-											</div>
-											<div>
-												<input type="password" id="actualpassemail" name="actualpassemail" value="" data-mini="true" />
-											</div>
-
-											<div style="margin:6px 0 0 10px;">
-												<button id="cambiaemail" type="submit" data-theme="b" class="button">
-													change email
-												</button>
-											</div>
-									
 									</p>
-									</div>
+								</div>
 
-								</form>
-							</div>
-							<div class="ui-block-b" style="width: 10%" ></div>
-							<div class="ui-block-c ui-body-e" >
-
-								<form name="frpanel" id="changeImage" method="post" >
-									<div data-role="fieldcontain" >
-										<label for="url">Link for your image:</label>
-										<input type="url" name="imageLink" id="imageLink" value="" />
-									</div>
-									<div style="margin:6px 0 0 10px;">
-										<button id="cambiaImagen" type="submit" data-theme="b" class="button">
-											change your Image
-										</button>
-									</div>
-
-								</form>
-							</div>
-
+							</form>
 						</div>
-						<p><a href="#p_index" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to main page</a></p>	
-					</div>
+						<div class="ui-block-b" style="width: 10%" ></div>
+						<div class="ui-block-c ui-body-e" >
 
+							<form name="frpanel" id="changeImage" method="post" >
+								<div data-role="fieldcontain" >
+									<label for="url">Link for your image:</label>
+									<input type="url" name="imageLink" id="imageLink" value="" />
+								</div>
+								<div style="margin:6px 0 0 10px;">
+									<button id="cambiaImagen" type="submit" data-theme="b" class="button">
+										change your Image
+									</button>
+								</div>
+
+							</form>
+						</div>
+
+					</div>
+					<p>
+						<a href="#p_index" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to main page</a>
+					</p>
 				</div>
+
 			</div>
+
 		<div data-role="page" id="p_login">
 			<div style="margin: auto; width: 50%;margin-top:10%;">
 				<form name="frpanel" id="loginShare" method="post" >
@@ -718,13 +715,14 @@
 								</button>
 							</div>
 						</div>
-		
 					</div>
+
 				</form>
 			
 			<p><a href="#p_links" data-rel="back" data-role="button" data-icon="back">Back to previous page</a></p>
 			<p><a href="#p_register" data-role="button" data-theme="e" data-icon="plus">Register</a></p>
 		</div>	
+
 		</div>
 		<div data-role="page" id="p_register">
 			<div style="margin: auto; width: 50%; top: 20%;margin-top:10%;">

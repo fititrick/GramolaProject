@@ -11,11 +11,11 @@ if($_SESSION["autentificado"]=="SI"){
 	
 			
 		
-		$resultado = mysqli_query($con,"DELETE FROM links WHERE idLink='$NLink'");
+		$resultado = mysqli_query($conexion,"DELETE FROM links WHERE idLink='$NLink'");
 		if(!$resultado){
-			echo $NLink;
+			echo false;
 		}else{
-		echo "$resultado, $NLink";	
+		echo true;	
 		}
 			
 		

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>demo login jqm</title>
+    <title>Gramola</title>
      
   <link rel="stylesheet" href="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
   
@@ -12,36 +12,94 @@
   <script src="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
   <script src="login.js"></script>
   <script languaje="javascript">
- function borrarLink(name){
-    	//alert("borrar");
-    	if (confirm('Do you want remove this song?')){
-    		
-					var param= 'idLinkBorrar=' + name;
-					alert(param);
-					
-					$.ajax({        
-			             url:'deleteLink.php',        
-			             type:'post',                 
-			             dataType:'html',  
-			             data:param,          
-			             cache: false,            
-			             success: function (response) {
-			             	alert(response);
-								/*if (response==true)
-								{
-									 alert('The song has been deleted');
+	 function borrarLink(name){
+	    	//alert("borrar");
+	    	if (confirm('Do you want remove this song?')){
+	    		
+						var param= 'idLinkBorrar=' + name;
+						//alert(param);
+						
+						$.ajax({        
+				             url:'deleteLink.php',        
+				             type:'post',                 
+				             dataType:'html',  
+				             data:param,          
+				             cache: false,            
+				             success: function (response) {
+				             	//alert(response);
+									if (response==true)
+									{
+										 alert('The song has been deleted');
+										muestraLinkDel();
+									}				   
+									else
+									{
+										alert('The song hasn´t been deleted');
+			
+									}
+							 }     
+				        }); 
+					}
+			
+	    }
+	    
+	    function  muestraLinkDel(){
+	    	$.post("listsDelLinks.php",{ },function(respuesta){
+	                					
+							var listsLinks = $('#linksDel');
+							//alert(lists);
+							listsLinks.html(respuesta);
+							listsLinks.find('div[data-role=collapsible]').collapsible({theme:'a',refresh:true});						
+							
+							var elementsArray = document.getElementsByClassName("listaDelLinks");
+							var ides=new Array();
+							var x;
+							for( x=0;x<elementsArray.length;x++){
+								ides[x]=elementsArray[x].id;
+						
+							var idesTxt=ides.join();
+							
+									idList='idList=' + ides[x];
+							
+									$.ajax({
+										type:'POST', 
+										url: 'linksDel.php', 
+										data:idList,
+										success: function(response){
+										
+											var arrayLinks=response.split("*");
+											var idListas=arrayLinks[0];
+											//alert(arrayLinks[0]);
+											for(var z=0;z<arrayLinks.length;z++){
+												arrayLinks[z]=arrayLinks[z+1];
+											}
+											var arrayLinks3=arrayLinks.join(" ");
+							
+											var ul = document.getElementsByClassName('listaDelLinks');
+											
+											for(var h=0;h<ul.length;h++){
+										
+											if((ul[h].id-idListas)==0){
+												$(ul[h]).append(arrayLinks3);
+												var vector=document.getElementsByClassName('delink');
+												//alert(vector[0].className); 
+											for(var d=0;d<vector.length;d++){  
+												//alert(vector[d].className);
+																			
+											}
+												
+												listsLinks.find(ul[h]).listview({theme:'b',refresh:true});
+																						
+											}
+											}
+																		           
+										}								
+									});							
+								}
 		
-								}				   
-								else
-								{
-									alert('The song hasn´t been deleted');
-		
-								}*/
-						 }     
-			        }); 
-				}
-		
-    }
+							});
+	    }
+	    
 </script>
 
 
@@ -131,9 +189,10 @@
             <div data-role="navbar">
                 <ul>
                     <li><a href="#" id="btnLists" class="ui-btn-active">Your Lists</a></li>
-                    <li><a href="#Player" id="btnPlayer" data-role="button">Player</a></li>
+                    <li><a href="#shareLink" id="btnshare" data-role="button" data-rel="dialog">Share</a></li>
                     <li><a href="#Profile" id="btnProfile" data-role="button">Profile</a></li>
-                </ul>
+                    
+               </ul>
             </div>
         </header>
         
@@ -164,6 +223,44 @@
         	
         </article>
         
+    </section>
+    
+    <section id="sharePage" data-role="page">
+         <header data-role="header" data-position="fixed" data-id="header">
+            <h1><img alt="Mi web" id="iconUpFramolaShared" src="../images/mono24.png"/>GRAMOLA</h1>
+            <div data-role="navbar">
+                <ul>
+                    <li><a  id="btnListsShared" class="ui-btn-active">Your Lists</a></li>
+                    <li><a href="#shareLink" id="btnshare" data-role="button" data-rel="dialog">Share</a></li>
+                    <li><a  id="btnProfileShared" data-theme="c" data-role="button">Profile</a></li>
+                    
+               </ul>
+            </div>
+        </header>
+        
+        <div id="contenidoShare"  data-role="content" data-theme="e">      	
+            <div   data-role="collapsible-set" >
+		            
+		            <div id="listsShare">
+		            	
+		            </div>
+		            
+		              	
+		    </div>
+            
+                        
+        </div>
+        
+        <article data-role="footer" data-theme="a">
+        	<div data-role="navbar">
+				<ul>
+					<li><a  data-role="button"  data-theme="c" data-rel="dialog" data-icon="plus">New List</a></li>
+					<li><a  data-role="button"  data-theme="c" data-rel="dialog" data-icon="plus">New Link</a></li>
+					<li><a  data-role="button"  data-theme="c" data-icon="delete" data-rel="dialog"> List</a></li>
+					<li><a  data-role="button"  data-theme="c"  data-icon="delete"> Link</a></li>
+				</ul>
+			</div>
+        	
     </section>
     
      <section id="newList" data-role="page">
@@ -277,59 +374,99 @@
         
         <article data-role="footer" data-position="fixed">
         	 <div data-role="controlgroup">
-            <a href="#home" data-role="button" align="center" data-theme="e" data-rel="back">Go back</a>
+            <a  data-role="button" id="btngoBack" align="center" data-theme="e" >Go back</a>
            </div>       	
         </article> 
     </section>
     
-    
-    
-    <section id="Player" data-role="page">
-        <header data-role="header" data-position="fixed" data-id="header">
-            <h1><img alt="Mi web" id="iconUpFramola" src="../images/mono24.png"/>GRAMOLA</h1>
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#home" id="btnLists" >Your Lists</a></li>
-                    <li><a href="#" id="btnPlayer" class="ui-btn-active" data-role="button">Player</a></li>
-                    <li><a href="#Profile" id="btnProfile" data-role="button">Profile</a></li>
-                </ul>
-            </div>
-        </header>
-        <article data-role="content" data-theme="e">                          
-                        <p>Hola, estas en el reproductor</p>
 
-          </article>
-        <article data-role="footer" data-position="fixed">
-        	<div data-role="controlgroup">
-           </div>
+      <section id="shareLink" data-role="page">
+         <header data-role="header" >
+            <h1>Share your link</h1>
+           
+        </header>
+        <article data-role="content" data-theme="a">
+        	<form id="form_shareLink">
+        		<div data-role="fieldcontain" id="shareLink">
+        			<label for="select-choice-share" style="font-size: 13" >Select List</label>
+					<select data-theme="b" name="select-choice-share" id="select-choice-share"  >
+					</select>
+        		</div>
+        	</form>
+        		
+        		<button id="b_facebook" data-theme="b">Facebook</button>
+        		<button id="b_twitter" data-theme="b">Twitter</button>
         </article>
-        
     </section>
     
-    <section id="Profile" data-role="page">
+    
+	
+	
+    
+	<section id="Profile" data-role="page">
         <header data-role="header" data-position="fixed" data-id="header">
             <h1><img alt="Mi web" id="iconUpFramola" src="../images/mono24.png"/>GRAMOLA</h1>
             <div data-role="navbar">
                 <ul>
                     <li><a href="#home" id="btnLists" >Your Lists</a></li>
-                    <li><a href="#Player" id="btnPlayer"  data-role="button">Player</a></li>
+                    <li><a href="#shareLink" id="btnshare"  data-role="button" data-rel="dialog">Share</a></li>
                     <li><a href="#" id="btnProfile" data-role="button" class="ui-btn-active">Profile</a></li>
+                                        
                 </ul>
             </div>
         </header>
         <article data-role="content" data-theme="e">                          
             
             <div id="profileData"></div>
+            <div data-role="controlgroup">
+            <a href="#accSettings" data-role="button" align="center" data-theme="b" data-rel="dialog">Account settings</a>
+           </div>
             
           </article>
         <article data-role="footer" data-position="fixed">
         	<div data-role="controlgroup">
         		<div data-role="controlgroup">
-            <a href="#accSettings" data-role="button" align="center" data-theme="e" data-rel="dialog">Account settings</a>
+            <a href="#logOut" data-role="button" align="center" data-theme="e" data-rel="dialog">Log out</a>
            </div>
            </div>
         </article>
         
+    </section>
+    
+    <section id="share" data-role="page">
+        <header data-role="header" data-position="fixed" data-id="header">
+            <h1><img alt="Mi web" id="iconUpFramola" src="../images/mono24.png"/>GRAMOLA</h1>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#home" id="btnLists" >Your Lists</a></li>
+                    <li><a href="#" id="btnshare"  data-role="button" class="ui-btn-active">Share</a></li>
+                    <li><a href="#Profile" id="btnProfile" data-role="button" >Profile</a></li>
+                                        
+                </ul>
+            </div>
+        </header>
+        <article data-role="content" data-theme="e">
+        	            <h1><img alt="Mi web" id="iconUpFramola" src="../images/mono24.png"/>share it</h1>
+
+          </article>
+            
+        </article>
+    </section>
+    
+    <section id="logOut" data-role="page">
+        <header data-role="header" >
+            <h1>¿Log Out?</h1>
+           
+        </header>
+        <article data-role="content" data-theme="e">
+        	<p>Already?? only 5 minutes more...</p>
+			
+                    <a href="#home" id="ok" data-role="button">..mm ok, just 5 minutes more</a>
+                    <a  id="chao" data-role="button" >Sorry, I have to go</a>
+           
+          </article>
+            
+        </article>
     </section>
     
     <section id="accSettings" data-role="page">
