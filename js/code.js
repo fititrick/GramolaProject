@@ -38,29 +38,6 @@ $(document).ready(function(){
 	
 	$( "#tabsPerfil" ).tabs();
    
-  
-//Capturamos la URL 
-var callingURL = document.URL;
-
-
-//Separamos los parametros 
-var cgiString = callingURL.substring(callingURL.indexOf('?')+1,callingURL.length); 
-
-//Fijamos el sepador entre parametros 
-var DELIMETER = '&'; 
-
-//Eliminamos la almohadilla, si es que existe... cortamos por lo sano! 
-if (cgiString.indexOf('#')!=-1){ 
-    cgiString=cgiString.slice(0,cgiString.indexOf('#')); 
-} 
-
-//Troceamos el cgiString ya limpiado, separando cada par variable=valor 
-//en una de las posiciones del array 
-var arrayParams=cgiString.split(DELIMETER); 
-var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('=')+1)+"\""+ 
-	    arrayParams[0].substring(arrayParams[0].indexOf('=')+1,arrayParams
-	     [0].length)+"\""); 
-///////////////////////////////////////////////////////////////////////////////
 
 //Se le añade esto aqui para que esconda que la lista es privada.
 $('#messagePrivate').hide();
