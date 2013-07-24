@@ -10,7 +10,6 @@ if($_SESSION["autentificado"]=="SI"){
 		$_SESSION["NList"]=$_POST['id'];
 	}
 	$NList=$_SESSION["NList"];
-	echo $NList;
 	$idUser=$_SESSION["idUser"];
 	$consulta ="SELECT name, posList, idLink, artist, genre, link, provider FROM links where idList=\"$NList\" order by posList";	
 	

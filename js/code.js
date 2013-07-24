@@ -99,12 +99,12 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 							}
 							
 					});
-					$('#LogOutShare').html('<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >LOG OUT</button>');
-					alert($('#LogOutShare').html);
+					
 					$('#SaveSharedList').html('<h3>Save List</h3><input id="txtNewListShare" type="text" name="name" value="List name"  onblur="if(this.value == "") { this.value="List name"}" onfocus="if (this.value == "List name") {this.value=""}" /><a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>');
 					$('#SaveSharedList').collapsible({refresh:true});
 				}
 				else{
+					document.getElementById('LogOutShare').hide();
 					
 				}
 			}
@@ -302,6 +302,28 @@ else{//si me llega una lista sin compartir
 		});
 		 
    });
+   $('#LogOut1Share').click(function(){
+   	alert("Hola en share");
+   		$.ajax({
+			type:'POST', url: 'logOut.php',
+			success: function(response) {  				
+				location.reload(true);
+   				
+			}
+		});
+		 
+   });
+   function salida(){
+   	alert("Hola en share");
+   		$.ajax({
+			type:'POST', url: 'logOut.php',
+			success: function(response) {  				
+				location.reload(true);
+   				
+			}
+		});
+		 
+   }
    
    $(cambiapass).click(function(){
 	
@@ -523,14 +545,7 @@ else{//si me llega una lista sin compartir
 			 
 	});
 		
-		$(TableLinks).click(function(){
-			if(document.getElementsByName("TableLinks")){
-				//alert(this.getElementByName("button").getAttribute("value"));
-				alert($(document.getElementsByName("TableLinks")[0].childNodes[0].toString));
-			}
-  		
-  		});	
-  		
+		
   	$('#b_facebook').click(function(){  		
   		$.ajax({        
 	             url:'getIdList.php',        
