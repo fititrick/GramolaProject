@@ -10,7 +10,7 @@ if($_SESSION["autentificado"]=="SI"){
 	$usuario=$_SESSION["idUser"];
 	
 	$consulta ="SELECT name, idList FROM lists where idUser=\"$usuario\"";	
-	$result=mysqli_query($con, $consulta) ;
+	$result=mysqli_query($conexion, $consulta) ;
 	
 	
 	

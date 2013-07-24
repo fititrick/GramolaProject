@@ -19,16 +19,16 @@ $confpass=$_POST["changeNickPass"];
 
 
 $consulta="SELECT idUser FROM users where nick=\"$nick\"";
-$result=mysqli_query($con,$consulta) ;	
+$result=mysqli_query($conexion,$consulta) ;	
 $consulta1="SELECT pwd FROM users where nick=\"$nick\"";
-$result1=mysqli_query($con,$consulta1) ;
+$result1=mysqli_query($conexion,$consulta1) ;
 			
 			if (mysqli_num_rows($result)==1){
 				while( $row = mysqli_fetch_row($result1) ) {
 				
 	        	if ($confpass == $row[0]){
 	        			
-						mysqli_query($con,"UPDATE users SET nick=\"$newnick\" WHERE nick=\"$nick\"");
+						mysqli_query($conexion,"UPDATE users SET nick=\"$newnick\" WHERE nick=\"$nick\"");
 						echo "Disfruta de tu nuevo nick $newnick!";
 						$_SESSION["nick"]=$newnick;
 	        		

@@ -37,8 +37,8 @@ if($_SESSION["autentificado"]=="SI"){
 			    	
 			    				
 		
-							       $line[$i]= '*<li>'.$row[0].'</li>';
-							            
+							       $line[$i]= '*<li  ><a  class="delink" name="'.$row[2].'" onclick="borrarLink(name)">'.$row[0].' </a></li>';
+							        //$line[$i]='*<button><li  class="delink" ><a href="#">'.$row[0].' delink</a></li></button>';    
 									
 								
 								

@@ -1,5 +1,5 @@
 <?php
 
 //mysql_close($GLOBALS["conexion"]);
-mysqli_close($con);
+mysqli_close($conexion);
 ?>

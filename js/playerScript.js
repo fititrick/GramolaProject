@@ -192,12 +192,12 @@ function Playlist(id) {
 		return false;
 	}
 
-	this.delPlaylist = function() {
+/*	this.delPlaylist = function() {
 		this.id = 0;
 		this.numberSongs = 0;
 		this.firstSong = null;
 		this.lastSong = null;
-	}
+	}*/
 
 	this.incrNumberSongs = function() {
 		this.numberSongs = this.numberSongs + 1;
@@ -273,8 +273,9 @@ function createAudio(audioURI) {
 	if ($('#mp3Player')[0]) {
 		destroyAudio();
 	}
-
-	$('.html5Player').append("<audio controls autoplay id='mp3Player'><source src=" + audioURI + "></audio>");
+	
+	$('.contentDiv:visible .player').prepend("<audio controls autoplay id='mp3Player'><source src=" + audioURI + "></audio>");
+	
 	document.getElementById("mp3Player").addEventListener("ended", next);
 
 }
@@ -435,6 +436,7 @@ function playSong(song) {
 
 			break;
 		default:
+			alert("Default");
 
 	}
 

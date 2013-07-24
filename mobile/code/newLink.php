@@ -6,7 +6,7 @@ if(!empty($_POST['urlLink']) && !empty($_POST['select-choice-1']) && !empty($_PO
 	$nameList=$_POST["select-choice-2"];
 	
 		$consultaIdList ="SELECT idList FROM lists where name=\"$nameList\"";
-		$resultIdList=mysqli_query($con, $consultaIdList) ;
+		$resultIdList=mysqli_query($conexion, $consultaIdList) ;
 		$rowIdList = mysqli_fetch_row($resultIdList);
 	
 	if(!empty($_POST['songName']))
@@ -21,7 +21,7 @@ if(!empty($_POST['urlLink']) && !empty($_POST['select-choice-1']) && !empty($_PO
 	else{
 		//mirar la ultima posicion de la lista
 		$consulta ="SELECT MAX(posList) FROM links where idList=\"$rowIdList[0]\"";
-		$result=mysqli_query($con, $consulta) ;
+		$result=mysqli_query($conexion, $consulta) ;
 		$row = mysqli_fetch_row($result);
 		$position=($row[0]+1);
 	}
@@ -38,7 +38,7 @@ if(!empty($_POST['urlLink']) && !empty($_POST['select-choice-1']) && !empty($_PO
 	 
 	// echo $nameList, $songName, $position, $singer, $url, $choice; 
 	try {
-			 	 $resultado = mysqli_query($con,"INSERT INTO links (name, posList, artist, link, provider, idList) values ('".$songName."','".$position."','".$singer."','".$url."','".$choice."','".$rowIdList[0]."') ");
+			 	 $resultado = mysqli_query($conexion,"INSERT INTO links (name, posList, artist, link, provider, idList) values ('".$songName."','".$position."','".$singer."','".$url."','".$choice."','".$rowIdList[0]."') ");
 				 if (!$resultado){
 				 		echo "false3";
 					}

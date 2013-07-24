@@ -6,8 +6,8 @@ $password = "GramolaPro";
 $database = "proyecto";
  
  
-$con=mysqli_connect("gramola.sytes.net", "Gramola", "GramolaPro")or die ("No se conecto: " . mysql_error());;
-mysqli_select_db($con, "proyecto");
+$conexion=mysqli_connect("gramola.sytes.net", "Gramola", "GramolaPro")or die ("No se conecto: " . mysql_error());;
+mysqli_select_db($conexion, "proyecto");
  
 $usu = ($_POST["user"]);
 $pass = ($_POST["pass"]);
@@ -18,10 +18,10 @@ $email = ($_POST["email"]);
  
 $sql = "SELECT nick FROM users WHERE nick='$usu' AND pwd='$pass'";
  
-if ($resultado = mysqli_query( $con,$sql)){
+if ($resultado = mysqli_query( $conexion,$sql)){
     if (mysqli_num_rows($resultado) == 0){
     	if($pass==$passConf){
-    	 $resultado2 = mysqli_query($con,"INSERT INTO USERS (nick, pwd, email) values ('".$usu."', '".$pass."', '".$email."')");
+    	 $resultado2 = mysqli_query($conexion,"INSERT INTO USERS (nick, pwd, email) values ('".$usu."', '".$pass."', '".$email."')");
 		 if (! $resultado2){
 		 		echo "No se pudo efectuar el registro, error en los datos $usu  $email\n";
 			}
@@ -29,7 +29,7 @@ if ($resultado = mysqli_query( $con,$sql)){
 		    //echo true;
 		    //Se recoge los datos insertados en una linea para despues poder crear la sesion.
 			$consulta ="SELECT nick, pwd, idUser FROM users where nick=\"$usu\"";	
-			$result=mysqli_query($con,$consulta) ;	
+			$result=mysqli_query($conexion,$consulta) ;	
 			if (! $result){
 			  echo "<p>No se pudo efectuar la consulta de la tabla <b>users</b></p>\n";
 				exit();
@@ -64,6 +64,6 @@ else{
 	
     echo false;
 }
-mysqli_close($con);
+mysqli_close($conexion);
  
 ?>

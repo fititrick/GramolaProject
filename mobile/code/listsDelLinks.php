@@ -1,4 +1,5 @@
 <?php
+ 
 header("Content-Type: text/html;charset=utf-8");
 
 //inicio la sesion
@@ -9,7 +10,11 @@ if($_SESSION["autentificado"]=="SI"){
 	$usuario=$_SESSION["idUser"];
 	
 	$consulta ="SELECT name, idList FROM lists where idUser=\"$usuario\"";	
-	$result=mysqli_query($con, $consulta) ;	
+	$result=mysqli_query($conexion, $consulta) ;
+	
+	
+	
+	
 
 	if (mysqli_num_rows($result)==0){
 	  //echo "<p>No se pudo efectuar la consulta de la tabla <b>lists</b></p>\n";
@@ -17,9 +22,15 @@ if($_SESSION["autentificado"]=="SI"){
 	if(mysqli_num_rows($result)>0){
 		while( $row = mysqli_fetch_row($result) )
 	    {
-	    		    				
+	    	
+	    				
 
-					       $line='<option id="borrar" value="'.$row[0].'">'.$row[0].'</option>';
+					       $line='<div data-role="collapsible"  data-theme="a">
+							<h3>'.$row[0].' </h3>
+							<ul data-role="listview" id='.$row[1].'  class="listaDelLinks">
+							
+							</ul>
+							</div>';
 					            
 						
 						echo $line;
@@ -31,4 +42,5 @@ if($_SESSION["autentificado"]=="SI"){
 else {
 	echo "<p>Session Dead</p>\n";
 }
+
 ?>

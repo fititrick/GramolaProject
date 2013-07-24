@@ -178,17 +178,20 @@ $(document).ready(function(){
     	});
     });
     
+    var flag=0;
     
     $("#deleteListButton").click(function(){
+    	if(flag==0){
     	$.ajax({
 			   		type:'POST',
 			   		url: 'deleteList0.php',
 			   		success: function(response) {	
 			   			$('#select-choice-3').append(response);	
-    
+    					flag=1;
         
         			}		
     	});
+    	}
     });
     
     $("#btnDeleteList").click(function(){
@@ -199,40 +202,30 @@ $(document).ready(function(){
 			   		type:'POST',
 			   		data:$('#form_DeleteList').serialize(),
 			   		url: 'deleteList.php',
-			   		success: function(response) {	
+			   		success: function(response) {
+			   			flag=0;	
 			   			$.mobile.changePage("#home");
     				    muestraListas();
-           
-        			}		
+
+    
+        
+        			},
+        			error:function(response)	{	
+			   			$.mobile.changePage("#home");
+    				    muestraListas();
+    
+        
+        			}	
     	});
     }
     });
     
     $("#deleteLinkButton").click(function(){
-    	$.ajax({
-			   		type:'POST',
-			   		url: 'deleteLink0.php',
-			   		success: function(response) {	
-			   			$('#select-choice-4').append(response);	
+    	
+    	muestraLinkDel();
+    	
+       });
     
-        
-        			}		
-    	});
-    });
-    
-    $("#borrar").click(function(){
-    	$.ajax({
-			   		type:'POST',
-			   		url: 'deleteLink1.php',
-			   		data:$('#form_DeleteLink').serialize(),
-			   		success: function(response) {
-			   			alert(response);	
-			   			$('#select-choice-5').append(response);	
-    
-        
-        			}		
-    	});
-    });
     
     
     $(".shareLinkButton").click(function(){
@@ -248,6 +241,13 @@ $(document).ready(function(){
     	
     	
     });
+
+    $("#btngoBack").click(function(){
+    	
+    	$.mobile.changePage("#home");
+ 		muestraListas();
+    	
+       });
     
     
     $("#b_facebook").click(function()
@@ -335,6 +335,68 @@ $(document).ready(function(){
   
     });
     
+    function  muestraLinkDel(){
+    	$.post("listsDelLinks.php",{ },function(respuesta){
+                					
+						var listsLinks = $('#linksDel');
+						//alert(lists);
+						listsLinks.html(respuesta);
+						listsLinks.find('div[data-role=collapsible]').collapsible({theme:'a',refresh:true});						
+						
+						var elementsArray = document.getElementsByClassName("listaDelLinks");
+						var ides=new Array();
+						var x;
+						for( x=0;x<elementsArray.length;x++){
+							ides[x]=elementsArray[x].id;
+					
+						var idesTxt=ides.join();
+						
+								idList='idList=' + ides[x];
+						
+								$.ajax({
+									type:'POST', 
+									url: 'linksDel.php', 
+									data:idList,
+									success: function(response){
+									
+										var arrayLinks=response.split("*");
+										var idListas=arrayLinks[0];
+										//alert(arrayLinks[0]);
+										for(var z=0;z<arrayLinks.length;z++){
+											arrayLinks[z]=arrayLinks[z+1];
+										}
+										var arrayLinks3=arrayLinks.join(" ");
+						
+										var ul = document.getElementsByClassName('listaDelLinks');
+										
+										for(var h=0;h<ul.length;h++){
+									
+										if((ul[h].id-idListas)==0){
+											$(ul[h]).append(arrayLinks3);
+											var vector=document.getElementsByClassName('delink');
+											//alert(vector[0].className); 
+										for(var d=0;d<vector.length;d++){  
+											//alert(vector[d].className);
+																		
+										}
+											
+											listsLinks.find(ul[h]).listview({theme:'b',refresh:true});
+																					
+										}
+										}
+																	           
+									}
+									
+									
+									
+								});
+								
+								
+								
+							}
+	
+						});
+    }
     
     function  muestraListas(){
     	 $.post("lists.php",{ },function(respuesta){

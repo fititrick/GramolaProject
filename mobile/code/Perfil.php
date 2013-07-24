@@ -11,7 +11,7 @@ $nickpass=$_SESSION["nick"];
 /* Realizamos la consulta SQL */
 
 $consulta="SELECT * FROM users where nick=\"$nickpass\"";
-$result=mysqli_query($con,$consulta) ;	
+$result=mysqli_query($conexion,$consulta) ;	
 
 if (mysqli_num_rows($result)==0)die("No hay registros para mostrar");
 

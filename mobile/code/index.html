@@ -11,6 +11,96 @@
   <script src="https://d10ajoocuyu32n.cloudfront.net/jquery-1.9.1.min.js"></script>
   <script src="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
   <script src="login.js"></script>
+  <script languaje="javascript">
+	 function borrarLink(name){
+	    	//alert("borrar");
+	    	if (confirm('Do you want remove this song?')){
+	    		
+						var param= 'idLinkBorrar=' + name;
+						//alert(param);
+						
+						$.ajax({        
+				             url:'deleteLink.php',        
+				             type:'post',                 
+				             dataType:'html',  
+				             data:param,          
+				             cache: false,            
+				             success: function (response) {
+				             	//alert(response);
+									if (response==true)
+									{
+										 alert('The song has been deleted');
+										muestraLinkDel();
+									}				   
+									else
+									{
+										alert('The song hasn´t been deleted');
+			
+									}
+							 }     
+				        }); 
+					}
+			
+	    }
+	    
+	    function  muestraLinkDel(){
+	    	$.post("listsDelLinks.php",{ },function(respuesta){
+	                					
+							var listsLinks = $('#linksDel');
+							//alert(lists);
+							listsLinks.html(respuesta);
+							listsLinks.find('div[data-role=collapsible]').collapsible({theme:'a',refresh:true});						
+							
+							var elementsArray = document.getElementsByClassName("listaDelLinks");
+							var ides=new Array();
+							var x;
+							for( x=0;x<elementsArray.length;x++){
+								ides[x]=elementsArray[x].id;
+						
+							var idesTxt=ides.join();
+							
+									idList='idList=' + ides[x];
+							
+									$.ajax({
+										type:'POST', 
+										url: 'linksDel.php', 
+										data:idList,
+										success: function(response){
+										
+											var arrayLinks=response.split("*");
+											var idListas=arrayLinks[0];
+											//alert(arrayLinks[0]);
+											for(var z=0;z<arrayLinks.length;z++){
+												arrayLinks[z]=arrayLinks[z+1];
+											}
+											var arrayLinks3=arrayLinks.join(" ");
+							
+											var ul = document.getElementsByClassName('listaDelLinks');
+											
+											for(var h=0;h<ul.length;h++){
+										
+											if((ul[h].id-idListas)==0){
+												$(ul[h]).append(arrayLinks3);
+												var vector=document.getElementsByClassName('delink');
+												//alert(vector[0].className); 
+											for(var d=0;d<vector.length;d++){  
+												//alert(vector[d].className);
+																			
+											}
+												
+												listsLinks.find(ul[h]).listview({theme:'b',refresh:true});
+																						
+											}
+											}
+																		           
+										}								
+									});							
+								}
+		
+							});
+	    }
+	    
+</script>
 
 
 </head>
@@ -126,8 +216,10 @@
 					<li><a href="#newList" data-role="button"  data-theme="e" data-rel="dialog" data-icon="plus">New List</a></li>
 					<li><a href="#newLink" data-role="button" id="newLinkButton" data-theme="e" data-rel="dialog" data-icon="plus">New Link</a></li>
 					<li><a href="#deleteList" data-role="button" id="deleteListButton" data-theme="a" data-icon="delete" data-rel="dialog"> List</a></li>
-					<li><a href="#deleteLink" data-role="button" id="deleteLinkButton" data-theme="a" data-rel="dialog" data-icon="delete"> Link</a></li>
+
 					<li><a href="#shareLink" data-role="button" id="shareLinkButton" class="shareLinkButton" data-theme="a" data-rel="dialog" data-transition="slidedown">Share</a></li>
+
+					<li><a href="#deleteLink" data-role="button" id="deleteLinkButton" data-theme="a"  data-icon="delete"> Link</a></li>
 				</ul>
 			</div>
         	
@@ -223,23 +315,32 @@
     </section>
     
     <section id="deleteLink" data-role="page">
-        <header data-role="header" >
-            <h1>Select the list that stores the link</h1>
-           
+       
+           <header data-role="header" data-position="fixed" data-id="header">
+            <h1>Delete links</h1>
+            
         </header>
-        <article data-role="content" data-theme="a">
-        	
-            <form id="form_DeleteLink">
-               <div data-role="fieldcontain" id="deleteLinksDiv">
-        		<label for="select-choice-4" style="font-size: 13" >Delete Link</label>
-				<select data-theme="b" name="select-choice-4" id="select-choice-4"  >
-					
-				</select>
-        		</div> 
-        		
-                <input type="button" href="#deleteLink2" value="Delete Link" id="btnDeleteLink" data-theme="a" data-rel="dialog">
-            </form>
-        </article>
+        
+        
+        <div id="deleteLinkDiv"  data-role="content" data-theme="e">      	
+            <div   data-role="collapsible-set" >
+		            
+		            <div id="linksDel">
+		            	
+		            </div>
+		            
+		              	
+		    </div>
+            
+                        
+        </div>
+        
+        
+        <article data-role="footer" data-position="fixed">
+        	 <div data-role="controlgroup">
+            <a  data-role="button" id="btngoBack" align="center" data-theme="e" >Go back</a>
+           </div>       	
+        </article> 
     </section>
     
     <section id="deleteLink2" data-role="page">
@@ -282,6 +383,9 @@
         		<button id="b_twitter" data-theme="b">Twitter</button>
         </article>
     </section>
+=======
+    
+>>>>>>> fa40c6ad12e3e4300b85c97945178d8014b1b97b
     
     <section id="Player" data-role="page">
         <header data-role="header" data-position="fixed" data-id="header">
