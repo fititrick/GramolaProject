@@ -273,8 +273,9 @@ function createAudio(audioURI) {
 	if ($('#mp3Player')[0]) {
 		destroyAudio();
 	}
-
-	$('.html5Player').append("<audio controls autoplay id='mp3Player'><source src=" + audioURI + "></audio>");
+	
+	$('.contentDiv:visible .player').prepend("<audio controls autoplay id='mp3Player'><source src=" + audioURI + "></audio>");
+	
 	document.getElementById("mp3Player").addEventListener("ended", next);
 
 }
@@ -435,6 +436,7 @@ function playSong(song) {
 
 			break;
 		default:
+			alert("Default");
 
 	}
 
