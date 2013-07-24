@@ -531,6 +531,7 @@ $(document).ready(function() {
 					$('#tablaComp').fadeIn();
 					$('#f1').fadeIn();
 					$('#textLink').fadeIn();
+					$('.qrButton').fadeIn();
 					$('#messagePrivate').hide();
 				} else {
 					alert("The right has not been set up");
@@ -560,6 +561,7 @@ $(document).ready(function() {
 					$('#tablaComp').hide();
 					$('#f1').hide();
 					$('#textLink').hide();
+					$('.qrButton').hide();
 					$('#messagePrivate').fadeIn();
 					//$('#messagePrivate').style="block";
 
@@ -914,6 +916,7 @@ $(document).ready(function() {
 						$('#tablaComp').hide();
 						$('#f1').hide();
 						$('#textLink').hide();
+						$('.qrButton').hide();
 						$('#messagePrivate').fadeIn();
 						//$('#messagePrivate').style="block";
 
@@ -921,6 +924,7 @@ $(document).ready(function() {
 						$('#tablaComp').fadeIn();
 						$('#f1').fadeIn();
 						$('#textLink').fadeIn();
+						$('.qrButton').fadeIn();
 						$('#messagePrivate').hide();
 
 					}
