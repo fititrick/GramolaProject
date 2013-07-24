@@ -356,11 +356,11 @@
 									<input data-theme="a" id="txtNewList" type="text" name="name" id="basic" value='List name'  onblur="if(this.value == '') { this.value='List name'}" onfocus="if (this.value == 'List name') {this.value=''}" />
 									<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
 								</div>
-								<div data-role="collapsible" data-theme="a" data-content-theme="a">
+								<div id="qrButton" class="qrButton" data-role="collapsible" data-theme="a" data-content-theme="a">
 									<h3  >Generate QR</h3>
 									<div class="ui-grid-solo">
 										<div id="div_genQR" class="ui-block-a">
-											<button  id="b_Qr" type="submit" title="Generate QR" data-theme="b" class="lightbox">
+											<button  id="b_Qr" class="qrButton" type="submit" title="Generate QR" data-theme="b" class="lightbox">
 												Generate QR
 												<br>
 												<img src="./images/qr_icon32.png"></img>
