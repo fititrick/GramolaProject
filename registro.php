@@ -27,15 +27,14 @@ if(isset($_POST['user']) && !empty($_POST['pass'])){
 	if (mysqli_num_rows($result)==0){
 		  $resultado = mysqli_query($conexion,"INSERT INTO USERS (nick, pwd, email) values ('".$usuario."', '".$contrasena."', '".$email."')");
 		 if (! $resultado){
-		 		echo "<p>No se pudo efectuar el registro</p>, error en los datos\n";
+		 		echo "<p>Fail in data\n";
 			}
 		 else{
-		    echo "<p>Registro correcto</p>\n";
 		    //Se recoge los datos insertados en una linea para despues poder crear la sesion.
 			$consulta ="SELECT nick, pwd, idUser FROM users where nick=\"$usuario\"";	
 			$result=mysqli_query($conexion,$consulta) ;	
 			if (! $result){
-			  echo "<p>No se pudo efectuar la consulta de la tabla <b>users</b></p>\n";
+			  
 				exit();
 			}
 			while( $row = mysqli_fetch_row($result) )
@@ -48,17 +47,14 @@ if(isset($_POST['user']) && !empty($_POST['pass'])){
 					$_SESSION["nick"]=$row[0];
 					$_SESSION["idUser"]=$row[2];
 					//header("Location: principal.php");
-					$variable=$_SESSION["nick"];
-					
-					echo "Sesión iniciada por $variable";
+					echo true;
 				 }
 		      }
 				
 		  } 	
 	}
 	else {
-		echo "<p>No se pudo efectuar el registro</p>\n";
-		echo "El usuario ya existe";
+		echo "<p>The user already exists</p>\n";
  		exit();
 	}		 
 	 

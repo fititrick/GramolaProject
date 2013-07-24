@@ -40,15 +40,16 @@ $(document).ready(function() {
 	//Se le añade esto aqui para que esconda que la lista es privada.
 	$('#messagePrivate').hide();
 	if (start == true) {
+		
 		//if(idListaCompartida!="http://localhost/GramolaProject/" && idListaCompartida!="http://localhost/GramolaProject/index.html" &&  idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
 
 		//if(leerGet()!=null){
 		window.location = ("#p_links");
-
+		
 		$('#contenedor').hide();
 		//  $('#p_links').fadeIn();
 		$("#tabsShare").tabs();
-
+		placePlayer();
 		//Primero mirar a ver si estoy logueado, si nolo estoy, mostrar solo tabla con links
 		$.ajax({
 			type : 'POST',
@@ -79,7 +80,8 @@ $(document).ready(function() {
 				} else {//si no hay sesion, deberian de desaparecer el boton de logout
 					$('#SaveSharedList').hide();
 					$('#LogOutShare').hide();
-					$('#LogInShare').html("<p><a href='#p_login' class='button' data-role='button'  data-transition='pop'><font color='black'>Log in</font></a></p>");
+					$('#LogInShare').html( "<p><a href='#p_login' class='button' data-role='button'  data-transition='pop'><font color='black'>Log in/Register</font></a></p>");
+
 				}
 			}
 		});
@@ -185,7 +187,7 @@ $(document).ready(function() {
 		$('#div_VoteList').hide();
 		// $('#contenedor').fadeIn();
 		// $('#p_links').hide();
-
+		placePlayer();
 		$.ajax({
 			type : 'POST',
 			url : 'sesionIniciada.php',
@@ -672,24 +674,48 @@ $(document).ready(function() {
 			return false;
 		} else if (document.getElementById("pass").value.length < 3 && document.getElementById("pass1").value.length < 3) {
 			alert("Your password must have at least 3 letters");
-			alert(document.getElementById("user").value);
-
+			//alert(document.getElementById("user").value);
+	
 			location.reload(true);
 		}
 		return false;
-	});
-
-	$(registro).click(function() {
+   });
+	  $(registro).click(function(){
+			$.ajax({
+				type:'POST', 
+				url: 'registro.php', 
+				data:$('#registro').serialize(),
+				success: function(response) {  	   				
+	   				$('#DLogin').hide();
+					$('#LogOut').fadeIn();
+	   				$('#tabs2').fadeIn();
+	   				location.reload(true);
+	
+				},
+				error: function (response) {
+	                        alert(response.responseText);
+	            },
+	            failure: function (response) {
+	                alert(response.responseText);
+	            }
+			});
+			
+	
+	   });
+   
+	$('#registerShared').click(function(){		
 		$.ajax({
-			type : 'POST',
-			url : 'registro.php',
-			data : $('#registro').serialize(),
-			success : function(response) {
-				$('#DLogin').hide();
-				$('#LogOut').fadeIn();
-				$('#tabs2').fadeIn();
-				location.reload(true);
-
+			type:'POST', 
+			url: 'registro.php', 
+			data:$('#registroShared').serialize(),
+			success: function(response) {  
+				if(response==true){	   				
+   					location.reload(true);
+   				}
+   				else{
+   					confirm('A failure occurred doing the register');
+   					location.reload(true);
+   				}
 			},
 			error : function(response) {
 				alert(response.responseText);
@@ -698,10 +724,10 @@ $(document).ready(function() {
 				alert(response.responseText);
 			}
 		});
-
-	});
-
-	$(login).click(function() {
+   });
+   
+  
+    $(login).click(function(){
 		$.ajax({
 			type : 'POST',
 			url : 'mensaje.php',
