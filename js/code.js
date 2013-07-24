@@ -107,8 +107,8 @@ $('#messagePrivate').hide();
 					$('#SaveSharedList').html('<h3>Save List</h3><input id="txtNewListShare" type="text" name="name" value="List name"  onblur="if(this.value == "") { this.value="List name"}" onfocus="if (this.value == "List name") {this.value=""}" /><a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>');
 					$('#SaveSharedList').collapsible({refresh:true});
 				}
-				else{
-					document.getElementById('LogOutShare').hide();
+				else{//si no hay sesion, deberian de desaparecer el boton de logout					
+					$('#LogOutShare').hide();
 					
 				}
 			}
@@ -293,21 +293,7 @@ else{//si me llega una lista sin compartir
 			});
 									
 		}
-		
-	
    $('.b_LogOut').click(function(){
-   	alert("Hola");
-   		$.ajax({
-			type:'POST', url: 'logOut.php',
-			success: function(response) {  				
-				location.reload(true);
-   				
-			}
-		});
-		 
-   });
-   $('#LogOut1Share').click(function(){
-   	alert("Hola en share");
    		$.ajax({
 			type:'POST', url: 'logOut.php',
 			success: function(response) {  				
