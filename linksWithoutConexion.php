@@ -4,9 +4,9 @@ header("Content-Type: text/html;charset=utf-8");
 	include "conexion.php";	
 		$NList=$_POST['id'];
 		session_start();
-		if($_SESSION["autentificado"]=="SI"){
+	/*	if($_SESSION["autentificado"]=="SI"){
 			$_SESSION["NList"]=$NList;
-		}
+		}*/
 	$consulta ="SELECT name, posList, idLink, artist, genre, link, provider FROM links where idList=\"$NList\" order by posList";	
 	
 	$result=mysqli_query($conexion, $consulta) ;

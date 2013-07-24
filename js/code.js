@@ -965,9 +965,6 @@ else{//si me llega una lista sin compartir
 										 }     
 							   });
 	            	
-	            	
-	            	
-	            	
 	            }
 	            var objetoLinks = new cambiaOnClickLinks();
 	            objetoLinks.change(document.getElementById("Links"));
