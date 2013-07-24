@@ -202,8 +202,7 @@ $(document).ready(function(){
 			   		success: function(response) {	
 			   			$.mobile.changePage("#home");
     				    muestraListas();
-    
-        
+           
         			}		
     	});
     }
@@ -236,8 +235,61 @@ $(document).ready(function(){
     });
     
     
+    $(".shareLinkButton").click(function(){
+      	$.ajax({
+			   		type:'POST',
+			   		url: 'shareList0.php',
+			   		success: function(response) {	
+			   			$('#select-choice-share').append(response);	
+    					
+           			}		
+    	});
+    	
+    	
+    	
+    });
     
     
+    $("#b_facebook").click(function()
+    {
+    	 $.ajax({
+			type:'POST', 
+			url: 'numList.php', 
+			data:$('#select-choice-share').serialize(),
+			cache: false,
+			success: function(response) { 
+					
+	   				var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index.html?v="+response+"&t=Compartiendo Lista:"+response;
+					nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200");
+    	    	
+				}
+    	});
+       	    	
+    });
+    
+      $("#b_twitter").click(function(){
+      	
+      	$.ajax({
+			type:'POST', 
+			url: 'numList.php', 
+			data:$('#select-choice-share').serialize(),
+			cache: false,
+			success: function(response) { 
+					
+	   				var dir = "http://gramola.sytes.net/index.html?v="+response;
+					var dir2 = encodeURIComponent(dir);
+					var tit = "Shared the list nº "+response+ " of Gramola ";
+					var tit2 = encodeURIComponent(tit);
+
+		var url='http://twitter.com/?status='+tit2+'%20'+dir2+''
+		nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=500" );
+    	    	
+				}
+    	});
+    	
+    	
+   	});
+    	
     
     $("#btnLists").click(function(){
     	$.mobile.changePage("#home");

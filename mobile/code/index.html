@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>demo login jqm</title>
+    <title>Gramola</title>
      
   <link rel="stylesheet" href="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
   
@@ -127,6 +127,7 @@
 					<li><a href="#newLink" data-role="button" id="newLinkButton" data-theme="e" data-rel="dialog" data-icon="plus">New Link</a></li>
 					<li><a href="#deleteList" data-role="button" id="deleteListButton" data-theme="a" data-icon="delete" data-rel="dialog"> List</a></li>
 					<li><a href="#deleteLink" data-role="button" id="deleteLinkButton" data-theme="a" data-rel="dialog" data-icon="delete"> Link</a></li>
+					<li><a href="#shareLink" data-role="button" id="shareLinkButton" class="shareLinkButton" data-theme="a" data-rel="dialog" data-transition="slidedown">Share</a></li>
 				</ul>
 			</div>
         	
@@ -261,6 +262,24 @@
                 
                 <input type="button" href="#deleteLink2" value="Delete Link" id="btnDeleteLink" data-theme="a" data-rel="dialog">
             </form>
+        </article>
+    </section>
+      <section id="shareLink" data-role="page">
+         <header data-role="header" >
+            <h1>Share your link</h1>
+           
+        </header>
+        <article data-role="content" data-theme="a">
+        	<form id="form_shareLink">
+        		<div data-role="fieldcontain" id="shareLink">
+        			<label for="select-choice-share" style="font-size: 13" >Select List</label>
+					<select data-theme="b" name="select-choice-share" id="select-choice-share"  >
+					</select>
+        		</div>
+        	</form>
+        		
+        		<button id="b_facebook" data-theme="b">Facebook</button>
+        		<button id="b_twitter" data-theme="b">Twitter</button>
         </article>
     </section>
     
