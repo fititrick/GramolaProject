@@ -82,7 +82,7 @@ $('#messagePrivate').hide();
 				else{//si no hay sesion, deberian de desaparecer el boton de logout	
 					$('#SaveSharedList').hide();				
 					$('#LogOutShare').hide();
-					$('#LogInShare').html( "<p><a href='#p_login' class='button' data-role='button'  data-transition='pop'><font color='black'>Log in</font></a></p>");
+					$('#LogInShare').html( "<p><a href='#p_login' class='button' data-role='button'  data-transition='pop'><font color='black'>Log in/Register</font></a></p>");
 				}
 			}
 		});
@@ -738,24 +738,48 @@ else{//si me llega una lista sin compartir
 		}
 		else if(document.getElementById("pass").value.length < 3 && document.getElementById("pass1").value.length < 3){
 			alert("Your password must have at least 3 letters");
-			alert(document.getElementById("user").value);
+			//alert(document.getElementById("user").value);
 	
 			location.reload(true);
 		}
 		return false;
    });
-  
-	$(registro).click(function(){
+	  $(registro).click(function(){
+			$.ajax({
+				type:'POST', 
+				url: 'registro.php', 
+				data:$('#registro').serialize(),
+				success: function(response) {  	   				
+	   				$('#DLogin').hide();
+					$('#LogOut').fadeIn();
+	   				$('#tabs2').fadeIn();
+	   				location.reload(true);
+	
+				},
+				error: function (response) {
+	                        alert(response.responseText);
+	            },
+	            failure: function (response) {
+	                alert(response.responseText);
+	            }
+			});
+			
+	
+	   });
+   
+	$('#registerShared').click(function(){		
 		$.ajax({
 			type:'POST', 
 			url: 'registro.php', 
-			data:$('#registro').serialize(),
-			success: function(response) {  	   				
-   				$('#DLogin').hide();
-				$('#LogOut').fadeIn();
-   				$('#tabs2').fadeIn();
-   				location.reload(true);
-
+			data:$('#registroShared').serialize(),
+			success: function(response) {  
+				if(response==true){	   				
+   					location.reload(true);
+   				}
+   				else{
+   					confirm('A failure occurred doing the register');
+   					location.reload(true);
+   				}
 			},
 			error: function (response) {
                         alert(response.responseText);
@@ -764,8 +788,6 @@ else{//si me llega una lista sin compartir
                 alert(response.responseText);
             }
 		});
-		
-
    });
    
   
