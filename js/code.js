@@ -100,6 +100,7 @@ var idListaCompartida=eval(arrayParams[0].substring(0,arrayParams[0].indexOf('='
 							
 					});
 					$('#LogOutShare').html('<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >LOG OUT</button>');
+					alert($('#LogOutShare').html);
 					$('#SaveSharedList').html('<h3>Save List</h3><input id="txtNewListShare" type="text" name="name" value="List name"  onblur="if(this.value == "") { this.value="List name"}" onfocus="if (this.value == "List name") {this.value=""}" /><a id="btnNewListShare" data-role="button" data-inline="true" data-theme="e">Save</a>');
 					$('#SaveSharedList').collapsible({refresh:true});
 				}
@@ -233,48 +234,10 @@ function linksShare (links) {
 	            
 	            
 	        }
-	        //cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
-	            	function reproductorShared(){
-	            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
-	            		//el link que te llega al reproductor es this.name
-	            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
-	            		//al final de la reproduccion (algo que tienes que controlar porque nose como)
-	            		//llamarias recursivamete/o secuencialmente a esta funcion reproductor con la siguiente cancion y el mismo vector
-	            		//problemas: saber cuando termina de reproducirse
-	            		
-	            		var code;
-	            	 	
-	            		switch(this.title)
-							{
-								
-							case "spotify":
-							   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
-							  break;
-							case "youtube":
-							   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
-							  break;
-							case "goear":
-							   code='<iframe width="560" height="315" src="http://www.goear.com/files/external.swf?file='+this.name+'" frameborder="1"></iframe>';
-							  break;
-							default:
-							   code='<iframe width="560" height="315" src="'+this.name+'" frameborder="1" allowfullscreen ></iframe>';
-						}
-	            		
-							document.getElementById("playerShare").innerHTML=code;
-							/*
-							function get_youtube_embed($youtube_video_id, $autoplay=true)
-							{
-								$embed_code = "";
-							 
-								if($autoplay)
-									$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1&autoplay=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="480" height="395" bgcolor="#ffffff" loop="false"></embed>';
-								else
-									$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="450" height="376" bgcolor="#ffffff" loop="false"></embed>';
-								return $embed_code;
-							}
-							*/
-						 };
-	 
+//	$('.html5PlayerShared').append(stopButton);
+//	$('.html5PlayerShared').append(nextSongButton); 
+//	$('#playButtonPlaceShared').append(playButton);
+
 }
 else{//si me llega una lista sin compartir
 	$('#LogOut').hide();
@@ -310,6 +273,8 @@ else{//si me llega una lista sin compartir
 				}
 			}
 		});
+	
+
 }
 //fin else
 		function mainProfile(){
@@ -327,12 +292,10 @@ else{//si me llega una lista sin compartir
 		
 	
    $('.b_LogOut').click(function(){
+   	alert("Hola");
    		$.ajax({
 			type:'POST', url: 'logOut.php',
-			success: function(response) {  	
-				$('#DLogin').fadeIn();
-				$('#LogOut').hide();
-				$('#tabs2').remove();			
+			success: function(response) {  				
 				location.reload(true);
    				
 			}
@@ -1026,46 +989,7 @@ else{//si me llega una lista sin compartir
 			            $("#TableLinks").tablesorter();
 	            	};
 	            	//cuando pulsa un link llama a esta funcion, el caso es saber que poscion en la lista tiene esta cancion
-	            	function reproductor(){
-	            		//primero recorrer el vector liksOrdenados[] buscando que el link sea el mismo que te llega al reproductor
-	            		//el link que te llega al reproductor es this.name
-	            		//buscas this.name en el vector y esa posicion es la que tiene la cancion
-	            		//al final de la reproduccion (algo que tienes que controlar porque nose como)
-	            		//llamarias recursivamete/o secuencialmente a esta funcion reproductor con la siguiente cancion y el mismo vector
-	            		//problemas: saber cuando termina de reproducirse
-	            		
-	            		var code;
-	            	 	
-	            		switch(this.title)
-							{
-								
-							case "spotify":
-							   code='<iframe width="300" height="380" src="'+this.name+'" frameborder="1" allowtransparency="true" autoplay="1" ></iframe>';
-							  break;
-							case "youtube":
-							   code='<iframe width="560" height="315" src="//www.youtube.com/embed/'+this.name+'?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>';
-							  break;
-							case "goear":
-							   code='<iframe width="560" height="315" src="http://www.goear.com/files/external.swf?file='+this.name+'" frameborder="1"></iframe>';
-							  break;
-							default:
-							   code='<iframe width="560" height="315" src="'+this.name+'" frameborder="1" allowfullscreen ></iframe>';
-						}
-	            		
-							document.getElementById("player").innerHTML=code;
-							/*
-							function get_youtube_embed($youtube_video_id, $autoplay=true)
-							{
-								$embed_code = "";
-							 
-								if($autoplay)
-									$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1&autoplay=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="480" height="395" bgcolor="#ffffff" loop="false"></embed>';
-								else
-									$embed_code = '<embed src="http://www.youtube.com/v/'.$youtube_video_id.'&rel=1" pluginspage="http://adobe.com/go/getflashplayer" type="application/x-shockwave-flash" quality="high" width="450" height="376" bgcolor="#ffffff" loop="false"></embed>';
-								return $embed_code;
-							}
-							*/
-						 };
+	            	
 	            }
 	            var objetoLinks = new cambiaOnClickLinks();
 	            objetoLinks.change(document.getElementById("Links"));
@@ -1074,5 +998,4 @@ else{//si me llega una lista sin compartir
 	$('.html5Player').append(stopButton);
 	$('.html5Player').append(nextSongButton); 
 	$('#playButtonPlace').append(playButton);
-
  });
