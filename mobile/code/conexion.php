@@ -1,9 +1,12 @@
 <?php 
 				header("Content-Type: text/html;charset=utf-8");
 				//gramola.sytes.net
-			
-				$conexion=mysqli_connect("gramola.sytes.net", "Gramola", "GramolaPro");
+								
 
+				$conexion=mysqli_connect("gramola.sytes.net", "Gramola", "GramolaPro");
+				
+				
+				
 				// Check connection
 				if (mysqli_connect_errno($conexion))
 				  {

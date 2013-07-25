@@ -23,6 +23,19 @@ if($_SESSION["autentificado"]=="SI"){
 	    	$consulta2="SELECT Score FROM votelist where idList=\"$row[1]\"";
 			$result2=mysqli_query($conexion, $consulta2) ;
 			$row2=mysqli_fetch_row($result2);
+			
+			//esta es la consulta de los candados
+			$consulta3="SELECT rights FROM rightslist where idUser=\"$usuario\" AND idList=\"$row[1]\" ";
+			$result3=mysqli_query($conexion, $consulta3) ;
+			$row3=mysqli_fetch_row($result3);
+			
+			if($row3[0]=="Y"){
+				$lock='<img src="./images/abierto22.png"></img>';
+			}
+			else{
+				$lock='<img src="./images/cerrado22.png"></img>';
+			}
+			
 			switch($row2[0]){
 				
 				case 1:
@@ -58,7 +71,7 @@ if($_SESSION["autentificado"]=="SI"){
 	    	
 	    	 //$line = '<div id="list'.$var.'">'.$row[0].', list nº: '.$row[0].'</div>';	
 
-	    	$line = '<button id="Lista'.$row[1].'" name='.$row[1].' title='.$row[0].' class="list" href="#" > '.$row[0].'<br>Score: <br> '.$row2[0].' </button>';
+	    	$line = '<button id="Lista'.$row[1].'" name='.$row[1].' title='.$row[0].' class="list" href="#" >'.$row[0].' '.$lock.' <br>Score: <br> '.$row2[0].' </button>';
 		
 			
 			echo "$line";

@@ -19,7 +19,7 @@ if($_SESSION["autentificado"]=="SI"){
 	    {
 	    		    				
 
-					       $line='<option  value="'.$row[0].'">'.$row[0].'</option>';
+					       $line='<option class="shareListS" value="'.$row[0].'">'.$row[0].'</option>';
 					            
 						
 						echo $line;
