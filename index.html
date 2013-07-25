@@ -118,7 +118,7 @@
 
 	</head>
 	<!--<body background="./images/background.jpg">-->
-	<body>
+	<body background="./images/1.jpg">
 		<div data-role="page" id="p_index" class="contentDiv">
 			<div id="contenedor">
 				<div id="tabs"  style="position:relative; height: 100%; width: 100%;">
@@ -133,28 +133,26 @@
 						<li>
 							<a id="desaparecer"  href="#tabs-2">Register</a>
 						</li>
-						<li style="float:right;">
-							<img align='absmiddle'  src="./images/Logo2.png" width="50px" height="50px"/>
-						</li>
+						
 					</ul>
-					<div id="tabs-1" class="transbox">
-						<div id="DLogin">
+					<div id="tabs-1" class="transbox"  data-theme="a" style="margin: auto; width: 50%;margin-top:10%;">
+						<div id="DLogin" >
 							<form name="frpanel" id="login" method="post" >
-								<div data-role="footer" data-theme="a" class="ui-grid-b">
+								<div data-role="footer" data-theme="a" class="ui-grid-solo">
 
 									<div class="ui-block-a" >
 										<div data-role="fieldcontain">
-											<label for="basic">User:</label>
+											<label for="user">User:</label>
 											<input type="text" id="user" name="user" value="" data-mini="true" />
 										</div>
 									</div>
-									<div class="ui-block-b">
+									<div class="ui-block-a">
 										<div data-role="fieldcontain">
-											<label for="basic">Password:</label>
+											<label for="pass">Password:</label>
 											<input type="password" id="pass" name="pass" value="" data-mini="true" />
 										</div>
 									</div>
-									<div class="ui-block-c">
+									<div class="ui-block-a">
 										<div id="divBlogin" style="margin:6px 0 0 10px;">
 											<button id="BLogin" type="submit" data-theme="b" class="button">
 												LOGIN
@@ -167,19 +165,19 @@
 						</div>
 
 					</div>
-					<div id="tabs-2" data-theme="a">
+					<div id="tabs-2" data-theme="a" style="margin: auto; width: 50%;margin-top:10%;">
 
 						<form name="frpanel" id="registro" method="post" >
 							<div data-role="footer" data-theme="a" class="ui-grid-solo">
 								<div class="ui-block-a" >
 									<div data-role="fieldcontain">
-										<label for="user">Nick:</label>
+										<label for="user1">Nick:</label>
 										<input type="text" id="user1" name="user" value="" data-mini="true" />
 									</div>
 								</div>
 								<div class="ui-block-a">
 									<div data-role="fieldcontain">
-										<label for="pass">Password:</label>
+										<label for="pass1">Password:</label>
 										<input type="password" id="pass1" name="pass" value="" data-mini="true" />
 									</div>
 
@@ -209,9 +207,7 @@
 						<li>
 							<img align='top' src="./images/Gramola1.png" width="50px" height="50px"/>
 						</li>
-						<li style="float:right;">
-							<img align='absmiddle'  src="./images/Logo2.png" width="50px" height="50px"/>
-						</li>
+						
 						<li style="float:right;">
 							<div id="LogOut">
 								<button id="LogOut1" class="b_LogOut" type="submit" data-theme="e" >
@@ -266,7 +262,7 @@
 							</div>
 							<div  data-role="collapsible-set" data-content-theme="b" style="opacity:1%;width: 25%; height:68%; float:right;overflow: auto">
 
-								<button data-role="button" value="Click" onclick="placePlayer()"></button>
+								
 								<div id="playButtonPlace" class="startButtonHolder"></div>
 								<div data-role="collapsible" data-theme="b" data-content-theme="b">
 									<h3>Vote for this List</h3>
@@ -356,11 +352,11 @@
 									<input data-theme="a" id="txtNewList" type="text" name="name" id="basic" value='List name'  onblur="if(this.value == '') { this.value='List name'}" onfocus="if (this.value == 'List name') {this.value=''}" />
 									<a id="btnNewList" data-role="button" data-inline="true" data-theme="e">Save</a>
 								</div>
-								<div data-role="collapsible" data-theme="a" data-content-theme="a">
+								<div id="qrButton" class="qrButton" data-role="collapsible" data-theme="a" data-content-theme="a">
 									<h3  >Generate QR</h3>
 									<div class="ui-grid-solo">
 										<div id="div_genQR" class="ui-block-a">
-											<button  id="b_Qr" type="submit" title="Generate QR" data-theme="b" class="lightbox">
+											<button  id="b_Qr" class="qrButton" type="submit" title="Generate QR" data-theme="b" class="lightbox">
 												Generate QR
 												<br>
 												<img src="./images/qr_icon32.png"></img>
@@ -432,9 +428,7 @@
 							<img align='top' src="./images/Gramola1.png" width="50px" height="50px"/>
 						</li>
 
-						<li style="float:right;">
-							<img align='absmiddle'  src="./images/Logo2.png" width="50px" height="50px"/>
-						</li>
+						
 						<li style="float:right;">
 							<div id="LogOutShare">
 								<button id="LogOut1Share" class="b_LogOut" type="submit" data-theme="e" >
@@ -483,7 +477,7 @@
 						</div>
 						<div class="ui-block-c " style="width: 40%" >
 							<div data-role="collapsible-set" >
-								<button data-role="buttonList" value="Click" onclick="placePlayer()"></button>
+								
 								<div id="playButtonPlaceShared" class="startButtonHolder"></div>
 								<div id="SaveSharedList" data-role="collapsible" data-theme="b" data-content-theme="b" >
 									<h3>Save List</h3>
@@ -523,6 +517,37 @@
 				</div>
 
 			</div>
+		</div>
+		<div data-role="page" id="p_login">
+			<div style="margin: auto; width: 50%;margin-top:10%;">
+				<form name="frpanel" id="loginShare" method="post" >
+					<div data-role="footer" data-theme="a" class="ui-grid-solo">
+
+						<div class="ui-block-a" >
+							<div data-role="fieldcontain">
+								<label for="userShare">User:</label>
+								<input type="text" id="userShare" name="user" value="" data-mini="true" />
+							</div>
+						</div>
+						<div class="ui-block-a">
+							<div data-role="fieldcontain">
+								<label for="passShare">Password:</label>
+								<input type="password" id="passShare" name="pass" value="" data-mini="true" />
+							</div>
+						</div>
+						<div class="ui-block-a">
+							<div id="divBlogin" style="margin:6px 0 0 10px;">
+								<button id="B_LoginShare" type="submit" data-theme="b" class="button">
+									LOGIN
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</form>
+				<p><a href="#p_links" data-rel="back" data-role="button" data-icon="back">Back to previous page</a></p>
+				<p><a href="#p_register" data-role="button" data-theme="e" data-icon="plus">Register</a></p>
+			</div>	
 		</div>
 		<div data-role="page" id="profile-Page" class="contentDiv">
 			<div id="tabsPerfil" data-theme="a" >
@@ -691,41 +716,46 @@
 
 			</div>
 		</div>
-		<div data-role="page" id="p_login" class="contentDiv">
-
-			<form name="frpanel" id="loginShare" method="post" >
-				<div data-role="footer" data-theme="a" class="ui-grid-b">
-
-					<div class="ui-block-a" >
-						<div data-role="fieldcontain">
-							<label for="userShare">User:</label>
-							<input type="text" id="userShare" name="user" value="" data-mini="true" />
+		<div data-role="page" id="p_register">
+			<div style="margin: auto; width: 50%; top: 20%;margin-top:10%;">
+				<form name="frpanel" id="registroShared" method="post">
+					<div data-role="footer" data-theme="a" class="ui-grid-solo">
+						<div class="ui-block-a" >
+							<div data-role="fieldcontain">
+								<label for="user1Shared">Nick:</label>
+								<input type="text" id="user1Shared" name="user" value="" data-mini="true" />
+							</div>
 						</div>
-					</div>
-					<div class="ui-block-b">
-						<div data-role="fieldcontain">
-							<label for="passShare">Password:</label>
-							<input type="password" id="passShare" name="pass" value="" data-mini="true" />
+						<div class="ui-block-a">
+							<div data-role="fieldcontain">
+								<label for="pass1Shared">Password:</label>
+								<input type="password" id="pass1Shared" name="pass" value="" data-mini="true" />
+							</div>
+	
 						</div>
-					</div>
-					<div class="ui-block-c">
-						<div id="divBlogin" style="margin:6px 0 0 10px;">
-							<button id="B_LoginShare" type="submit" data-theme="b" class="button">
-								LOGIN
-							</button>
+						<div class="ui-block-a">
+							<div data-role="fieldcontain">
+								<label for="emailShared">Email :</label>
+								<input type="email" id="emailShared" name="email" value="" data-mini="true" />
+							</div>
+	
 						</div>
+						<div class="ui-block-a">
+							<div style="margin:6px 0 0 10px;">
+								<button id="registerShared" type="submit" data-theme="b" class="button">
+									REGISTER
+								</button>
+							</div>
+						</div>
+	
 					</div>
-
-				</div>
-			</form>
-
-			<p>
-				<a href="#p_links" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to previous page</a>
-			</p>
-			<p>
-				<a href="#p_links" data-rel="back" data-role="button" data-inline="true" data-icon="plus">Register</a>
-			</p>
+					<div class="ui-grid-solo">
+						<p><a href="#p_links"  data-role="button" data-theme="e" data-icon="back">Back to previous page</a></p>
+					</div>
+				</form>
+	
 		</div>
+	</div>
 	</body>
 	<div class="backdrop"></div>
 	<div class="box">

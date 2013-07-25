@@ -2,6 +2,7 @@
 				header("Content-Type: text/html;charset=utf-8");
 				//gramola.sytes.net
 								
+
 				$conexion=mysqli_connect("gramola.sytes.net", "Gramola", "GramolaPro");
 				
 				

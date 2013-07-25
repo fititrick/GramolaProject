@@ -1,6 +1,17 @@
 $(document).ready(function() {
 	//////VARIABLES
 	var tablePerfil = $("#TablePerfil");
+	function placePlayer() {
+
+		$('.contentDiv:visible .playerPlaceholder')[0].innerHTML = "<div id='html5Player' class='player'>"
+																 + "<div id='youTubePlayer'></div>"
+																 + "</div>";
+		
+		$('.contentDiv:visible .player').first().append(stopButton);
+		$('.contentDiv:visible .player').first().append(nextSongButton);
+		$('.contentDiv:visible .startButtonHolder').first().append(playButton);
+	}
+
 	///////////////////////////////////////////////////////////////////////////////
 	//playlist = new Playlist(null);	//defino la playList, con un numero de canciones de 0, un id de null y una primera cancion de null
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -40,15 +51,16 @@ $(document).ready(function() {
 	//Se le añade esto aqui para que esconda que la lista es privada.
 	$('#messagePrivate').hide();
 	if (start == true) {
+		
 		//if(idListaCompartida!="http://localhost/GramolaProject/" && idListaCompartida!="http://localhost/GramolaProject/index.html" &&  idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
 
 		//if(leerGet()!=null){
 		window.location = ("#p_links");
-
+		
 		$('#contenedor').hide();
 		//  $('#p_links').fadeIn();
 		$("#tabsShare").tabs();
-
+		
 		//Primero mirar a ver si estoy logueado, si nolo estoy, mostrar solo tabla con links
 		$.ajax({
 			type : 'POST',
@@ -79,10 +91,12 @@ $(document).ready(function() {
 				} else {//si no hay sesion, deberian de desaparecer el boton de logout
 					$('#SaveSharedList').hide();
 					$('#LogOutShare').hide();
-					$('#LogInShare').html("<p><a href='#p_login' class='button' data-role='button'  data-transition='pop'><font color='black'>Log in</font></a></p>");
+					$('#LogInShare').html( "<p><a href='#p_login' class='button' data-role='button'  data-transition='pop'><font color='black'>Log in/Register</font></a></p>");
+
 				}
 			}
 		});
+		
 		//si estoy logueado SaveSharedList aparecera, sino solo la de compartir
 		var param = 'id=' + idListaCompartida;
 		document.f2.campo1.value = "http://gramola.sytes.net/index.html?v=" + idListaCompartida;
@@ -121,7 +135,7 @@ $(document).ready(function() {
 			//    $('#lista').fieldcontain("refresh");
 			//$html.filter('.list').appendTo("#nameList");
 			//$('#Links').find('#nameLinks').html(html);
-
+			
 			function cambiaOnClickLinks() {
 				this.change = function change(where) {
 					where.innerHTML = "";
@@ -138,7 +152,7 @@ $(document).ready(function() {
 					var vector = document.getElementsByClassName('linkshared');
 
 					for (var i = 0; i < vector.length; i++) {
-						//vector[i].onclick = reproductorShared;
+						vector[i].onclick = playOnlyOne;
 
 						playlist.addSong(new Song(vector[i].name, null));
 						//alert(i);
@@ -175,9 +189,8 @@ $(document).ready(function() {
 
 			var objetoLinks = new cambiaOnClickLinks();
 			objetoLinks.change(document.getElementById("LinksShare"));
-
+			placePlayer();
 		}
-
 	} else {//si me llega una lista sin compartir
 		$('#LogOut').hide();
 		$('#tabs2').hide();
@@ -185,7 +198,7 @@ $(document).ready(function() {
 		$('#div_VoteList').hide();
 		// $('#contenedor').fadeIn();
 		// $('#p_links').hide();
-
+		placePlayer();
 		$.ajax({
 			type : 'POST',
 			url : 'sesionIniciada.php',
@@ -361,7 +374,7 @@ $(document).ready(function() {
 			cache : false,
 			success : function(response) {
 				document.getElementById("imageLink").value = "";
-
+				confirm("Your image has been changed");
 			},
 			error : function(response) {
 				alert(response.responseText);
@@ -518,6 +531,7 @@ $(document).ready(function() {
 					$('#tablaComp').fadeIn();
 					$('#f1').fadeIn();
 					$('#textLink').fadeIn();
+					$('.qrButton').fadeIn();
 					$('#messagePrivate').hide();
 				} else {
 					alert("The right has not been set up");
@@ -547,6 +561,7 @@ $(document).ready(function() {
 					$('#tablaComp').hide();
 					$('#f1').hide();
 					$('#textLink').hide();
+					$('.qrButton').hide();
 					$('#messagePrivate').fadeIn();
 					//$('#messagePrivate').style="block";
 
@@ -626,7 +641,7 @@ $(document).ready(function() {
 				success : function(response) {
 					if (response == true) {
 						alert('The list has been voted');
-						location.reload(true);
+						updateLists();
 					} else {
 						alert('The list hasn´t been voted');
 
@@ -670,24 +685,48 @@ $(document).ready(function() {
 			return false;
 		} else if (document.getElementById("pass").value.length < 3 && document.getElementById("pass1").value.length < 3) {
 			alert("Your password must have at least 3 letters");
-			alert(document.getElementById("user").value);
-
+			//alert(document.getElementById("user").value);
+	
 			location.reload(true);
 		}
 		return false;
-	});
-
-	$(registro).click(function() {
+   });
+	  $(registro).click(function(){
+			$.ajax({
+				type:'POST', 
+				url: 'registro.php', 
+				data:$('#registro').serialize(),
+				success: function(response) {  	   				
+	   				$('#DLogin').hide();
+					$('#LogOut').fadeIn();
+	   				$('#tabs2').fadeIn();
+	   				location.reload(true);
+	
+				},
+				error: function (response) {
+	                        alert(response.responseText);
+	            },
+	            failure: function (response) {
+	                alert(response.responseText);
+	            }
+			});
+			
+	
+	   });
+   
+	$('#registerShared').click(function(){		
 		$.ajax({
-			type : 'POST',
-			url : 'registro.php',
-			data : $('#registro').serialize(),
-			success : function(response) {
-				$('#DLogin').hide();
-				$('#LogOut').fadeIn();
-				$('#tabs2').fadeIn();
-				location.reload(true);
-
+			type:'POST', 
+			url: 'registro.php', 
+			data:$('#registroShared').serialize(),
+			success: function(response) {  
+				if(response==true){	   				
+   					location.reload(true);
+   				}
+   				else{
+   					confirm('A failure occurred doing the register');
+   					location.reload(true);
+   				}
 			},
 			error : function(response) {
 				alert(response.responseText);
@@ -696,10 +735,10 @@ $(document).ready(function() {
 				alert(response.responseText);
 			}
 		});
-
-	});
-
-	$(login).click(function() {
+   });
+   
+  
+    $(login).click(function(){
 		$.ajax({
 			type : 'POST',
 			url : 'mensaje.php',
@@ -803,7 +842,7 @@ $(document).ready(function() {
 
 				var vector = document.getElementsByClassName('link');
 				for (var i = 0; i < vector.length; i++) {
-					//vector[i].onclick = reproductor;
+					vector[i].onclick = playOnlyOne;
 					/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
 					playlist.addSong(new Song(vector[i].name, null));
 					//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
@@ -877,6 +916,7 @@ $(document).ready(function() {
 						$('#tablaComp').hide();
 						$('#f1').hide();
 						$('#textLink').hide();
+						$('.qrButton').hide();
 						$('#messagePrivate').fadeIn();
 						//$('#messagePrivate').style="block";
 
@@ -884,6 +924,7 @@ $(document).ready(function() {
 						$('#tablaComp').fadeIn();
 						$('#f1').fadeIn();
 						$('#textLink').fadeIn();
+						$('.qrButton').fadeIn();
 						$('#messagePrivate').hide();
 
 					}
@@ -896,15 +937,8 @@ $(document).ready(function() {
 		objetoLinks.change(document.getElementById("Links"));
 
 	}
-	
+	function playOnlyOne(){
+		playOnClick(playlist.searchIdSong(this.name));
+	}
 }); 
 
-function placePlayer() {
-		$('.contentDiv:visible .playerPlaceholder')[0].innerHTML = "<div id='html5Player' class='player'>"
-																 + "<div id='youTubePlayer'></div>"
-																 + "</div>";
-		
-		$('.contentDiv:visible .player').first().append(stopButton);
-		$('.contentDiv:visible .player').first().append(nextSongButton);
-		$('.contentDiv:visible .startButtonHolder').first().append(playButton);
-	}

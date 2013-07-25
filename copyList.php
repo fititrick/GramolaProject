@@ -23,7 +23,9 @@ $row = $result->fetch_array(MYSQLI_NUM);
 				 	//primero saber el id de la nueva lista y guardarlo en '".$numberList."'
 				 	$numberList = $row[0];
 				 	//despues copiar
-				 	$resultado = mysqli_query($conexion,"INSERT INTO links (provider, link, posList, name, artist, genre, visits, idList) (select provider, link, posList, name, artist, genre, visits, '".$numberList."' from links where idList='".$_SESSION["NList"]."')");
+				 	$listaVieja=$_SESSION["NList"];
+				 	$variable="INSERT INTO links (provider, link, posList, name, artist, genre, visits, idList) (select provider, link, posList, name, artist, genre, visits, '".$numberList."' from links where idList='".$listaVieja."')";
+				 	$resultado = mysqli_query($conexion,$variable);
 				 	$afectadas=mysqli_affected_rows($conexion);
 				    echo true;
 					
