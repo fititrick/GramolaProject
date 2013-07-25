@@ -386,6 +386,9 @@ function next() {
 
 function playOnClick(song) {
 	//TODO: Check if the song is in the playlist
+	
+	$('#b_stopPlayer').attr('disabled', false);
+	$('#b_nextSong').attr('disabled', false);
 	playlist.setActualPosition(song);
 	playSong(song);
 }
