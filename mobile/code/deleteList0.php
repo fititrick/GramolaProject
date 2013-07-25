@@ -15,11 +15,13 @@ if($_SESSION["autentificado"]=="SI"){
 	  //echo "<p>No se pudo efectuar la consulta de la tabla <b>lists</b></p>\n";
 	}
 	if(mysqli_num_rows($result)>0){
+		
+		
 		while( $row = mysqli_fetch_row($result) )
 	    {
 	    		    				
 
-					       $line='<option  value="'.$row[0].'">'.$row[0].'</option>';
+					       $line='<option class="deleteLinkS"  value="'.$row[0].'">'.$row[0].'</option>';
 					            
 						
 						echo $line;

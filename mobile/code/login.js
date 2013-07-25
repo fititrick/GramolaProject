@@ -1,6 +1,203 @@
 $(document).ready(function(){
 	
     $("#errorMsg").hide();
+    $('#SaveSharedList').hide();
+    
+    
+    if (start == true) {
+		//if(idListaCompartida!="http://localhost/GramolaProject/" && idListaCompartida!="http://localhost/GramolaProject/index.html" &&  idListaCompartida!="http://gramola.sytes.net/GramolaProject/" && idListaCompartida!="http://gramola.sytes.net/GramolaProject/index.html" && idListaCompartida!="http://gramola.sytes.net/" ){  //esto es lo que hago si me llega una lista compartida.
+
+		//if(leerGet()!=null){
+		window.location = ("#home");
+
+		//$('#contenedor').hide();
+		//  $('#p_links').fadeIn();
+		//$("#tabsShare").tabs();
+
+		//Primero mirar a ver si estoy logueado, si nolo estoy, mostrar solo tabla con links
+		$.ajax({
+			type : 'POST',
+			url : 'sesionIniciada.php',
+			success : function(response) {
+				if (response == true) {//si hay sesion
+					$.ajax({
+						type : 'POST',
+						url : 'getUser.php',
+						success : function(response2) {
+							//fLogin("Session started by " + response2);
+							/*$.ajax({
+								type : 'POST',
+								url : 'profileButton.php',
+								success : function(response) {
+									$('#PerfilShare').html(response);
+
+									document.getElementById('Perfil5').onclick = mainProfile;
+									document.getElementById('Perfil5').className = 'button';
+
+								}
+							});*/
+						}
+					});
+					//$('#LogInShare').hide();
+					$('#SaveSharedList').fadeIn();
+					//$('#SaveSharedList').collapsible({refresh:true});
+				} else {//si no hay sesion, deberian de desaparecer el boton de logout
+					$('#SaveSharedList').hide();
+					$('#deleteLinkButton').hide();
+					$('#deleteListButton').hide();
+					$('#newLinkButton').hide();
+					$('#newListButton').hide();
+					$('#btnProfile').hide();
+					$('#LogInShare').html("<p><a href='#login' class='button' data-role='button'  data-transition='pop'><font color='black'>Log in</font></a></p>");
+				}
+			}
+		});
+		//si estoy logueado SaveSharedList aparecera, sino solo la de compartir
+		var param = 'id=' + idListaCompartida;
+		document.f2.campo1.value = "http://gramola.sytes.net/index.html?v=" + idListaCompartida;
+		//document.getElementById('b_BorrarLista').innerText= "Delete ";
+		//alert(document.getElementById('b_BorrarLista').innerText);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+		//playlist.delPlayList();//La borro para que cada vez que pincha en un boton lista, cree una playList nueva, sino se agregaria uno detras de otro
+		//playlist.setId(idListaCompartida);//aqui marco el id de la lista de dodne salen los links de dentro del playList
+		playlist = new Playlist(idListaCompartida);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+		$.ajax({
+			url : 'linksWithoutConexion.php',
+			type : 'post',
+			dataType : 'html',
+			data : param,
+			cache : false,
+			success : linksShare
+		});
+		$('#b_facebook').click(function() {
+
+			var url = "http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index.html?v=" + idListaCompartida + "&t=Compartiendo Lista:" + idListaCompartida;
+			nuevaVentana = window.open(url, "segundaPag", "toolbar=yes,location=no,resizable=no,height=200");
+
+		});
+		$('#b_twitter').click(function() {
+			var dir = "http://gramola.sytes.net/index.html?v=" + idListaCompartida;
+			var dir2 = encodeURIComponent(dir);
+			var tit = "Shared the list nº " + idListaCompartida + " of Gramola ";
+			var tit2 = encodeURIComponent(tit);
+
+			var url = 'http://twitter.com/?status=' + tit2 + '%20' + dir2 + ''
+			nuevaVentana = window.open(url, "segundaPag", "toolbar=yes,location=no,resizable=no,height=500");
+		});
+
+		function linksShare(links) {
+			//    $('#lista').fieldcontain("refresh");
+			//$html.filter('.list').appendTo("#nameList");
+			//$('#Links').find('#nameLinks').html(html);
+
+			function cambiaOnClickLinks() {
+				this.change = function change(where) {
+					where.innerHTML = "";
+					$('#lists').append(links);
+					//$('#Links').find('#nameLinks').html(html2);
+					//aqui lo que hago es buscar en la pagina index.html todos los elementos que hay con la clase=link
+					//vector almancena en cada casilla uno de esos elementos
+					//modifico su onclick para que llamen a la funcion reproductor
+					//vector.length te marca cuantas canciones hay
+					//y lo mas importate es que cada cancion tiene un posList (una posicion en la lista de reproductio)
+					//lo que entiendo yo es que si reproduces la 4, la siguiente sea la 5....
+					//ahora ve a funcion reproductor
+
+					var vector = document.getElementsByClassName('linkshared');
+
+					for (var i = 0; i < vector.length; i++) {
+						//vector[i].onclick = reproductorShared;
+
+						playlist.addSong(new Song(vector[i].name, null));
+						//alert(i);
+						//añado todas las canciones una a una en la playList, se encarga el propio metodo por dentro de añadirle a cada cancion el id de la lista a la que pertenece
+					}
+					var vector2 = document.getElementsByClassName('linkIconshared');
+					//alert(vector2.length);
+					//$('#providerTabla').text("adios");
+
+					for (var j = 0; j < vector2.length; j++) {
+						//alert(vector2[j].innerText);
+						if (vector2[j].innerText == 'youtube') {
+							vector2[j].innerHTML = '<image style="width=60px height=60" src="./images/youtube.png">';
+							(playlist.getElement(j)).setProvider(PROVIDER.YOUTUBE);
+						}
+						if (vector2[j].innerText == 'goear') {
+							vector2[j].innerHTML = '<image style="width=60px height=60px" src="./images/goear.png">';
+							playlist.getElement(j).setProvider(PROVIDER.GOEAR);
+						}
+						if (vector2[j].innerText == 'mp3') {
+							vector2[j].innerHTML = '<image style="width=50px height=40px" src="./images/music.png">';
+							playlist.getElement(j).setProvider(PROVIDER.MP3);
+						}
+
+					}
+
+					//aqui toca hacer lo mismo que ahora pero buscando la clase de la x y recorriendolo añadiendole
+					//una funcion que borre el link
+
+					$("#TableLinksShare").tablesorter();
+				};
+
+			}
+
+			var objetoLinks = new cambiaOnClickLinks();
+			objetoLinks.change(document.getElementById("LinksShare"));
+
+		}
+
+	}/* else {//si me llega una lista sin compartir
+		$('#LogOut').hide();
+		$('#tabs2').hide();
+		$('#div_BorrarLista').hide();
+		$('#div_VoteList').hide();
+		// $('#contenedor').fadeIn();
+		// $('#p_links').hide();
+
+		$.ajax({
+			type : 'POST',
+			url : 'sesionIniciada.php',
+			success : function(response) {
+				if (response == true) {
+					$.ajax({
+						type : 'POST',
+						url : 'getUser.php',
+						success : function(response2) {
+							fLogin("Session started by " + response2);
+							$.ajax({
+								type : 'POST',
+								url : 'profileButton.php',
+								success : function(response) {
+									$('#Perfil').html(response);
+
+									document.getElementById('Perfil5').onclick = mainProfile;
+									$('#Perfil5').css("background-color", "lightgreen");
+
+								}
+							});
+						}
+					});
+				}
+			}
+		});
+
+	}
+    
+    
+    
+  */  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    
     $("#btnLogin").click(function(){
     	
@@ -166,16 +363,21 @@ $(document).ready(function(){
         });
     });
     
+    var flagLink=0;
+    
     $("#newLinkButton").click(function(){
+    	if(flagLink==0){
     	$.ajax({
 			   		type:'POST',
 			   		url: 'newLink0.php',
+			   		cache:false,
 			   		success: function(response) {	
 			   			$('#select-choice-2').append(response);	
-    
+    						flagLink=1;
         
         			}		
     	});
+    	}
     });
     
     var flag=0;
@@ -185,10 +387,10 @@ $(document).ready(function(){
     	$.ajax({
 			   		type:'POST',
 			   		url: 'deleteList0.php',
+			   		cache:false,
 			   		success: function(response) {	
 			   			$('#select-choice-3').append(response);	
-    					flag=1;
-        
+        				flag=1;
         			}		
     	});
     	}
@@ -196,17 +398,19 @@ $(document).ready(function(){
     
     $("#btnDeleteList").click(function(){
     	
+    	
 		if (confirm('Do you want remove this list?'))
 				{
     	$.ajax({
 			   		type:'POST',
 			   		data:$('#form_DeleteList').serialize(),
 			   		url: 'deleteList.php',
+			   		cache:false,
 			   		success: function(response) {
-			   			flag=0;	
+			   			$("#select-choice-3").find("option[class='deleteLinkS']").remove();
 			   			$.mobile.changePage("#home");
     				    muestraListas();
-
+						flag=0;
     
         
         			},
@@ -242,18 +446,21 @@ $(document).ready(function(){
     	
     	   	
        });
+       var flagShare=0;
     
     $("#btnshare").click(function(){
+      	if(flagShare==0){
       	$.ajax({
 			   		type:'POST',
 			   		url: 'shareList0.php',
 			   		success: function(response) {	
 			   			$('#select-choice-share').append(response);	
-    					
+			   			
+    					flagShare=1;
            			}		
     	});
     	
-    	
+    	}
     	
     });
 
@@ -273,7 +480,8 @@ $(document).ready(function(){
 			data:$('#select-choice-share').serialize(),
 			cache: false,
 			success: function(response) { 
-					
+				$("#select-choice-share").find("option[class='shareListS']").remove();
+					flagShare=0;
 	   				var url="http://www.facebook.com/sharer.php?u=http://gramola.sytes.net/index.html?v="+response+"&t=Compartiendo Lista:"+response;
 					nuevaVentana=window.open(url, "segundaPag","toolbar=yes,location=no,resizable=no,height=200");
     	    	
@@ -290,7 +498,8 @@ $(document).ready(function(){
 			data:$('#select-choice-share').serialize(),
 			cache: false,
 			success: function(response) { 
-					
+				$("#select-choice-share").find("option[class='shareListS']").remove();
+					flagShare=0;
 	   				var dir = "http://gramola.sytes.net/index.html?v="+response;
 					var dir2 = encodeURIComponent(dir);
 					var tit = "Shared the list nº "+response+ " of Gramola ";
@@ -332,6 +541,7 @@ $(document).ready(function(){
 			   		type:'POST',
 			   		url: 'newLink.php',
 			   		data:$('#divNewLink').serialize(),
+			   		cache:false,
 			   		success: function(res) {
 			   			//alert(res);		   				
 		   				if(!res){
@@ -341,7 +551,9 @@ $(document).ready(function(){
 		   				document.getElementById("urlLink").value="";
 		   				document.getElementById("number-pattern").value="";
 		   				document.getElementById("singerLink").value="";	
-		   				document.getElementById("songNameLink").value="";			
+		   				document.getElementById("songNameLink").value="";
+		   				$("#select-choice-2").find("option[class='newLinkS']").remove();	
+		   				flagLink=0;		
 				   		$.mobile.changePage("#home");
                 		muestraListas();		
 					}

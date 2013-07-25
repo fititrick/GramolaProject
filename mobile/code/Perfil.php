@@ -23,7 +23,7 @@ echo "<TABLE WIDTH='70%' height='50%' CELLPADDING='2' CELLSPACING='0' BORDER='0'
 /*Priemro los encabezados*/
  echo "<tr>
        <tr>
-         <th> <font color='black'>Avatar  </font>  </th><th> <font color='black'>Nick </font>  </th>
+         <th> <font color='black'>Avatar  </font>  </th><th></th><th></th><th> <font color='black'>Nick </font>  </th><th></th><th></th></th><th></th><th>
          <th> <font color='black'>Email </font>  </th>
       </tr>";
 	  
@@ -33,11 +33,11 @@ echo "<TABLE WIDTH='70%' height='50%' CELLPADDING='2' CELLSPACING='0' BORDER='0'
 while($array = mysqli_fetch_array($result) ) {
 
  echo "<tr>
-         <td ROWSPAN='2' ALIGN=CENTER><img src='$array[imgPerfil]'  alt='prueba imagen perfil' border='5%' height='100' width='100' /></td>
+         <td ROWSPAN='2' ALIGN=CENTER><img src='$array[imgPerfil]'  alt='prueba imagen perfil' border='5%' height='100' width='100' /></td><td></td><td></td>
           
-         <td height='200' width='200'><font color='black'> $array[nick] </font></td>
+         <td height='45' width='200'><font color='black'> $array[nick] </font></td><td></td><td></td><td></td><td></td>
           
-         <td height='200' width='200'><font color='black'> $array[email] </font></td>
+         <td height='45' width='200'><font color='black'> $array[email] </font></td>
                </tr>";
 }
 echo "</table>";
