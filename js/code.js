@@ -398,12 +398,12 @@ $(document).ready(function() {
 
 	});
 	$(ListNewShare).click(function() {
+		var param= "name="+document.getElementById('txtNewListShare').value + "&idList="+leerGET(); 
 		$.ajax({
 			type : 'POST',
 			url : 'copylist.php',
-			data : $('#txtNewListShare').serialize(),
+			data : param,
 			success : function(response) {
-				alert(response);
 				if (response == true) {
 					confirm('The list has been copied');
 					window.location = "http://gramola.sytes.net/";

@@ -5,6 +5,7 @@ if(isset($_POST['name'])){
 	session_start();
 	$usuario=$_SESSION["idUser"];
 	$nameList=$_POST['name'];
+	$listaVieja=$_POST['idList'];
 	$consulta ="SELECT * FROM lists where idUser=\"$usuario\" and name=\"$nameList\"";
 	$result=mysqli_query($conexion,$consulta);	
 	try {
@@ -14,21 +15,18 @@ if(isset($_POST['name'])){
 				 		echo false;
 					}
 				 else{
-				 	$query = "select max(idList) from lists where idUser='".$usuario."'";
+				 	$query = "select idList from lists where idUser='".$usuario."' order by idList DESC";
 $result = $conexion->query($query);
 
 /* numeric array */
 $row = $result->fetch_array(MYSQLI_NUM);
 
 				 	//primero saber el id de la nueva lista y guardarlo en '".$numberList."'
-				 	$numberList = $row[0];
-					echo "numero $row[0]";
+				 	$numberList = substr($row[0],0,2);
 				 	//despues copiar
-				 	$listaVieja=$_SESSION["NList"];
-				 	$variable="INSERT INTO links (provider, link, posList, name, artist, genre, visits, idList) (select provider, link, posList, name, artist, genre, visits, '".$numberList."' from links where idList='".$listaVieja."')";
-				 	$resultado = mysqli_query($conexion,$variable);
+				 	$variable="INSERT INTO links (provider, link, posList, name, artist, genre, visits, idList) (select provider, link, posList, name, artist, genre, visits, $numberList from links where idList=$listaVieja )";
+				 	mysqli_query($conexion,$variable);
 				 	$afectadas=mysqli_affected_rows($conexion);
-				    echo $afectadas;
 					echo true;
 					
 	
