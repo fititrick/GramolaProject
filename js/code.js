@@ -374,7 +374,7 @@ $(document).ready(function() {
 			cache : false,
 			success : function(response) {
 				document.getElementById("imageLink").value = "";
-
+				confirm("Your image has been changed");
 			},
 			error : function(response) {
 				alert(response.responseText);
@@ -641,7 +641,7 @@ $(document).ready(function() {
 				success : function(response) {
 					if (response == true) {
 						alert('The list has been voted');
-						location.reload(true);
+						updateLists();
 					} else {
 						alert('The list hasn´t been voted');
 
