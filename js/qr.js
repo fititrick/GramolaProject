@@ -44,7 +44,10 @@ $(document).ready(function(){
 			
 			function qrGen(idLista){
 				//alert("idLista="+idLista);
-				$('#miCanvas').qrcode({
+				var oCanvas = document.getElementById("miCanvas");
+				var oContext = oCanvas.getContext("2d");
+				oContext.clearRect(0, 0, 150, 150);
+				$("#miCanvas").qrcode({
 					text	: "http://gramola.sytes.net/index.html?v="+idLista,
 					render	: "canvas",  // 'canvas' or 'table'. Default value is 'canvas'
 					background : "#ffffff",
