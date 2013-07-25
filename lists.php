@@ -30,7 +30,7 @@ if($_SESSION["autentificado"]=="SI"){
 			$row3=mysqli_fetch_row($result3);
 			
 			if($row3[0]=="Y"){
-				$lock='<img src="./images/abierto22.png"></img>';
+				$lock="";
 			}
 			else{
 				$lock='<img src="./images/cerrado22.png"></img>';
