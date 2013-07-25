@@ -403,8 +403,10 @@ $(document).ready(function() {
 			url : 'copylist.php',
 			data : $('#txtNewListShare').serialize(),
 			success : function(response) {
+				alert(response);
 				if (response == true) {
-					window.location = ("#p_index");
+					confirm('The list has been copied');
+					window.location = "http://gramola.sytes.net/";
 				} else {
 					confirm('A failure occurred inserting new list');
 				}

@@ -14,7 +14,7 @@ if(isset($_POST['name'])){
 				 		echo false;
 					}
 				 else{
-				 	$query = "select max(idList) from lists where name='".$nameList."' && idUser='".$usuario."'";
+				 	$query = "select max(idList) from lists where idUser='".$usuario."'";
 $result = $conexion->query($query);
 
 /* numeric array */
@@ -22,12 +22,14 @@ $row = $result->fetch_array(MYSQLI_NUM);
 
 				 	//primero saber el id de la nueva lista y guardarlo en '".$numberList."'
 				 	$numberList = $row[0];
+					echo "numero $row[0]";
 				 	//despues copiar
 				 	$listaVieja=$_SESSION["NList"];
 				 	$variable="INSERT INTO links (provider, link, posList, name, artist, genre, visits, idList) (select provider, link, posList, name, artist, genre, visits, '".$numberList."' from links where idList='".$listaVieja."')";
 				 	$resultado = mysqli_query($conexion,$variable);
 				 	$afectadas=mysqli_affected_rows($conexion);
-				    echo true;
+				    echo $afectadas;
+					echo true;
 					
 	
 				  } 	
