@@ -639,6 +639,7 @@ $(document).ready(function() {
 				data : param,
 				cache : false,
 				success : function(response) {
+					//alert(response);
 					if (response == true) {
 						alert('The list has been voted');
 						updateLists();
