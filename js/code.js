@@ -528,13 +528,14 @@ $(document).ready(function() {
 			cache : false,
 			success : function(response) {
 				if (response == true) {
-
-					alert("The right has been set up");
+					updateLists();
+					
 					$('#tablaComp').fadeIn();
 					$('#f1').fadeIn();
 					$('#textLink').fadeIn();
 					$('.qrButton').fadeIn();
 					$('#messagePrivate').hide();
+					alert("The right has been set up");
 				} else {
 					alert("The right has not been set up");
 
@@ -558,14 +559,15 @@ $(document).ready(function() {
 			cache : false,
 			success : function(response) {
 				if (response == true) {
-
-					alert("The right has been set up");
+					updateLists();
+					
 					$('#tablaComp').hide();
 					$('#f1').hide();
 					$('#textLink').hide();
 					$('.qrButton').hide();
 					$('#messagePrivate').fadeIn();
 					//$('#messagePrivate').style="block";
+					alert("The right has been set up");
 
 				} else {
 					alert("The right has not been set up");
